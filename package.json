@@ -120,7 +120,6 @@
     "happy-dom": "^12.10.3",
     "husky": "^9.0.11",
     "i18next-locize-backend": "^7.0.4",
-    "locize-cli": "^10.1.1",
     "monaco-editor": "^0.53.0",
     "postcss": "^8.4.38",
     "prettier": "3.1.1",
