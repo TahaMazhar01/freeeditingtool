@@ -1,191 +1,217 @@
 <div align="center">
         <img src="src/assets/logo.png" width="220" />
         <br /><br />
-<a href="https://trendshift.io/repositories/13055" target="_blank"><img src="https://trendshift.io/api/badge/repositories/13055" alt="iib0011%2Fomni-tools | Trendshift" style="width: 200px;" width="200"/></a>
-   <br /><br />
-<a href="https://github.com/iib0011/omni-tools/releases">
-          <img src="https://img.shields.io/badge/version-0.6.0-blue?style=for-the-badge" />
+        <h1>FreeEditingTools</h1>
+        <p><strong>A Comprehensive Suite of High-Performance Web Utilities for Developers, Content Creators & Digital Professionals</strong></p>
+        <br />
+        <a href="https://github.com/TahaMazhar01/freeeditingtools/releases">
+          <img src="https://img.shields.io/badge/status-production--ready-success?style=for-the-badge" />
         </a>
-        <a href="https://hub.docker.com/r/iib0011/omni-tools">
-          <img src="https://img.shields.io/docker/pulls/iib0011/omni-tools?style=for-the-badge&logo=docker" />
+        <a href="https://github.com/TahaMazhar01/freeeditingtools">
+          <img src="https://img.shields.io/github/stars/TahaMazhar01/freeeditingtools?style=for-the-badge&logo=github" />
         </a>
-        <a href="https://github.com/iib0011">
-          <img src="https://img.shields.io/github/stars/iib0011/omni-tools?style=for-the-badge&logo=github" />
-        </a>
-        <a href="https://github.com/iib0011/omni-tools/blob/main/LICENSE">
-          <img src="https://img.shields.io/github/license/iib0011/omni-tools?style=for-the-badge" />
-        </a>
-        <a href="https://discord.gg/SDbbn3hT4b">
-          <img src="https://img.shields.io/discord/1342971141823664179?label=Discord&style=for-the-badge" />
+        <a href="https://github.com/TahaMazhar01/freeeditingtools/blob/main/LICENSE">
+          <img src="https://img.shields.io/github/license/TahaMazhar01/freeeditingtools?style=for-the-badge" />
         </a>
         <br /><br />
 </div>
 
-Welcome to OmniTools, a self-hosted web app offering a variety of online tools to simplify everyday tasks.
-Whether you are coding, manipulating images/videos, PDFs or crunching numbers, OmniTools has you covered. Please don't
-forget to
-star the repo to support us.
-Here is the [demo](https://omnitools.app) website.
+**FreeEditingTools** is a premium, open-source web utility platform designed for professionals who demand speed, privacy, and reliability. Whether you're manipulating images, processing PDFs, converting data formats, or working with multimedia content, FreeEditingTools provides an elegant, lightning-fast solution.
 
-All files are processed entirely on the client side: nothing ever leaves your device.
-Plus, the Docker image is super lightweight at just 28MB, making it fast to deploy and easy to self-host.
+All files are processed entirely on the client side—nothing ever leaves your device. Pure privacy. Pure performance.
+
+Built with **React**, **TypeScript**, **Tailwind CSS**, and optimized for instant, client-side execution. Deploy seamlessly on **Vercel** or self-host with ease.
 
 ![img.png](docs-images/img.png)
 
 ## Table of Contents
 
 - [Features](#features)
-- [Self-host](#self-hostrun)
-- [Contribute](#contribute)
-- [Contact](#contact)
-- [License](#license)
+- [Deployment & Installation](#-deployment--installation)
+- [Development & Technology Stack](#️-development--technology-stack)
+- [Contributing](#-contributing)
+- [Support & Contact](#-support--contact)
+- [License](#-license)
 
 ## Features
 
-We strive to offer a variety of tools, including:
+A comprehensive collection of professionally-designed tools for modern digital workflows:
 
-### **Image/Video/Audio Tools**
+### 🖼️ **Multimedia Tools**
 
-- Image Resizer
-- Image Converter
-- Image Editor
-- Video Trimmer
+- Image Resizer & Scaler
+- Image Converter (PNG, JPG, WebP, AVIF)
+- Advanced Image Editor
+- Video Trimmer & Compressor
 - Video Reverser
-- And more...
+- Audio Processing Tools
+- And more multimedia utilities...
 
-### **PDF Tools**
+### 📄 **PDF Processing**
 
-- PDF Splitter
-- PDF Merger
-- PDF Editor
-- And more...
+- PDF Splitter & Merger
+- PDF Editor with Annotations
+- PDF Converter
+- Batch PDF Operations
+- And more PDF tools...
 
-### **Text/List Tools**
+### 📝 **Text & Data Utilities**
 
-- Case Converters
-- List Shuffler
-- Text Formatters
-- And more...
+- Case Converters (camelCase, snake_case, PascalCase, etc.)
+- Text Formatters & Minifiers
+- List Shuffler & Sorter
+- String Manipulation Tools
+- JSON, CSV & XML Processors
+- And more data transformation tools...
 
-### **Date and Time Tools**
+### ⏰ **Date & Time Tools**
 
-- Date Calculators
-- Time Zone Converters
-- And more...
+- Date Calculator & Difference Finder
+- Time Zone Converter
+- Countdown & Timer Utilities
+- And more temporal tools...
 
-### **Math Tools**
+### 🔢 **Math & Engineering Tools**
 
-- Generate Prime Numbers
-- Calculate voltage, current, or resistance
-- And more...
+- Prime Number Generator
+- Electrical Calculations (Ohm's Law)
+- Mathematical Converters
+- Advanced Calculations
+- And more engineering utilities...
 
-### **Data Tools**
+### 🔄 **Data & Conversion Tools**
 
-- JSON Tools
-- CSV Tools
-- XML Tools
-- And more...
+- JSON Validator & Formatter
+- CSV Parser & Converter
+- XML Processing Tools
+- Base64 Encoder/Decoder
+- QR Code Generator
+- And more conversion utilities...
 
-Stay tuned as we continue to expand and improve our collection!
+**Constantly expanding.** New tools and features are added regularly based on community feedback and industry demands.
 
-## Self-host/Run
+## 🚀 Deployment & Installation
 
-### Docker
-
-```bash
-docker run -d --name omni-tools --restart unless-stopped -p 8080:80 iib0011/omni-tools:latest
-```
-
-### Docker Compose
-
-```yaml
-services:
-  omni-tools:
-    image: iib0011/omni-tools:latest
-    container_name: omni-tools
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-
-```
-
-## Contribute
-
-This is a React Project with Typescript Material UI. We use icons from [Iconify](https://icon-sets.iconify.design)
-
-### Project setup
+### Quick Start (Development)
 
 ```bash
-git clone https://github.com/iib0011/omni-tools.git
-cd omni-tools
-npm i
-npm run dev
+git clone https://github.com/TahaMazhar01/freeeditingtools.git
+cd freeeditingtools
+pnpm install
+pnpm run dev
 ```
 
-### Create a new tool
+The application will start on `http://localhost:5173` with hot-reload enabled.
+
+### Production Deployment
+
+FreeEditingTools is optimized for **Vercel** for ultra-fast, global deployment:
 
 ```bash
-npm run script:create:tool my-tool-name folder1 # npm run script:create:tool split pdf
+# Deploy directly from GitHub to Vercel
+# Visit vercel.com and import this repository
 ```
 
-For tools located under multiple nested directories, use:
+**Alternative Hosting:**
+- Deploy on Netlify, Firebase Hosting, or any static hosting provider
+- Built-in Vite optimization ensures minimal bundle size
+- Fully self-contained—no backend required
+
+### Build for Production
 
 ```bash
-npm run script:create:tool my-tool-name folder1/folder2 # npm run script:create:tool compress image/png
+pnpm run build
+pnpm run preview
 ```
 
-Use `folder1\folder2` on Windows.
+## 🛠️ Development & Technology Stack
 
-### Run tests
+**FreeEditingTools** is built with modern, production-grade technologies:
+
+- **Frontend Framework:** React 18+ with TypeScript
+- **Styling:** Tailwind CSS for responsive, elegant UI
+- **UI Components:** Material-UI (MUI) for professional component library
+- **Build Tool:** Vite for lightning-fast development & optimized production builds
+- **Icons:** Iconify for a comprehensive icon library
+- **Internationalization:** i18n for multi-language support
+- **Testing:** Playwright for robust e2e testing
+
+### Project Setup
 
 ```bash
-npm run test
+git clone https://github.com/TahaMazhar01/freeeditingtools.git
+cd freeeditingtools
+pnpm install
+pnpm run dev
 ```
 
-- For e2e tests
+### Creating a New Tool
+
+Use our CLI scaffolding script to generate a new tool template:
 
 ```bash
-npm run test:e2e
+pnpm run script:create:tool my-tool-name folder-name
+# Example: pnpm run script:create:tool compress image/png
 ```
 
-### i18n (Translations)
-The translation files are [here](public/locales). Only edit these if you are a developer. For non developers, use [Locize](https://www.locize.app/register?invitation=YOIH0Dyz3KHh3uQFCGYe9v1QOUoq8W5ySgmlwjX9cSypeJmt8F40brDtVbXb71fK).
+For nested directories on Windows, use backslashes:
+```bash
+pnpm run script:create:tool my-tool-name folder1\folder2
+```
 
-<img src="https://api.star-history.com/svg?repos=iib0011/omni-tools&type=Date"/>
+### Testing
 
-## 🤝 Looking to contribute?
+```bash
+# Unit & Integration Tests
+pnpm run test
 
-We welcome contributions! You can help by:
+# End-to-End Tests
+pnpm run test:e2e
+```
 
-- Reporting bugs
-- Suggesting new features in GitHub issues or [here](https://tally.so/r/nrkkx2)
-- Translating in [Locize project](https://www.locize.app/register?invitation=YOIH0Dyz3KHh3uQFCGYe9v1QOUoq8W5ySgmlwjX9cSypeJmt8F40brDtVbXb71fK).
-- Improving documentation
-- Submitting pull requests
+### Internationalization (i18n)
 
+Translations are managed via [Locize](https://www.locize.com) for seamless multi-language support.
+Translation files are located in `public/locales/`. Developers can edit directly; translators use the Locize platform.
 
-You can also join our [Discord server](https://discord.gg/SDbbn3hT4b)
-## 🧡 Sponsors
+## 🤝 Contributing
+
+We actively welcome contributions from the community! Whether you're a developer, designer, translator, or passionate user, there are many ways to help:
+
+**Ways to Contribute:**
+- 🐛 **Report Bugs** – Found an issue? Open a GitHub issue with details
+- ✨ **Suggest Features** – Have an idea? Share it in GitHub issues or discussions
+- 🌍 **Translate** – Help localize FreeEditingTools to more languages
+- 📚 **Improve Docs** – Enhance documentation and guides
+- 💻 **Submit Code** – Create pull requests for bug fixes or features
+- 🎨 **Design & UX** – Suggest UI/UX improvements
+
+**Getting Started:**
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+All contributions are valued and reviewed promptly!
+
+## 📫 Support & Contact
+
+Have questions, feedback, or need support? Reach out:
+
+- **Issues & Bugs:** [GitHub Issues](https://github.com/TahaMazhar01/freeeditingtools/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/TahaMazhar01/freeeditingtools/discussions)
+- **Feature Requests:** Share your ideas in GitHub Issues or Discussions
+
+## 📄 License
+
+This project is licensed under the **MIT License**—permitting free use, modification, and distribution in personal and commercial projects.
+
+See the [LICENSE](LICENSE) file for complete details.
+
+---
+
 <div align="center">
-  <a href="https://www.locize.com/" target="_blank">
-    <img src="docs-images/locizeSponsor.svg" alt="Locize" width="200"/>
-  </a>
+  <p><strong>Built with ❤️ as a free, open-source utility platform for everyone</strong></p>
+  <p>If you find FreeEditingTools useful, please consider starring the repository to show your support!</p>
 </div>
-
-Thanks to [Locize](https://www.locize.com) for sponsoring OmniTools and supporting localization efforts.
-They make translation management simple and developer-friendly.
-
-## Contributors
-
-<a href="https://github.com/iib0011/omni-tools/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=iib0011/omni-tools" />
-</a>
-
-## Contact
-
-For any questions or suggestions, feel free to open an issue or contact me at:
-[ibracool99@gmail.com](mailto:ibracool99@gmail.com)
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
