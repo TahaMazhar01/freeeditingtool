@@ -1,10 +1,12 @@
 export const globalInputHeight = 300;
-export const codeInputHeightOffset = 7; // Offset to visually match Monaco and MUI TextField heights
+export const codeInputHeightOffset = 7;
 export const globalDescriptionFontSize = 12;
+
+/** Category icon accents — harmonized with indigo / cyan brand palette */
 export const categoriesColors: string[] = [
-  '#8FBC5D',
-  '#3CB6E2',
-  '#B17F59',
-  '#FFD400',
-  '#AB6993'
+  '#6366F1',
+  '#06B6D4',
+  '#8B5CF6',
+  '#14B8A6',
+  '#A855F7'
 ];

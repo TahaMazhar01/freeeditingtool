@@ -14,10 +14,13 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { validNamespaces } from '../i18n';
 
 const StyledButton = styled(Button)(({ theme }) => ({
-  backgroundColor: 'white',
+  backgroundColor: theme.palette.background.paper,
+  color: theme.palette.text.primary,
+  borderColor: theme.palette.divider,
   '&:hover': {
     backgroundColor: theme.palette.primary.main,
-    color: 'white'
+    color: theme.palette.primary.contrastText,
+    borderColor: theme.palette.primary.main
   }
 }));
 

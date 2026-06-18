@@ -1,4 +1,4 @@
-import { Box, useTheme } from '@mui/material';
+import { Box, useTheme, alpha } from '@mui/material';
 import React, { useContext, useRef } from 'react';
 import { CustomSnackBarContext } from '../../contexts/CustomSnackBarContext';
 import InputHeader from '../InputHeader';
@@ -74,20 +74,21 @@ export default function ToolCodeInput({
               outline: 'none !important',
               '.overflow-guard': {
                 height: '100% !important',
-                border:
-                  theme.palette.mode === 'light'
-                    ? '1px solid rgba(0, 0, 0, 0.23)'
-                    : '1px solid rgba(255, 255, 255, 0.23)',
+                border: `1px solid ${theme.palette.divider}`,
                 borderRadius: 1,
                 transition: theme.transitions.create(
-                  ['border-color', 'background-color'],
+                  ['border-color', 'box-shadow'],
                   {
                     duration: theme.transitions.duration.shorter
                   }
                 )
               },
               '&:hover .overflow-guard': {
-                borderColor: theme.palette.text.primary
+                borderColor: theme.palette.secondary.main
+              },
+              '&:focus-within .overflow-guard': {
+                borderColor: theme.palette.primary.main,
+                boxShadow: `0 0 0 3px ${alpha(theme.palette.primary.main, 0.2)}`
               }
             },
             '.decorationsOverviewRuler': {

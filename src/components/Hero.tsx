@@ -251,7 +251,7 @@ export default function Hero() {
                 borderWidth: 1,
                 padding: 1,
                 borderRadius: 3,
-                borderColor: theme.palette.mode === 'dark' ? '#363b41' : 'grey',
+                borderColor: 'divider',
                 borderStyle: 'solid',
                 backgroundColor: 'background.paper',
                 cursor: 'pointer',

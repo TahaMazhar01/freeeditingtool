@@ -1,6 +1,6 @@
 {
-  "name": "OmniTools",
-  "short_name": "OmniTools",
+  "name": "FreeEditingTools",
+  "short_name": "FreeEditingTools",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#6366F1",
+  "background_color": "#F8FAFC",
   "display": "standalone"
 }

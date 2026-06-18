@@ -1,6 +1,6 @@
 import { getToolsByCategory } from '@tools/index';
 import Grid from '@mui/material/Grid';
-import { Box, Card, CardContent, Stack, useTheme } from '@mui/material';
+import { Box, Card, CardContent, Stack, alpha, useTheme } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -52,7 +52,16 @@ const SingleCategory = function ({
       <Card
         sx={{
           height: '100%',
-          backgroundColor: hovered ? 'background.hover' : 'background.paper'
+          backgroundColor: hovered ? 'background.hover' : 'background.paper',
+          transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+          '&:hover': {
+            transform: 'translateY(-2px)',
+            boxShadow: (t) =>
+              `0 8px 24px ${alpha(
+                t.palette.primary.main,
+                t.palette.mode === 'dark' ? 0.2 : 0.12
+              )}`
+          }
         }}
       >
         <CardContent sx={{ height: '100%' }}>
@@ -75,7 +84,7 @@ const SingleCategory = function ({
                   style={{
                     fontSize: 20,
                     fontWeight: 700,
-                    color: theme.palette.mode === 'dark' ? 'white' : 'black'
+                    color: theme.palette.text.primary
                   }}
                   to={'/categories/' + category.type}
                 >

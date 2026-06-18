@@ -4,6 +4,7 @@ import {
   Stack,
   styled,
   TextField,
+  alpha,
   useTheme
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
@@ -28,8 +29,10 @@ import { I18nNamespaces, validNamespaces } from '../../i18n';
 import { useUserTypeFilter } from '../../providers/UserTypeFilterProvider';
 
 const StyledLink = styled(Link)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  textDecoration: 'none',
   '&:hover': {
-    color: theme.palette.mode === 'dark' ? 'white' : theme.palette.primary.light
+    color: theme.palette.secondary.main
   }
 }));
 
@@ -120,13 +123,22 @@ export default function ToolsByCategory() {
               <Stack
                 sx={{
                   backgroundColor: 'background.paper',
-                  boxShadow: `5px 4px 2px ${
-                    theme.palette.mode === 'dark' ? 'black' : '#E9E9ED'
-                  }`,
+                  border: `1px solid ${theme.palette.divider}`,
+                  boxShadow: `0 4px 16px ${alpha(
+                    theme.palette.primary.main,
+                    theme.palette.mode === 'dark' ? 0.12 : 0.08
+                  )}`,
                   cursor: 'pointer',
                   height: '100%',
+                  transition:
+                    'transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease',
                   '&:hover': {
-                    backgroundColor: theme.palette.background.hover
+                    backgroundColor: theme.palette.background.hover,
+                    transform: 'translateY(-2px)',
+                    boxShadow: `0 8px 24px ${alpha(
+                      theme.palette.primary.main,
+                      0.18
+                    )}`
                   }
                 }}
                 onClick={() => navigate('/' + tool.path)}
@@ -134,7 +146,6 @@ export default function ToolsByCategory() {
                 alignItems={'center'}
                 spacing={2}
                 padding={2}
-                border={`1px solid ${theme.palette.background.default}`}
                 borderRadius={2}
               >
                 <Icon

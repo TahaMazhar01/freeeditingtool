@@ -1,4 +1,4 @@
-{
+﻿{
   "audio": {
     "changeSpeed": {
       "description": "Change the playback speed of audio files. Speed up or slow down audio while maintaining pitch.",
@@ -93,8 +93,8 @@
     }
   },
   "hero": {
-    "brand": "OmniTools",
-    "description": "Boost your productivity with OmniTools, the ultimate toolkit for getting things done quickly! Access thousands of user-friendly utilities for editing images, text, lists, and data, all directly from your browser.",
+    "brand": "FreeEditingTools",
+    "description": "Boost your productivity with FreeEditingTools, the ultimate toolkit for getting things done quickly! Access thousands of user-friendly utilities for editing images, text, lists, and data, all directly from your browser.",
     "examples": {
       "calculateNumberSum": "Calculate number sum",
       "changeGifSpeed": "Change GIF speed",
@@ -135,10 +135,82 @@
     }
   },
   "navbar": {
+    "about": "About",
     "buyMeACoffee": "Buy me a coffee",
     "hireMe": "Hire me",
     "home": "Home",
+    "tagline": "Free online editing tools",
     "tools": "Tools"
+  },
+  "about": {
+    "pageTitle": "About - FreeEditingTools",
+    "metaDescription": "Learn about FreeEditingTools — free, privacy-first online editing utilities for images, video, PDF, text, and data. Everything runs in your browser.",
+    "hero": {
+      "title": "About FreeEditingTools",
+      "subtitle": "We built FreeEditingTools to give creators, developers, and everyday users a fast, free, and private place to edit files — without installs, accounts, or uploads to our servers."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "body": "FreeEditingTools brings together hundreds of practical editing utilities in one clean web app. Whether you need to resize an image, trim a video, merge PDFs, format JSON, or shuffle a list — you can do it instantly from any device with a modern browser."
+    },
+    "privacy": {
+      "title": "Privacy First",
+      "body": "Your files never leave your device. All processing happens locally in your browser using client-side technology. We do not store, track, or sell your data. No sign-up required, no ads, and no hidden uploads."
+    },
+    "featuresTitle": "Why Choose FreeEditingTools?",
+    "features": [
+      {
+        "title": "100% Private",
+        "description": "Files stay on your computer or phone. Nothing is sent to our servers for processing."
+      },
+      {
+        "title": "Lightning Fast",
+        "description": "Open a tool, drop your file, and get results in seconds — no waiting on cloud queues."
+      },
+      {
+        "title": "All-in-One Hub",
+        "description": "Image, video, audio, PDF, text, JSON, CSV, and more — one site for everyday editing tasks."
+      },
+      {
+        "title": "Always Free",
+        "description": "Every tool is free to use with no premium paywalls, subscriptions, or usage limits."
+      }
+    ],
+    "categories": {
+      "title": "Tools We Offer",
+      "body": "FreeEditingTools covers a wide range of everyday editing needs across these categories:",
+      "items": [
+        "Image Tools",
+        "Video Tools",
+        "Audio Tools",
+        "PDF Tools",
+        "Text Tools",
+        "JSON Tools",
+        "CSV Tools",
+        "GIF Tools",
+        "Time Tools",
+        "Number Tools",
+        "Converter Tools",
+        "XML Tools"
+      ]
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "steps": [
+        {
+          "title": "Find Your Tool",
+          "description": "Browse categories on the home page or use the search bar to find the exact utility you need."
+        },
+        {
+          "title": "Upload or Paste",
+          "description": "Drop a file, paste from clipboard, or type your input directly into the tool interface."
+        },
+        {
+          "title": "Download Results",
+          "description": "Preview the output instantly and download or copy the result — all processed right in your browser."
+        }
+      ]
+    }
   },
   "number": {
     "generate": {

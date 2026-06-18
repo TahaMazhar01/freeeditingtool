@@ -156,9 +156,15 @@ export default function BaseFileInput({
           boxShadow: '5',
           bgcolor: 'background.paper',
           position: 'relative',
-          borderColor: isDragging ? theme.palette.primary.main : undefined,
+          borderColor: isDragging
+            ? theme.palette.secondary.main
+            : theme.palette.divider,
           borderWidth: isDragging ? 2 : 1,
-          borderStyle: isDragging ? 'dashed' : 'solid'
+          borderStyle: isDragging ? 'dashed' : 'solid',
+          transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+          '&:hover': {
+            borderColor: theme.palette.secondary.main
+          }
         }}
         onDrop={handleDrop}
         onDragOver={handleDragOver}

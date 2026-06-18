@@ -5,6 +5,7 @@ import {
   Stack,
   TextField,
   Typography,
+  alpha,
   useTheme
 } from '@mui/material';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -31,6 +32,17 @@ export default function ExampleCard<T>({
   getGroups
 }: ExampleCardProps<T>) {
   const theme = useTheme();
+  const insetShadow =
+    theme.palette.mode === 'dark'
+      ? `inset 2px 2px 6px ${alpha('#000', 0.4)}, inset -2px -2px 6px ${alpha(
+          '#334155',
+          0.5
+        )}`
+      : `inset 2px 2px 6px ${alpha(
+          '#94A3B8',
+          0.25
+        )}, inset -2px -2px 6px ${alpha('#FFF', 0.9)}`;
+
   return (
     <Card
       raised
@@ -45,9 +57,10 @@ export default function ExampleCard<T>({
         transition: 'background-color 0.3s ease',
         cursor: 'pointer',
         '&:hover': {
-          boxShadow: `12px 9px 11px 2px ${
-            theme.palette.mode === 'dark' ? theme.palette.grey[900] : '#b8b9be'
-          }, -6px -6px 12px ${theme.palette.mode === 'dark' ? 'black' : '#fff'}`
+          boxShadow:
+            theme.palette.mode === 'dark'
+              ? `0 12px 32px ${alpha('#6366F1', 0.2)}`
+              : `0 12px 32px ${alpha('#6366F1', 0.15)}`
         }
       }}
     >
@@ -72,8 +85,7 @@ export default function ExampleCard<T>({
                 bgcolor: 'transparent',
                 padding: '5px 10px',
                 borderRadius: '5px',
-                boxShadow:
-                  'inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #fff;'
+                boxShadow: insetShadow
               }}
             >
               <TextField
@@ -104,7 +116,7 @@ export default function ExampleCard<T>({
               padding: '5px 10px',
               borderRadius: '5px',
               cursor: 'pointer',
-              boxShadow: 'inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #fff;'
+              boxShadow: insetShadow
             }}
           >
             <TextField

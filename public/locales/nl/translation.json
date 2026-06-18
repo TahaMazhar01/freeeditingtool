@@ -1,4 +1,4 @@
-{
+﻿{
   "audio": {
     "changeSpeed": {
       "description": "Wijzig de afspeelsnelheid van audiobestanden. Versnel of vertraag audio met behoud van toonhoogte.",
@@ -81,8 +81,8 @@
     }
   },
   "hero": {
-    "brand": "OmniTools",
-    "description": "Verhoog je productiviteit met OmniTools, de ultieme toolkit om snel aan de slag te gaan! Krijg toegang tot duizenden gebruiksvriendelijke tools voor het bewerken van afbeeldingen, tekst, lijsten en gegevens, allemaal rechtstreeks vanuit je browser.",
+    "brand": "FreeEditingTools",
+    "description": "Verhoog je productiviteit met FreeEditingTools, de ultieme toolkit om snel aan de slag te gaan! Krijg toegang tot duizenden gebruiksvriendelijke tools voor het bewerken van afbeeldingen, tekst, lijsten en gegevens, allemaal rechtstreeks vanuit je browser.",
     "examples": {
       "calculateNumberSum": "Bereken de getallensom",
       "changeGifSpeed": "GIF-snelheid wijzigen",

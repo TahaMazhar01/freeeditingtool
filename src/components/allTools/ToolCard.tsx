@@ -5,6 +5,7 @@ import {
   Link,
   Stack,
   Typography,
+  alpha,
   useTheme
 } from '@mui/material';
 import { ToolCardProps } from './AllTools';
@@ -31,12 +32,16 @@ export default function ToolCard({
         color: '#fff',
         boxShadow:
           theme.palette.mode === 'dark'
-            ? null
-            : '6px 6px 12px #b8b9be, -6px -6px 12px #fff',
+            ? `0 8px 24px ${alpha('#000', 0.35)}`
+            : `0 8px 24px ${alpha('#6366F1', 0.2)}`,
         cursor: 'pointer',
         height: '100%',
         '&:hover': {
-          transform: 'scale(1.05)'
+          transform: 'translateY(-4px)',
+          boxShadow:
+            theme.palette.mode === 'dark'
+              ? `0 12px 32px ${alpha('#6366F1', 0.25)}`
+              : `0 12px 32px ${alpha('#6366F1', 0.3)}`
         }
       }}
     >

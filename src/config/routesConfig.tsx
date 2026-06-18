@@ -2,12 +2,17 @@ import { Navigate, RouteObject } from 'react-router-dom';
 import { lazy } from 'react';
 
 const Home = lazy(() => import('../pages/home'));
+const About = lazy(() => import('../pages/about'));
 const ToolsByCategory = lazy(() => import('../pages/tools-by-category'));
 
 const routes: RouteObject[] = [
   {
     path: '/',
     element: <Home />
+  },
+  {
+    path: '/about',
+    element: <About />
   },
   {
     path: '/categories/:categoryName',
