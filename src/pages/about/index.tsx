@@ -32,9 +32,22 @@ const stepIcons = [
   'mdi:download-outline'
 ];
 
+const infoSections = [
+  {
+    key: 'mission',
+    titleKey: 'about.mission.title',
+    bodyKey: 'about.mission.body'
+  },
+  {
+    key: 'privacy',
+    titleKey: 'about.privacy.title',
+    bodyKey: 'about.privacy.body'
+  }
+] as const;
+
 export default function About() {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation('translation');
 
   const features = t('about.features', { returnObjects: true }) as {
     title: string;
@@ -77,7 +90,7 @@ export default function About() {
           <Box
             component="img"
             src={logo}
-            alt={t('translation:hero.brand')}
+            alt={t('hero.brand')}
             sx={{
               height: { xs: 100, md: 120 },
               filter: `drop-shadow(0 8px 24px ${alpha('#6366F1', 0.3)})`
@@ -109,8 +122,8 @@ export default function About() {
         </Stack>
 
         <Grid container spacing={3} sx={{ mb: 4 }}>
-          {['mission', 'privacy'].map((section, index) => (
-            <Grid item xs={12} md={6} key={section}>
+          {infoSections.map((section, index) => (
+            <Grid item xs={12} md={6} key={section.key}>
               <Paper
                 elevation={0}
                 sx={{
@@ -130,10 +143,10 @@ export default function About() {
                 }}
               >
                 <Typography variant="h5" fontWeight={700} gutterBottom>
-                  {t(`about.${section}.title`)}
+                  {t(section.titleKey)}
                 </Typography>
                 <Typography color="text.secondary" lineHeight={1.8}>
-                  {t(`about.${section}.body`)}
+                  {t(section.bodyKey)}
                 </Typography>
               </Paper>
             </Grid>

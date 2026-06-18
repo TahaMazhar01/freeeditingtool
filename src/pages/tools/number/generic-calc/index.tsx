@@ -17,7 +17,7 @@ import { InitialValuesType } from './types';
 import type { AlternativeVarInfo, GenericCalcType } from './data/types';
 import { dataTableLookup } from 'datatables';
 
-import nerdamer from 'nerdamer-prime';
+import nerdamer, { NerdamerExpression } from 'nerdamer-prime';
 import 'nerdamer-prime/Algebra';
 import 'nerdamer-prime/Solve';
 import 'nerdamer-prime/Calculus';
@@ -39,17 +39,15 @@ function numericSolveEquationFor(
     expr = expr.sub(key, variables[key].toString());
   }
 
-  let result: nerdamer.Expression | nerdamer.Expression[] =
+  let result: NerdamerExpression | NerdamerExpression[] =
     expr.solveFor(varName);
 
   // Sometimes the result is an array, check for it while keeping linter happy
-  if ((result as unknown as nerdamer.Expression).toDecimal === undefined) {
-    result = (result as unknown as nerdamer.Expression[])[0];
+  if ((result as NerdamerExpression).toDecimal === undefined) {
+    result = (result as NerdamerExpression[])[0];
   }
 
-  return parseFloat(
-    (result as unknown as nerdamer.Expression).evaluate().toDecimal()
-  );
+  return parseFloat((result as NerdamerExpression).evaluate().toDecimal());
 }
 
 export default async function makeTool(
@@ -498,7 +496,7 @@ export default async function makeTool(
             showSnackBar('Please select a solve for variable', 'error');
             return;
           }
-          let expr: nerdamer.Expression | null = null;
+          let expr: NerdamerExpression | null = null;
 
           for (const variable of calcData.variables) {
             if (variable.name === values.outputVariable) {
@@ -523,14 +521,13 @@ export default async function makeTool(
             expr = expr.sub(key, values.vars[key].value.toString());
           });
 
-          let result: nerdamer.Expression | nerdamer.Expression[] =
-            expr.solveFor(values.outputVariable);
+          let result: NerdamerExpression | NerdamerExpression[] = expr.solveFor(
+            values.outputVariable
+          );
 
           // Sometimes the result is an array
-          if (
-            (result as unknown as nerdamer.Expression).toDecimal === undefined
-          ) {
-            if ((result as unknown as nerdamer.Expression[])?.length < 1) {
+          if ((result as NerdamerExpression).toDecimal === undefined) {
+            if ((result as NerdamerExpression[])?.length < 1) {
               values.vars[values.outputVariable].value = NaN;
               if (calcData.extraOutputs !== undefined) {
                 // Update extraOutputs using setState
@@ -545,15 +542,13 @@ export default async function makeTool(
               }
               throw new Error('No solution found for this input');
             }
-            result = (result as unknown as nerdamer.Expression[])[0];
+            result = (result as NerdamerExpression[])[0];
           }
 
           if (result) {
             if (values.vars[values.outputVariable] != undefined) {
               values.vars[values.outputVariable].value = parseFloat(
-                (result as unknown as nerdamer.Expression)
-                  .evaluate()
-                  .toDecimal()
+                (result as NerdamerExpression).evaluate().toDecimal()
               );
             }
           } else {
@@ -571,7 +566,7 @@ export default async function makeTool(
               });
 
               // todo could this have multiple solutions too?
-              const result: nerdamer.Expression = expr.evaluate();
+              const result: NerdamerExpression = expr.evaluate();
 
               if (result) {
                 // Update extraOutputs state properly

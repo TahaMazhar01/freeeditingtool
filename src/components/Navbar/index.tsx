@@ -66,7 +66,7 @@ const floatLogo = keyframes`
 `;
 
 const Navbar: React.FC<NavbarProps> = ({ mode, onChangeMode }) => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation('translation');
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
@@ -233,7 +233,7 @@ const Navbar: React.FC<NavbarProps> = ({ mode, onChangeMode }) => {
         <Box
           component="img"
           src={logo}
-          alt={t('translation:hero.brand')}
+          alt={t('hero.brand')}
           sx={{
             position: 'relative',
             height: scrolled ? { xs: 72, md: 84 } : { xs: 84, md: 100 },
@@ -264,7 +264,7 @@ const Navbar: React.FC<NavbarProps> = ({ mode, onChangeMode }) => {
             transition: 'font-size 0.35s ease'
           }}
         >
-          {t('translation:hero.brand')}
+          {t('hero.brand')}
         </Typography>
         <Typography
           variant="caption"
