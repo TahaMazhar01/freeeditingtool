@@ -1,9 +1,10 @@
 import { BrowserRouter, useRoutes } from 'react-router-dom';
 import routesConfig from '../config/routesConfig';
 import Navbar from './Navbar';
+import Footer from './Footer';
 import { Suspense, useState, useEffect } from 'react';
 import Loading from './Loading';
-import { CssBaseline, Theme, ThemeProvider } from '@mui/material';
+import { CssBaseline, Theme, ThemeProvider, Box } from '@mui/material';
 import { CustomSnackBarProvider } from '../contexts/CustomSnackBarContext';
 import { SnackbarProvider } from 'notistack';
 import { tools } from '../tools';
@@ -60,16 +61,33 @@ function App() {
           <CustomSnackBarProvider>
             <UserTypeFilterProvider>
               <BrowserRouter>
-                <Navbar
-                  mode={mode}
-                  onChangeMode={() => {
-                    setMode((prev) => nextMode(prev));
-                    localStorage.setItem('theme', nextMode(mode));
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    minHeight: '100vh'
                   }}
-                />
-                <Suspense fallback={<Loading />}>
-                  <AppRoutes />
-                </Suspense>
+                >
+                  <Navbar
+                    mode={mode}
+                    onChangeMode={() => {
+                      setMode((prev) => nextMode(prev));
+                      localStorage.setItem('theme', nextMode(mode));
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      flexGrow: 1,
+                      display: 'flex',
+                      flexDirection: 'column'
+                    }}
+                  >
+                    <Suspense fallback={<Loading />}>
+                      <AppRoutes />
+                    </Suspense>
+                  </Box>
+                  <Footer />
+                </Box>
               </BrowserRouter>
             </UserTypeFilterProvider>
           </CustomSnackBarProvider>

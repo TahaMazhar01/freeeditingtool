@@ -1,38 +1,38 @@
 /** FreeEditingTools brand palette — shared across MUI theme and Tailwind */
 export const brandColors = {
   primary: {
-    main: '#6366F1',
-    light: '#818CF8',
-    dark: '#4F46E5',
+    main: '#2563EB',
+    light: '#60A5FA',
+    dark: '#1D4ED8',
     contrastText: '#FFFFFF'
   },
   secondary: {
-    main: '#06B6D4',
-    light: '#22D3EE',
-    dark: '#0891B2',
+    main: '#4F46E5',
+    light: '#818CF8',
+    dark: '#3730A3',
     contrastText: '#FFFFFF'
   },
   light: {
-    background: '#F8FAFC',
+    background: '#FAFAFA',
     paper: '#FFFFFF',
-    text: '#0F172A',
-    textSecondary: '#475569',
-    hover: '#F1F5F9',
-    lightSecondary: '#EEF2FF',
-    darkSecondary: '#4338CA',
-    border: '#E2E8F0',
-    shadow: 'rgba(15, 23, 42, 0.08)'
+    text: '#171717',
+    textSecondary: '#525252',
+    hover: '#F4F4F5',
+    lightSecondary: '#EFF6FF',
+    darkSecondary: '#1E40AF',
+    border: '#E5E7EB',
+    shadow: 'rgba(0, 0, 0, 0.04)'
   },
   dark: {
-    background: '#0B0F19',
-    paper: '#1E293B',
-    text: '#F1F5F9',
-    textSecondary: '#94A3B8',
-    hover: '#141B2D',
-    lightSecondary: '#1A2332',
-    darkSecondary: '#3730A3',
-    border: '#334155',
-    shadow: 'rgba(0, 0, 0, 0.35)'
+    background: '#0F0F11',
+    paper: '#161618',
+    text: '#EDEDEF',
+    textSecondary: '#A0A0A5',
+    hover: '#202024',
+    lightSecondary: '#1E293B',
+    darkSecondary: '#3B82F6',
+    border: '#2E2E32',
+    shadow: 'rgba(0, 0, 0, 0.2)'
   }
 } as const;
 

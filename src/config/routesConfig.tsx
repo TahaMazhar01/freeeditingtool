@@ -4,6 +4,9 @@ import { lazy } from 'react';
 const Home = lazy(() => import('../pages/home'));
 const About = lazy(() => import('../pages/about'));
 const ToolsByCategory = lazy(() => import('../pages/tools-by-category'));
+const Privacy = lazy(() => import('../pages/legal/Privacy'));
+const Terms = lazy(() => import('../pages/legal/Terms'));
+const Contact = lazy(() => import('../pages/legal/Contact'));
 
 const routes: RouteObject[] = [
   {
@@ -17,6 +20,18 @@ const routes: RouteObject[] = [
   {
     path: '/categories/:categoryName',
     element: <ToolsByCategory />
+  },
+  {
+    path: '/privacy',
+    element: <Privacy />
+  },
+  {
+    path: '/terms',
+    element: <Terms />
+  },
+  {
+    path: '/contact',
+    element: <Contact />
   },
   {
     path: '*',

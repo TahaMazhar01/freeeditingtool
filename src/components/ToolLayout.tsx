@@ -13,6 +13,8 @@ import { IconifyIcon } from '@iconify/react';
 import { useTranslation } from 'react-i18next';
 import { ToolCategory } from '@tools/defineTool';
 import { FullI18nKey } from '../i18n';
+import AdPlaceholder from './AdPlaceholder';
+import SEOContentBlock from './SEOContentBlock';
 
 export default function ToolLayout({
   children,
@@ -73,6 +75,26 @@ export default function ToolLayout({
           path={fullPath}
         />
         {children}
+
+        {/* AdSense Inline Rectangle Placeholder */}
+        <Box
+          sx={{
+            mt: 6,
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%'
+          }}
+        >
+          <AdPlaceholder variant="rectangle" />
+        </Box>
+
+        {/* AdSense-required SEO Context block */}
+        <SEOContentBlock
+          toolName={toolTitle}
+          toolDescription={toolDescription}
+          category={type}
+        />
+
         <Separator margin="50px" />
         <AllTools
           title={t('translation:toolLayout.allToolsTitle', '', {

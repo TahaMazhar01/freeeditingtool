@@ -127,34 +127,30 @@ const Navbar: React.FC<NavbarProps> = ({ mode, onChangeMode }) => {
     alignItems: 'center',
     gap: 1,
     px: { xs: 1, md: 1.5 },
-    py: 0.75,
-    borderRadius: '999px',
-    bgcolor: alpha(
-      theme.palette.primary.main,
-      theme.palette.mode === 'dark' ? 0.14 : 0.08
-    ),
-    border: `1px solid ${alpha(theme.palette.primary.main, 0.18)}`,
-    boxShadow: `0 8px 24px ${alpha(theme.palette.primary.main, 0.12)}`,
-    animation: `${fadeInRight} 0.7s ease 0.15s both`,
-    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    py: 0.5,
+    borderRadius: '8px',
+    bgcolor: theme.palette.mode === 'dark' ? '#202024' : '#f4f4f5',
+    border: `1px solid ${theme.palette.divider}`,
+    transition: 'background-color 0.2s ease',
     '&:hover': {
-      transform: 'translateY(-1px)',
-      boxShadow: `0 12px 28px ${alpha(theme.palette.primary.main, 0.18)}`
+      bgcolor: theme.palette.mode === 'dark' ? '#2e2e32' : '#e4e4e7'
     }
   };
 
   const iconButtonSx = {
-    width: 40,
-    height: 40,
-    borderRadius: '50%',
+    width: 36,
+    height: 36,
+    borderRadius: '6px',
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
     cursor: 'pointer',
-    transition: 'transform 0.25s ease, background-color 0.25s ease',
+    transition: 'background-color 0.2s ease',
     '&:hover': {
-      transform: 'scale(1.08) rotate(-4deg)',
-      bgcolor: alpha(theme.palette.primary.main, 0.12)
+      bgcolor:
+        theme.palette.mode === 'dark'
+          ? 'rgba(255,255,255,0.08)'
+          : 'rgba(0,0,0,0.05)'
     }
   };
 
@@ -162,7 +158,7 @@ const Navbar: React.FC<NavbarProps> = ({ mode, onChangeMode }) => {
     languageSelector,
     <Box key={mode} component="span" onClick={onChangeMode} sx={iconButtonSx}>
       <Icon
-        fontSize={24}
+        fontSize={20}
         icon={
           mode === 'dark'
             ? 'ic:round-dark-mode'
@@ -178,19 +174,16 @@ const Navbar: React.FC<NavbarProps> = ({ mode, onChangeMode }) => {
     position: 'relative' as const,
     fontWeight: location.pathname === path ? 700 : 500,
     color: location.pathname === path ? theme.palette.primary.main : 'inherit',
-    '&::after': {
-      content: '""',
-      position: 'absolute',
-      left: 0,
-      bottom: 4,
-      width: '100%',
-      height: 2,
-      background: theme.palette.primary.main,
-      transform: location.pathname === path ? 'scaleX(1)' : 'scaleX(0)',
-      transformOrigin: 'left',
-      transition: 'transform 0.3s ease'
-    },
-    '&:hover::after': { transform: 'scaleX(1)' }
+    borderRadius: '6px',
+    px: 1.5,
+    py: 0.75,
+    textTransform: 'none',
+    '&:hover': {
+      bgcolor:
+        theme.palette.mode === 'dark'
+          ? 'rgba(255,255,255,0.04)'
+          : 'rgba(0,0,0,0.03)'
+    }
   });
 
   const brandLink = (
@@ -200,11 +193,11 @@ const Navbar: React.FC<NavbarProps> = ({ mode, onChangeMode }) => {
       sx={{
         display: 'flex',
         alignItems: 'center',
-        gap: { xs: 1.5, sm: 2 },
+        gap: 1.5,
         textDecoration: 'none',
         color: 'inherit',
-        transition: 'transform 0.3s ease',
-        '&:hover': { transform: 'scale(1.02)' }
+        transition: 'opacity 0.2s ease',
+        '&:hover': { opacity: 0.95 }
       }}
     >
       <Box
@@ -212,38 +205,19 @@ const Navbar: React.FC<NavbarProps> = ({ mode, onChangeMode }) => {
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
-          animation: `${floatLogo} 4s ease-in-out infinite`
+          justifyContent: 'center'
         }}
       >
-        <Box
-          sx={{
-            position: 'absolute',
-            width: scrolled ? 88 : 104,
-            height: scrolled ? 88 : 104,
-            borderRadius: '50%',
-            background: `radial-gradient(circle, ${alpha(
-              brandColors.secondary.main,
-              0.35
-            )} 0%, transparent 70%)`,
-            filter: 'blur(10px)',
-            transition: 'width 0.35s ease, height 0.35s ease'
-          }}
-        />
         <Box
           component="img"
           src={logo}
           alt={t('hero.brand')}
           sx={{
             position: 'relative',
-            height: scrolled ? { xs: 72, md: 84 } : { xs: 84, md: 100 },
+            height: scrolled ? { xs: 40, md: 48 } : { xs: 48, md: 56 },
             width: 'auto',
             objectFit: 'contain',
-            transition: 'height 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-            filter: `drop-shadow(0 4px 12px ${alpha(
-              brandColors.secondary.main,
-              0.25
-            )})`
+            transition: 'height 0.3s ease'
           }}
         />
       </Box>
@@ -253,15 +227,12 @@ const Navbar: React.FC<NavbarProps> = ({ mode, onChangeMode }) => {
           sx={{
             fontWeight: 800,
             fontSize: scrolled
-              ? { xs: '1.1rem', sm: '1.25rem', md: '1.35rem' }
-              : { xs: '1.2rem', sm: '1.35rem', md: '1.5rem' },
+              ? { xs: '1.1rem', sm: '1.2rem', md: '1.3rem' }
+              : { xs: '1.2rem', sm: '1.3rem', md: '1.4rem' },
             letterSpacing: '-0.02em',
-            background: brandGradient,
-            backgroundSize: '220% auto',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            animation: `${shimmer} 6s ease infinite`,
-            transition: 'font-size 0.35s ease'
+            color: 'primary.main',
+            fontFamily: '"Outfit", sans-serif',
+            transition: 'font-size 0.2s ease'
           }}
         >
           {t('hero.brand')}
@@ -313,22 +284,15 @@ const Navbar: React.FC<NavbarProps> = ({ mode, onChangeMode }) => {
       sx={{
         top: 0,
         zIndex: theme.zIndex.appBar + 1,
-        animation: `${slideDown} 0.55s cubic-bezier(0.22, 1, 0.36, 1)`,
         background: scrolled
-          ? alpha(
-              theme.palette.background.default,
-              theme.palette.mode === 'dark' ? 0.82 : 0.78
-            )
+          ? theme.palette.mode === 'dark'
+            ? 'rgba(22, 22, 24, 0.85)'
+            : 'rgba(255, 255, 255, 0.85)'
           : 'transparent',
-        backdropFilter: scrolled ? 'blur(18px) saturate(160%)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(18px) saturate(160%)' : 'none',
-        borderBottom: scrolled
-          ? `1px solid ${alpha(theme.palette.primary.main, 0.12)}`
-          : '1px solid transparent',
-        boxShadow: scrolled
-          ? `0 10px 40px ${alpha(theme.palette.common.black, 0.08)}`
-          : 'none',
-        transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        borderBottom: `1px solid ${theme.palette.divider}`,
+        transition: 'all 0.2s ease',
         color: 'text.primary'
       }}
     >
@@ -337,9 +301,9 @@ const Navbar: React.FC<NavbarProps> = ({ mode, onChangeMode }) => {
         sx={{
           justifyContent: 'space-between',
           alignItems: 'center',
-          minHeight: scrolled ? { xs: 88, md: 96 } : { xs: 100, md: 120 },
+          minHeight: scrolled ? { xs: 64, md: 72 } : { xs: 72, md: 80 },
           px: { xs: 2, sm: 3, md: 5, lg: 8 },
-          transition: 'min-height 0.35s ease, padding 0.35s ease'
+          transition: 'min-height 0.2s ease'
         }}
       >
         {brandLink}

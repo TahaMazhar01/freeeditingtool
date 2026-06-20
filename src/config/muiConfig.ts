@@ -6,7 +6,13 @@ const sharedThemeOptions: ThemeOptions = {
     button: {
       textTransform: 'none'
     },
-    fontFamily: 'Quicksand, sans-serif'
+    fontFamily: '"Plus Jakarta Sans", "Inter", sans-serif',
+    h1: { fontFamily: '"Outfit", sans-serif', fontWeight: 700 },
+    h2: { fontFamily: '"Outfit", sans-serif', fontWeight: 700 },
+    h3: { fontFamily: '"Outfit", sans-serif', fontWeight: 600 },
+    h4: { fontFamily: '"Outfit", sans-serif', fontWeight: 600 },
+    h5: { fontFamily: '"Outfit", sans-serif', fontWeight: 600 },
+    h6: { fontFamily: '"Outfit", sans-serif', fontWeight: 600 }
   },
   zIndex: { snackbar: 100000 },
   shape: {

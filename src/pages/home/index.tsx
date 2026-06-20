@@ -4,6 +4,7 @@ import Categories from './Categories';
 import { Helmet } from 'react-helmet';
 import { useUserTypeFilter } from 'providers/UserTypeFilterProvider';
 import UserTypeFilter from '@components/UserTypeFilter';
+import AdPlaceholder from 'components/AdPlaceholder';
 
 export default function Home() {
   const theme = useTheme();
@@ -36,6 +37,9 @@ export default function Home() {
           selectedUserTypes={selectedUserTypes}
           onUserTypesChange={setSelectedUserTypes}
         />
+      </Box>
+      <Box width="80%" mb={4}>
+        <AdPlaceholder variant="banner" />
       </Box>
       <Categories />
     </Box>
