@@ -27,7 +27,7 @@ const AppRoutes = () => {
 
 function App() {
   const [mode, setMode] = useState<Mode>(
-    () => (localStorage.getItem('theme') || 'system') as Mode
+    () => (localStorage.getItem('theme') || 'dark') as Mode
   );
   const [theme, setTheme] = useState<Theme>(() => getTheme(mode));
   useEffect(() => setTheme(getTheme(mode)), [mode]);
@@ -68,6 +68,14 @@ function App() {
                     minHeight: '100vh'
                   }}
                 >
+                  {/*
+                    Navbar is position:fixed (floating capsule).
+                    It takes zero space in the flex column.
+                    The 84px paddingTop below clears its height
+                    for all non-hero pages (tool pages, about, etc.).
+                    The home page Hero section applies mt:'-84px' to
+                    pull its background image under the navbar.
+                  */}
                   <Navbar
                     mode={mode}
                     onChangeMode={() => {
@@ -79,7 +87,9 @@ function App() {
                     sx={{
                       flexGrow: 1,
                       display: 'flex',
-                      flexDirection: 'column'
+                      flexDirection: 'column',
+                      /* Clears the floating navbar (56px height + 16px top + 12px gap) */
+                      pt: '84px'
                     }}
                   >
                     <Suspense fallback={<Loading />}>

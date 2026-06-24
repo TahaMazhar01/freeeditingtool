@@ -1,4 +1,4 @@
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import ToolCard from './ToolCard';
 import { IconifyIcon } from '@iconify/react';
 import { useTranslation } from 'react-i18next';
@@ -18,27 +18,58 @@ interface AllToolsProps {
 
 export default function AllTools({ title, toolCards }: AllToolsProps) {
   const { t } = useTranslation();
+
   return (
-    <Box mt={4} mb={10}>
-      <Typography mb={2} fontSize={30} color={'primary'}>
-        {title}
-      </Typography>
-      <Stack direction={'row'} alignItems={'center'} spacing={2}>
-        <Grid container spacing={2}>
-          {toolCards.map((card, index) => (
-            <Grid item xs={12} md={6} lg={4} key={index}>
-              <ToolCard
-                //@ts-ignore
-                title={t(card.title)}
-                //@ts-ignore
-                description={t(card.description)}
-                link={card.link}
-                icon={card.icon}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </Stack>
+    <Box mt={5} mb={10}>
+      {/* Section heading */}
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1.5,
+          mb: 3,
+          '&::after': {
+            content: '""',
+            flex: 1,
+            height: '1px',
+            background:
+              'linear-gradient(90deg, rgba(99,102,241,0.3) 0%, transparent 100%)'
+          }
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{
+            fontFamily: '"Outfit", sans-serif',
+            fontWeight: 800,
+            fontSize: { xs: '1.3rem', md: '1.5rem' },
+            background:
+              'linear-gradient(135deg, #818CF8 0%, #22D3EE 60%, #A78BFA 100%)',
+            WebkitBackgroundClip: 'text',
+            backgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            whiteSpace: 'nowrap'
+          }}
+        >
+          {title}
+        </Typography>
+      </Box>
+
+      {/* Tools grid */}
+      <Grid container spacing={2}>
+        {toolCards.map((card, index) => (
+          <Grid item xs={12} md={6} lg={4} key={index}>
+            <ToolCard
+              // @ts-ignore
+              title={t(card.title)}
+              // @ts-ignore
+              description={t(card.description)}
+              link={card.link}
+              icon={card.icon}
+            />
+          </Grid>
+        ))}
+      </Grid>
     </Box>
   );
 }
