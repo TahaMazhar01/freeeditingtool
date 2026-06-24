@@ -10,20 +10,20 @@ import { ToolCardProps } from './AllTools';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 
-/* Accent palette — each AllTools category section cycles through these */
+const PRIMARY = '#4056A1';
+const GOLD = '#D79922';
+
 const ACCENT_COLORS = [
-  '#6366F1',
-  '#06B6D4',
-  '#A855F7',
-  '#10B981',
-  '#F59E0B',
-  '#EC4899',
-  '#3B82F6',
-  '#14B8A6'
+  '#4056A1' /* Deep Blue  */,
+  '#D79922' /* Gold       */,
+  '#F13C20' /* Red        */,
+  '#2D3D7A' /* Dark Blue  */,
+  '#B07A10' /* Dark Gold  */,
+  '#2D9E6B' /* Teal       */
 ];
 
-let colorIndex = 0;
-const getNextColor = () => ACCENT_COLORS[colorIndex++ % ACCENT_COLORS.length];
+let _colorIdx = 0;
+const nextAccent = () => ACCENT_COLORS[_colorIdx++ % ACCENT_COLORS.length];
 
 export default function ToolCard({
   title,
@@ -32,7 +32,7 @@ export default function ToolCard({
   icon
 }: ToolCardProps) {
   const navigate = useNavigate();
-  const accent = getNextColor();
+  const accent = nextAccent();
 
   return (
     <Card
@@ -40,16 +40,14 @@ export default function ToolCard({
       sx={{
         height: '100%',
         cursor: 'pointer',
-        background: 'rgba(17, 24, 39, 0.60)',
-        backdropFilter: 'blur(18px)',
-        WebkitBackdropFilter: 'blur(18px)',
-        border: '1px solid rgba(148,163,184,0.09)',
-        borderRadius: '16px',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.4)',
-        transition: 'all 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
+        background: '#FFFFFF',
+        border: '1px solid #E8E4D9',
+        boxShadow: '0 2px 12px rgba(64,86,161,0.08)',
+        borderRadius: '12px',
+        transition: 'all 0.25s cubic-bezier(0.4,0,0.2,1)',
         position: 'relative',
         overflow: 'hidden',
-        /* Neon left-edge accent */
+        /* Accent left stripe on hover */
         '&::before': {
           content: '""',
           position: 'absolute',
@@ -57,26 +55,18 @@ export default function ToolCard({
           left: 0,
           width: '3px',
           height: '100%',
-          background: `linear-gradient(180deg, ${accent} 0%, transparent 100%)`,
+          background: accent,
           opacity: 0,
-          transition: 'opacity 0.3s ease',
-          borderRadius: '16px 0 0 16px'
+          transition: 'opacity 0.25s ease'
         },
         '&:hover': {
-          transform: 'translateY(-5px) scale(1.015)',
-          border: `1px solid ${alpha(accent, 0.32)}`,
-          boxShadow: `0 20px 48px rgba(0,0,0,0.5), 0 0 0 1px ${alpha(
-            accent,
-            0.12
-          )}, inset 0 1px 0 rgba(255,255,255,0.07)`,
+          transform: 'translateY(-4px)',
+          borderColor: alpha(accent, 0.4),
+          boxShadow: `0 8px 28px rgba(64,86,161,0.13)`,
           '&::before': { opacity: 1 },
-          '& .card-icon': {
-            background: alpha(accent, 0.18),
-            boxShadow: `0 0 16px ${alpha(accent, 0.4)}`,
-            transform: 'scale(1.08)'
-          },
-          '& .card-title': { color: accent },
-          '& .card-arrow': { opacity: 1, transform: 'translateX(0)' }
+          '& .tc-icon': { background: alpha(accent, 0.14) },
+          '& .tc-title': { color: accent },
+          '& .tc-arrow': { opacity: 1, transform: 'translateX(0)' }
         }
       }}
     >
@@ -95,37 +85,35 @@ export default function ToolCard({
           justifyContent="space-between"
           mb={1.5}
           pb={1.5}
-          sx={{ borderBottom: '1px solid rgba(148,163,184,0.07)' }}
+          sx={{ borderBottom: '1px solid #E8E4D9' }}
         >
-          {/* Icon + title */}
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Box
-              className="card-icon"
+              className="tc-icon"
               sx={{
                 width: 42,
                 height: 42,
-                borderRadius: '11px',
+                borderRadius: '10px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: alpha(accent, 0.1),
+                background: alpha(accent, 0.08),
                 color: accent,
-                border: `1px solid ${alpha(accent, 0.18)}`,
-                transition: 'all 0.25s ease',
+                border: `1px solid ${alpha(accent, 0.16)}`,
+                transition: 'background 0.22s ease',
                 flexShrink: 0
               }}
             >
               <Icon icon={icon} fontSize={22} />
             </Box>
             <Typography
-              className="card-title"
-              variant="h6"
+              className="tc-title"
               sx={{
-                fontFamily: '"Outfit", sans-serif',
-                fontWeight: 700,
-                fontSize: '1rem',
+                fontFamily: '"Inter", sans-serif',
+                fontWeight: 600,
+                fontSize: '0.95rem',
                 lineHeight: 1.25,
-                color: '#E2E8F0',
+                color: '#1A1A2E',
                 transition: 'color 0.2s ease'
               }}
             >
@@ -133,28 +121,28 @@ export default function ToolCard({
             </Typography>
           </Stack>
 
-          {/* Arrow indicator */}
           <Box
-            className="card-arrow"
+            className="tc-arrow"
             sx={{
               color: accent,
               opacity: 0,
               transform: 'translateX(-6px)',
-              transition: 'all 0.25s ease',
-              mt: 0.25
+              transition: 'all 0.22s ease',
+              mt: 0.5,
+              flexShrink: 0
             }}
           >
-            <Icon icon="ph:arrow-right-bold" fontSize={16} />
+            <Icon icon="ph:arrow-right-bold" fontSize={15} />
           </Box>
         </Stack>
 
         {/* Description */}
         <Typography
-          variant="body2"
           sx={{
+            fontFamily: '"Inter", sans-serif',
             fontSize: '0.8rem',
             lineHeight: 1.6,
-            color: 'rgba(148,163,184,0.65)',
+            color: '#555577',
             flex: 1
           }}
         >

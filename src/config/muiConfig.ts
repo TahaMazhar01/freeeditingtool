@@ -1,59 +1,111 @@
-import { alpha, createTheme, ThemeOptions } from '@mui/material';
+import { alpha, createTheme } from '@mui/material';
 import { brandColors } from './colors';
 
-const sharedThemeOptions: ThemeOptions = {
+/* === Single light-mode theme — no dark variant === */
+
+const CARD_SHADOW = '0 2px 12px rgba(64,86,161,0.08)';
+const CARD_SHADOW_HOVER = '0 8px 28px rgba(64,86,161,0.14)';
+const BORDER = '#E8E4D9';
+const PRIMARY = '#4056A1';
+const ACCENT = '#F13C20';
+const GOLD = '#D79922';
+
+export const theme = createTheme({
   typography: {
     button: { textTransform: 'none' },
-    fontFamily: '"Plus Jakarta Sans", "Inter", sans-serif',
-    h1: { fontFamily: '"Outfit", sans-serif', fontWeight: 900 },
-    h2: { fontFamily: '"Outfit", sans-serif', fontWeight: 800 },
-    h3: { fontFamily: '"Outfit", sans-serif', fontWeight: 700 },
-    h4: { fontFamily: '"Outfit", sans-serif', fontWeight: 700 },
-    h5: { fontFamily: '"Outfit", sans-serif', fontWeight: 600 },
-    h6: { fontFamily: '"Outfit", sans-serif', fontWeight: 600 }
+    fontFamily: '"Inter", system-ui, sans-serif',
+    h1: {
+      fontFamily: '"Playfair Display", Georgia, serif',
+      fontWeight: 700,
+      color: PRIMARY
+    },
+    h2: {
+      fontFamily: '"Playfair Display", Georgia, serif',
+      fontWeight: 700,
+      color: PRIMARY
+    },
+    h3: {
+      fontFamily: '"Playfair Display", Georgia, serif',
+      fontWeight: 600,
+      color: PRIMARY
+    },
+    h4: {
+      fontFamily: '"Playfair Display", Georgia, serif',
+      fontWeight: 600,
+      color: PRIMARY
+    },
+    h5: {
+      fontFamily: '"Inter", sans-serif',
+      fontWeight: 600,
+      color: '#1A1A2E'
+    },
+    h6: {
+      fontFamily: '"Inter", sans-serif',
+      fontWeight: 600,
+      color: '#1A1A2E'
+    },
+    body1: { fontSize: '1rem', lineHeight: 1.6 },
+    body2: { fontSize: '0.875rem', lineHeight: 1.6 }
   },
   zIndex: { snackbar: 100000 },
-  shape: { borderRadius: 12 }
-};
+  shape: { borderRadius: 10 },
 
-/* === Constants matching the hero image palette === */
-const GLASS_BG = 'rgba(8, 11, 17, 0.72)';
-const GLASS_BORDER = 'rgba(255, 255, 255, 0.07)';
-const GLASS_BRIGHT = 'rgba(255, 255, 255, 0.11)';
-const BLUR = 'blur(20px)';
+  palette: {
+    mode: 'light',
+    primary: brandColors.primary,
+    secondary: brandColors.secondary,
+    background: {
+      default: '#FAFAF8',
+      paper: '#FFFFFF',
+      // @ts-ignore custom palette keys
+      hover: brandColors.light.hover,
+      lightSecondary: brandColors.light.lightSecondary,
+      darkSecondary: brandColors.light.darkSecondary
+    },
+    text: {
+      primary: '#1A1A2E',
+      secondary: '#555577'
+    },
+    divider: BORDER,
+    action: {
+      hover: alpha(PRIMARY, 0.06),
+      selected: alpha(PRIMARY, 0.1)
+    }
+  },
 
-const buildComponentOverrides = (
-  mode: 'light' | 'dark'
-): ThemeOptions['components'] => {
-  const surface = mode === 'dark' ? brandColors.dark : brandColors.light;
-  const cyanGlow = alpha(brandColors.secondary.main, 0.3);
-  const indigoRing = alpha(brandColors.primary.dark, 0.28);
-
-  return {
+  components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: surface.background,
-          color: surface.text
+          backgroundColor: '#FAFAF8',
+          color: '#1A1A2E',
+          fontFamily: '"Inter", system-ui, sans-serif',
+          fontSize: '16px',
+          lineHeight: 1.6
+        },
+        'h1,h2,h3,h4': {
+          fontFamily: '"Playfair Display", Georgia, serif',
+          color: PRIMARY
         },
         a: {
-          color: brandColors.primary.main,
+          color: PRIMARY,
           transition: 'color 0.2s ease',
-          '&:hover': { color: brandColors.secondary.light }
+          '&:hover': { color: ACCENT }
         },
         '*': {
           scrollbarWidth: 'thin',
-          scrollbarColor: `${alpha(
-            brandColors.secondary.main,
-            0.3
-          )} transparent`
+          scrollbarColor: `${alpha(PRIMARY, 0.25)} #EFE2BA`
         },
-        '*::-webkit-scrollbar': { width: '5px' },
-        '*::-webkit-scrollbar-track': { background: 'transparent' },
+        '*::-webkit-scrollbar': { width: '6px' },
+        '*::-webkit-scrollbar-track': { background: '#EFE2BA' },
         '*::-webkit-scrollbar-thumb': {
-          background: alpha(brandColors.secondary.main, 0.3),
+          background: alpha(PRIMARY, 0.25),
           borderRadius: '3px',
-          '&:hover': { background: alpha(brandColors.secondary.main, 0.55) }
+          '&:hover': { background: alpha(PRIMARY, 0.45) }
+        },
+        /* Remove all dark-mode media queries */
+        '@media (prefers-color-scheme: dark)': {
+          body: { backgroundColor: '#FAFAF8', color: '#1A1A2E' }
         }
       }
     },
@@ -63,42 +115,36 @@ const buildComponentOverrides = (
         root: {
           borderRadius: 999,
           fontWeight: 600,
-          transition: 'all 0.22s cubic-bezier(0.4, 0, 0.2, 1)'
+          fontFamily: '"Inter", sans-serif',
+          transition: 'all 0.22s cubic-bezier(0.4,0,0.2,1)'
         },
         contained: {
+          background: PRIMARY,
           color: '#FFFFFF',
-          background: `linear-gradient(135deg, ${brandColors.primary.dark} 0%, ${brandColors.primary.main} 100%)`,
-          boxShadow: `0 4px 18px ${alpha(brandColors.primary.dark, 0.4)}`,
+          boxShadow: `0 4px 14px ${alpha(PRIMARY, 0.28)}`,
           '&:hover': {
-            background: `linear-gradient(135deg, ${brandColors.primary.main} 0%, ${brandColors.primary.light} 100%)`,
-            boxShadow: `0 6px 28px ${alpha(brandColors.primary.main, 0.55)}`,
+            background: ACCENT,
+            boxShadow: `0 6px 20px ${alpha(ACCENT, 0.35)}`,
             transform: 'translateY(-1px)'
           },
           '&:active': { transform: 'translateY(0)' }
         },
         containedSecondary: {
-          background: `linear-gradient(135deg, ${brandColors.secondary.dark} 0%, ${brandColors.secondary.main} 100%)`,
-          boxShadow: `0 4px 18px ${alpha(brandColors.secondary.main, 0.4)}`,
-          '&:hover': {
-            boxShadow: `0 6px 28px ${alpha(brandColors.secondary.main, 0.55)}`,
-            transform: 'translateY(-1px)'
-          }
+          background: ACCENT,
+          color: '#FFFFFF',
+          '&:hover': { background: '#C02A10' }
         },
         outlined: {
-          borderColor: GLASS_BRIGHT,
-          color: brandColors.primary.light,
-          backdropFilter: BLUR,
+          borderColor: alpha(PRIMARY, 0.35),
+          color: PRIMARY,
           '&:hover': {
-            borderColor: alpha(brandColors.primary.main, 0.5),
-            backgroundColor: alpha(brandColors.primary.main, 0.08)
+            borderColor: PRIMARY,
+            backgroundColor: alpha(PRIMARY, 0.06)
           }
         },
         text: {
-          color: surface.textSecondary,
-          '&:hover': {
-            backgroundColor: alpha(brandColors.secondary.main, 0.08),
-            color: surface.text
-          }
+          color: PRIMARY,
+          '&:hover': { backgroundColor: alpha(PRIMARY, 0.06) }
         }
       }
     },
@@ -107,21 +153,18 @@ const buildComponentOverrides = (
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
-            backgroundColor: GLASS_BG,
-            backdropFilter: BLUR,
-            WebkitBackdropFilter: BLUR,
-            transition: 'all 0.25s ease',
-            '& fieldset': { borderColor: GLASS_BORDER },
-            '&:hover fieldset': { borderColor: GLASS_BRIGHT },
+            backgroundColor: '#FFFFFF',
+            borderRadius: 10,
+            fontSize: '1rem',
+            transition: 'box-shadow 0.25s ease',
+            '& fieldset': { borderColor: BORDER },
+            '&:hover fieldset': { borderColor: alpha(PRIMARY, 0.45) },
             '&.Mui-focused fieldset': {
-              borderColor: brandColors.secondary.main,
+              borderColor: PRIMARY,
               borderWidth: 1.5
             },
             '&.Mui-focused': {
-              boxShadow: `0 0 0 3px ${cyanGlow}, 0 0 24px ${alpha(
-                brandColors.secondary.main,
-                0.18
-              )}`
+              boxShadow: `0 0 0 3px ${alpha(PRIMARY, 0.12)}`
             }
           }
         }
@@ -131,35 +174,28 @@ const buildComponentOverrides = (
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          backgroundColor: GLASS_BG,
-          backdropFilter: BLUR,
-          WebkitBackdropFilter: BLUR,
+          backgroundColor: '#FFFFFF',
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: brandColors.secondary.main,
-            boxShadow: `0 0 0 3px ${cyanGlow}`
+            borderColor: PRIMARY,
+            boxShadow: `0 0 0 3px ${alpha(PRIMARY, 0.12)}`
           }
         },
-        notchedOutline: { borderColor: GLASS_BORDER }
+        notchedOutline: { borderColor: BORDER }
       }
     },
 
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 16,
-          background: GLASS_BG,
-          backdropFilter: BLUR,
-          WebkitBackdropFilter: BLUR,
-          border: `1px solid ${GLASS_BORDER}`,
-          boxShadow:
-            '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
-          transition: 'all 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
+          backgroundColor: '#FFFFFF',
+          border: `1px solid ${BORDER}`,
+          boxShadow: CARD_SHADOW,
+          borderRadius: 12,
+          backgroundImage: 'none',
+          transition: 'all 0.25s cubic-bezier(0.4,0,0.2,1)',
           '&:hover': {
-            border: `1px solid ${alpha(brandColors.secondary.main, 0.28)}`,
-            boxShadow: `0 16px 48px rgba(0,0,0,0.6), 0 0 0 1px ${alpha(
-              brandColors.secondary.main,
-              0.12
-            )}`,
+            borderColor: alpha(PRIMARY, 0.4),
+            boxShadow: CARD_SHADOW_HOVER,
             transform: 'translateY(-4px)'
           }
         }
@@ -170,12 +206,11 @@ const buildComponentOverrides = (
       styleOverrides: {
         root: {
           backgroundImage: 'none',
-          background: GLASS_BG,
-          backdropFilter: BLUR,
-          WebkitBackdropFilter: BLUR,
-          border: `1px solid ${GLASS_BORDER}`
+          backgroundColor: '#FFFFFF',
+          border: `1px solid ${BORDER}`
         },
-        outlined: { borderColor: GLASS_BORDER }
+        elevation1: { boxShadow: CARD_SHADOW },
+        outlined: { borderColor: BORDER }
       }
     },
 
@@ -183,47 +218,49 @@ const buildComponentOverrides = (
       styleOverrides: {
         root: {
           borderRadius: 8,
-          fontWeight: 600,
-          background: alpha(brandColors.secondary.main, 0.1),
-          border: `1px solid ${alpha(brandColors.secondary.main, 0.2)}`,
-          color: brandColors.secondary.light,
-          backdropFilter: 'blur(8px)',
+          fontWeight: 500,
+          fontFamily: '"Inter", sans-serif',
+          background: '#EFE2BA',
+          border: `1px solid ${BORDER}`,
+          color: '#1A1A2E',
           transition: 'all 0.2s ease',
           '&:hover': {
-            background: alpha(brandColors.secondary.main, 0.18),
+            background: alpha(PRIMARY, 0.1),
+            borderColor: alpha(PRIMARY, 0.35),
+            color: PRIMARY,
             transform: 'translateY(-1px)'
           }
         },
         colorPrimary: {
-          background: `linear-gradient(135deg, ${brandColors.primary.dark}, ${brandColors.secondary.main})`,
+          background: PRIMARY,
           color: '#FFFFFF',
           border: 'none',
-          boxShadow: `0 4px 14px ${alpha(brandColors.primary.main, 0.3)}`
+          boxShadow: `0 4px 12px ${alpha(PRIMARY, 0.28)}`,
+          '&:hover': { background: '#2D3D7A' }
         }
       }
     },
 
     MuiDivider: {
-      styleOverrides: { root: { borderColor: GLASS_BORDER } }
+      styleOverrides: { root: { borderColor: BORDER } }
     },
 
     MuiAutocomplete: {
       styleOverrides: {
         paper: {
-          background: 'rgba(8, 11, 17, 0.97)',
-          backdropFilter: 'blur(28px)',
-          WebkitBackdropFilter: 'blur(28px)',
-          border: `1px solid ${GLASS_BRIGHT}`,
-          boxShadow: '0 20px 60px rgba(0,0,0,0.7)',
-          borderRadius: 12
+          background: '#FFFFFF',
+          border: `1px solid ${BORDER}`,
+          boxShadow: '0 8px 28px rgba(64,86,161,0.12)',
+          borderRadius: 12,
+          marginTop: 4
         },
         option: {
           '&[aria-selected="true"]': {
-            backgroundColor: alpha(brandColors.secondary.main, 0.14),
-            color: brandColors.secondary.light
+            backgroundColor: alpha(PRIMARY, 0.08),
+            color: PRIMARY
           },
           '&.Mui-focused': {
-            backgroundColor: alpha(brandColors.secondary.main, 0.08)
+            backgroundColor: alpha(PRIMARY, 0.05)
           }
         }
       }
@@ -234,8 +271,8 @@ const buildComponentOverrides = (
         root: {
           transition: 'all 0.2s ease',
           '&:hover': {
-            backgroundColor: alpha(brandColors.secondary.main, 0.1),
-            transform: 'scale(1.08)'
+            backgroundColor: alpha(PRIMARY, 0.08),
+            transform: 'scale(1.05)'
           }
         }
       }
@@ -250,10 +287,9 @@ const buildComponentOverrides = (
     MuiDrawer: {
       styleOverrides: {
         paper: {
-          background: 'rgba(8, 11, 17, 0.97)',
-          backdropFilter: 'blur(28px)',
-          WebkitBackdropFilter: 'blur(28px)',
-          border: `1px solid ${GLASS_BORDER}`
+          background: '#FFFFFF',
+          border: `1px solid ${BORDER}`,
+          boxShadow: '-4px 0 24px rgba(64,86,161,0.10)'
         }
       }
     },
@@ -265,15 +301,13 @@ const buildComponentOverrides = (
           margin: '2px 8px',
           transition: 'all 0.2s ease',
           '&:hover': {
-            backgroundColor: alpha(brandColors.secondary.main, 0.09),
-            color: brandColors.secondary.light
+            backgroundColor: alpha(PRIMARY, 0.06),
+            color: PRIMARY
           },
           '&.Mui-selected': {
-            backgroundColor: alpha(brandColors.secondary.main, 0.14),
-            color: brandColors.secondary.light,
-            '&:hover': {
-              backgroundColor: alpha(brandColors.secondary.main, 0.2)
-            }
+            backgroundColor: alpha(PRIMARY, 0.1),
+            color: PRIMARY,
+            '&:hover': { backgroundColor: alpha(PRIMARY, 0.14) }
           }
         }
       }
@@ -282,69 +316,18 @@ const buildComponentOverrides = (
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
-          background: 'rgba(8, 11, 17, 0.96)',
-          backdropFilter: 'blur(12px)',
-          border: `1px solid ${GLASS_BORDER}`,
-          borderRadius: 8,
+          background: '#1A1A2E',
+          color: '#FFFFFF',
+          borderRadius: 6,
           fontSize: '0.75rem',
           fontWeight: 500
         },
-        arrow: { color: 'rgba(8, 11, 17, 0.96)' }
+        arrow: { color: '#1A1A2E' }
       }
     }
-  };
-};
-
-export const lightTheme = createTheme({
-  ...sharedThemeOptions,
-  palette: {
-    mode: 'light',
-    primary: brandColors.primary,
-    secondary: brandColors.secondary,
-    background: {
-      default: brandColors.light.background,
-      paper: brandColors.light.paper,
-      // @ts-ignore custom palette keys
-      hover: brandColors.light.hover,
-      lightSecondary: brandColors.light.lightSecondary,
-      darkSecondary: brandColors.light.darkSecondary
-    },
-    text: {
-      primary: brandColors.light.text,
-      secondary: brandColors.light.textSecondary
-    },
-    divider: brandColors.light.border,
-    action: {
-      hover: alpha(brandColors.secondary.main, 0.08),
-      selected: alpha(brandColors.primary.main, 0.14)
-    }
-  },
-  components: buildComponentOverrides('light')
+  }
 });
 
-export const darkTheme = createTheme({
-  ...sharedThemeOptions,
-  palette: {
-    mode: 'dark',
-    primary: brandColors.primary,
-    secondary: brandColors.secondary,
-    background: {
-      default: brandColors.dark.background,
-      paper: brandColors.dark.paper,
-      // @ts-ignore custom palette keys
-      hover: brandColors.dark.hover,
-      lightSecondary: brandColors.dark.lightSecondary,
-      darkSecondary: brandColors.dark.darkSecondary
-    },
-    text: {
-      primary: brandColors.dark.text,
-      secondary: brandColors.dark.textSecondary
-    },
-    divider: brandColors.dark.border,
-    action: {
-      hover: alpha(brandColors.secondary.main, 0.08),
-      selected: alpha(brandColors.primary.main, 0.15)
-    }
-  },
-  components: buildComponentOverrides('dark')
-});
+/* Backwards-compat aliases — App.tsx still imports these names */
+export const lightTheme = theme;
+export const darkTheme = theme;

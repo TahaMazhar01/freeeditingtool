@@ -7,24 +7,20 @@ import UserTypeFilter from '@components/UserTypeFilter';
 import AdPlaceholder from 'components/AdPlaceholder';
 
 /*
- * HERO IMAGE: Place the uploaded file at
- *   public/assets/background.jpeg
- * and it will be picked up by the background-image below.
+ * Layout — light mode, no background image:
  *
- * Layout:
  *   ┌─────────────────────────────────────────────────────┐
  *   │  [Floating capsule navbar — fixed, not in flow]     │
  *   ├─────────────────────────────────────────────────────┤
- *   │  HERO SECTION  (100vh, bg = background.jpeg)             │
- *   │     mt: -84px  — pulls image under the navbar       │
- *   │     pt: 84px   — pushes text content back down      │
- *   │                                                     │
- *   │   [badge] [H1] [subtitle] [search] [chips] [stats]  │
+ *   │  HERO  (cream gradient bg)                          │
+ *   │    mt:-102px pulls it behind the navbar              │
+ *   │    [badge] [H1 Playfair] [subtitle] [search] [chips]│
  *   ├─────────────────────────────────────────────────────┤
- *   │  ── BELOW THE FOLD ──                               │
- *   │  [Leaderboard Ad]                                   │
+ *   │  [Leaderboard Ad — cream card]                      │
+ *   ├─────────────────────────────────────────────────────┤
  *   │  [User type filter]                                 │
- *   │  [Categories]                                       │
+ *   ├─────────────────────────────────────────────────────┤
+ *   │  [Tool Categories — white cards on #FAFAF8]         │
  *   └─────────────────────────────────────────────────────┘
  */
 
@@ -35,79 +31,47 @@ export default function Home() {
     <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
       <Helmet title="FreeEditingTools — 119+ Free Browser Tools" />
 
-      {/* ════════════════════════════════════════════════
-          HERO SECTION  —  Background image fills viewport
-          mt: '-84px' pulls the image under the fixed navbar
-          pt: '84px'  pushes hero CONTENT back below navbar
-          ════════════════════════════════════════════════ */}
+      {/* ══════════════════════════════════════════════════
+          HERO SECTION
+          Cream gradient background — warm and readable.
+          mt:'-102px' pulls this section under the capsule navbar
+          so the gradient fills the full viewport from the top.
+          pt:'84px' pushes the Hero content text below the navbar.
+          ══════════════════════════════════════════════════ */}
       <Box
         sx={{
-          position: 'relative',
-          mt: '-84px',
-          minHeight: '100vh',
+          mt: '-102px',
+          pt: { xs: '140px', md: '150px' },
+          pb: { xs: 7, md: 9 },
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          pt: { xs: '100px', md: '110px' },
-          pb: { xs: 6, md: 8 },
-          /* ── Hero background image ── */
-          backgroundImage: 'url(/assets/background.jpeg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat',
-          overflow: 'hidden'
+          background:
+            'linear-gradient(170deg, #EFE2BA 0%, #F5EDD4 30%, #FAFAF8 65%, #FFFFFF 100%)',
+          borderBottom: '1px solid #E8E4D9'
         }}
       >
-        {/*
-          Very subtle dark radial overlay.
-          Darkens the image edges slightly so text in the
-          "empty center" reads cleanly without a heavy vignette.
-        */}
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            background: [
-              'radial-gradient(ellipse 60% 50% at 50% 50%, transparent 0%, rgba(8,11,17,0.25) 100%)',
-              'linear-gradient(to bottom, rgba(8,11,17,0.35) 0%, transparent 25%, transparent 75%, rgba(8,11,17,0.55) 100%)'
-            ].join(', '),
-            pointerEvents: 'none',
-            zIndex: 0
-          }}
-        />
-
-        {/* Hero content sits above the overlay */}
-        <Box sx={{ position: 'relative', zIndex: 1, width: '100%' }}>
-          <Hero />
-        </Box>
+        <Hero />
       </Box>
 
-      {/* ════════════════════════════════════════════════
-          BELOW THE FOLD  —  Solid navy background
-          Seamlessly continues from the image's edge color
-          ════════════════════════════════════════════════ */}
+      {/* ══════════════════════════════════════════════════
+          BELOW THE FOLD — warm white background
+          ══════════════════════════════════════════════════ */}
       <Box
         sx={{
-          background: '#080B11',
+          background: '#FAFAF8',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           px: { xs: 2, sm: 3, md: 5, lg: 8 }
         }}
       >
-        {/* ── Above-fold ad slot (leaderboard) ── */}
-        <Box
-          sx={{
-            width: '100%',
-            maxWidth: 900,
-            pt: 5,
-            pb: 3
-          }}
-        >
+        {/* ── Leaderboard ad slot ── */}
+        <Box sx={{ width: '100%', maxWidth: 900, pt: 5, pb: 3 }}>
           <AdPlaceholder variant="banner" />
         </Box>
 
-        {/* ── User-type filter ── */}
+        {/* ── User type filter ── */}
         <Box
           sx={{
             width: '100%',

@@ -7,6 +7,7 @@ import {
   Typography,
   alpha
 } from '@mui/material';
+
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 import { DefinedTool } from '@tools/defineTool';
@@ -24,26 +25,28 @@ import {
 import IconButton from '@mui/material/IconButton';
 import { useUserTypeFilter } from '../providers/UserTypeFilterProvider';
 
-/* ── Autocomplete group header ──────────────────────────── */
+const PRIMARY = '#4056A1';
+const GOLD = '#D79922';
+
+/* ── Autocomplete group header ──────────────────────────────── */
 const GroupHeader = styled('div')({
   position: 'sticky',
   top: '-8px',
-  padding: '5px 12px',
+  padding: '5px 14px',
   fontSize: '0.70rem',
   fontWeight: 700,
   letterSpacing: '0.09em',
   textTransform: 'uppercase',
-  color: '#22D3EE',
-  background: 'rgba(8,11,17,0.97)',
-  backdropFilter: 'blur(16px)',
-  borderBottom: '1px solid rgba(255,255,255,0.06)'
+  color: '#4056A1',
+  background: '#FFFFFF',
+  borderBottom: '1px solid #E8E4D9',
+  fontFamily: '"Inter", sans-serif'
 });
 
 const GroupItems = styled('ul')({ padding: 0 });
 
 type ToolInfo = { label: FullI18nKey; url: string };
 
-/* Quick-access example tools */
 const EXAMPLE_TOOLS: ToolInfo[] = [
   {
     label: 'translation:hero.examples.createTransparentImage',
@@ -60,34 +63,6 @@ const EXAMPLE_TOOLS: ToolInfo[] = [
   { label: 'translation:hero.examples.splitPdf', url: '/pdf/split-pdf' },
   { label: 'translation:hero.examples.trimVideo', url: '/video/trim' },
   { label: 'translation:hero.examples.calculateNumberSum', url: '/number/sum' }
-];
-
-/* Inline stats row */
-const STATS = [
-  {
-    value: '119+',
-    label: 'Free Tools',
-    icon: 'ph:wrench-duotone',
-    color: '#818CF8'
-  },
-  {
-    value: '10',
-    label: 'Languages',
-    icon: 'ph:translate-duotone',
-    color: '#22D3EE'
-  },
-  {
-    value: '0',
-    label: 'Data Sent',
-    icon: 'ph:cloud-slash-duotone',
-    color: '#10B981'
-  },
-  {
-    value: '100%',
-    label: 'In-Browser',
-    icon: 'ph:browser-duotone',
-    color: '#A855F7'
-  }
 ];
 
 export default function Hero() {
@@ -119,109 +94,81 @@ export default function Hero() {
       : EXAMPLE_TOOLS;
 
   return (
-    /* ── Content region — Hero.tsx controls only the INNER content.
-       The background image wrapper lives in home/index.tsx.        ── */
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         width: '100%',
-        maxWidth: 900,
+        maxWidth: 860,
         mx: 'auto',
         textAlign: 'center',
         px: { xs: 2, md: 4 }
       }}
     >
-      {/* ── Live-pulse badge ────────────────────────────── */}
-      <Box
-        sx={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 0.75,
-          px: 2,
-          py: 0.6,
-          mb: 2.5,
-          borderRadius: 999,
-          background: 'rgba(6,182,212,0.08)',
-          border: '1px solid rgba(6,182,212,0.22)',
-          color: '#22D3EE',
-          fontSize: '0.75rem',
-          fontWeight: 600,
-          letterSpacing: '0.04em',
-          boxShadow: '0 0 18px rgba(6,182,212,0.12)',
-          animation: 'slideUpFade 0.6s cubic-bezier(0.16,1,0.3,1) both'
-        }}
-      >
-        <Box
-          sx={{
-            width: 6,
-            height: 6,
-            borderRadius: '50%',
-            background: '#22D3EE',
-            boxShadow: '0 0 8px #22D3EE',
-            animation: 'pulseGlow 2.5s ease-in-out infinite'
-          }}
-        />
-        Open Source · Free Forever · Privacy First
-      </Box>
-
-      {/* ── Main Headline ───────────────────────────────── */}
+      {/* ── Playfair Display headline ────────────────────────── */}
       <Typography
         variant="h1"
         sx={{
-          fontFamily: '"Outfit", sans-serif',
-          fontWeight: 900,
-          fontSize: { xs: '2.2rem', sm: '3rem', md: '3.8rem', lg: '4.4rem' },
-          lineHeight: 1.08,
-          letterSpacing: '-0.03em',
+          fontFamily: '"Playfair Display", Georgia, serif',
+          fontWeight: 700,
+          fontSize: { xs: '2.2rem', sm: '3rem', md: '3.6rem', lg: '4rem' },
+          lineHeight: 1.12,
+          letterSpacing: '-0.02em',
+          color: PRIMARY,
           mb: 1.5,
-          color: '#F1F5F9',
-          animation: 'slideUpFade 0.7s 0.08s cubic-bezier(0.16,1,0.3,1) both'
+          animation: 'slideUpFade 0.6s 0.08s cubic-bezier(0.16,1,0.3,1) both'
         }}
       >
         {t('translation:hero.title')}{' '}
         <Box
           component="span"
           sx={{
-            background:
-              'linear-gradient(135deg, #A5B4FC 0%, #22D3EE 45%, #C4B5FD 100%)',
-            backgroundSize: '300% auto',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            animation: 'shimmerSlide 5s linear infinite',
-            display: 'inline-block'
+            color: '#F13C20',
+            position: 'relative',
+            /* Gold underline accent on brand name */
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              bottom: 2,
+              left: 0,
+              right: 0,
+              height: 3,
+              borderRadius: 2,
+              background: GOLD,
+              opacity: 0.6
+            }
           }}
         >
           {t('translation:hero.brand')}
         </Box>
       </Typography>
 
-      {/* ── Subtitle ────────────────────────────────────── */}
+      {/* ── Subtitle ────────────────────────────────────────── */}
       <Typography
         variant="body1"
         sx={{
-          fontSize: { xs: '0.95rem', md: '1.1rem' },
-          color: 'rgba(148,163,184,0.85)',
-          maxWidth: 560,
-          lineHeight: 1.75,
+          fontSize: { xs: '1rem', md: '1.1rem' },
+          color: '#555577',
+          maxWidth: 540,
+          lineHeight: 1.7,
           mb: 4,
-          animation: 'slideUpFade 0.7s 0.16s cubic-bezier(0.16,1,0.3,1) both'
+          fontFamily: '"Inter", sans-serif',
+          animation: 'slideUpFade 0.6s 0.14s cubic-bezier(0.16,1,0.3,1) both'
         }}
       >
         {t('translation:hero.description')}
       </Typography>
 
-      {/* ── Glass search bar ─────────────────────────────
-          Neon cyan glow on focus — matches cyan cube highlights.
-          Width covers the "dark empty center" of the hero image.   */}
+      {/* ── Search bar ─────────────────────────────────────────
+          White background, deep-blue border on focus,
+          gold search icon — clear and readable on cream/white.  */}
       <Box
         sx={{
           width: '100%',
-          maxWidth: 680,
+          maxWidth: 660,
           mb: 3.5,
-          animation: 'slideUpFade 0.7s 0.22s cubic-bezier(0.16,1,0.3,1) both'
+          animation: 'slideUpFade 0.6s 0.20s cubic-bezier(0.16,1,0.3,1) both'
         }}
       >
         <Autocomplete
@@ -249,31 +196,28 @@ export default function Hero() {
                   <Icon
                     icon="ph:magnifying-glass-bold"
                     fontSize={20}
-                    color="rgba(34,211,238,0.6)"
+                    color={GOLD}
                     style={{ marginRight: 10, flexShrink: 0 }}
                   />
                 ),
                 sx: {
-                  borderRadius: '14px',
-                  background: 'rgba(8,11,17,0.75)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  fontSize: '0.95rem',
-                  color: '#F1F5F9',
-                  transition: 'all 0.3s ease',
+                  borderRadius: '12px',
+                  background: '#FFFFFF',
+                  fontSize: '1rem',
+                  color: '#1A1A2E',
+                  border: '1.5px solid #E8E4D9',
+                  boxShadow: '0 2px 8px rgba(64,86,161,0.06)',
+                  transition: 'all 0.25s ease',
                   '&.Mui-focused': {
-                    border: '1px solid rgba(6,182,212,0.55)',
-                    boxShadow: [
-                      '0 0 0 3px rgba(6,182,212,0.15)',
-                      '0 0 28px rgba(6,182,212,0.22)',
-                      '0 8px 32px rgba(0,0,0,0.5)'
-                    ].join(', '),
-                    background: 'rgba(8,11,17,0.90)'
+                    border: `1.5px solid ${PRIMARY}`,
+                    boxShadow: `0 0 0 3px ${alpha(
+                      PRIMARY,
+                      0.12
+                    )}, 0 4px 16px rgba(64,86,161,0.10)`
                   },
                   '& fieldset': { border: 'none' },
                   px: 0.5,
-                  py: 0.75
+                  py: 0.5
                 }
               }}
               onChange={(e) => handleInputChange(e, e.target.value)}
@@ -286,7 +230,7 @@ export default function Hero() {
               onClick={() => navigate('/' + option.path)}
               sx={{
                 transition: 'background 0.15s ease',
-                '&:hover': { background: 'rgba(6,182,212,0.08)' }
+                '&:hover': { background: alpha(PRIMARY, 0.05) }
               }}
             >
               <Stack
@@ -304,24 +248,26 @@ export default function Hero() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      background: 'rgba(6,182,212,0.10)',
-                      color: '#22D3EE',
+                      background: '#EFE2BA',
+                      color: PRIMARY,
                       flexShrink: 0
                     }}
                   >
-                    <Icon icon={option.icon} fontSize={18} />
+                    <Icon icon={option.icon} fontSize={17} />
                   </Box>
                   <Box textAlign="left">
                     <Typography
                       fontWeight={600}
                       fontSize="0.88rem"
-                      color="#E2E8F0"
+                      color="#1A1A2E"
+                      fontFamily='"Inter", sans-serif'
                     >
                       {t(option.name)}
                     </Typography>
                     <Typography
                       fontSize="0.73rem"
-                      color="rgba(148,163,184,0.65)"
+                      color="#555577"
+                      fontFamily='"Inter", sans-serif'
                     >
                       {t(option.shortDescription)}
                     </Typography>
@@ -335,10 +281,8 @@ export default function Hero() {
                     setBookmarkedPaths(getBookmarkedToolPaths());
                   }}
                   sx={{
-                    color: isBookmarked(option.path)
-                      ? '#22D3EE'
-                      : 'rgba(148,163,184,0.35)',
-                    '&:hover': { color: '#22D3EE' }
+                    color: isBookmarked(option.path) ? PRIMARY : '#C5CBE3',
+                    '&:hover': { color: PRIMARY }
                   }}
                 >
                   <Icon
@@ -359,16 +303,16 @@ export default function Hero() {
         />
       </Box>
 
-      {/* ── Quick-access chips ───────────────────────────── */}
+      {/* ── Quick-access chips ────────────────────────────────── */}
       <Box
         sx={{
           display: 'flex',
           flexWrap: 'wrap',
           gap: 1,
           justifyContent: 'center',
-          maxWidth: 700,
+          maxWidth: 680,
           mb: 5,
-          animation: 'slideUpFade 0.7s 0.30s cubic-bezier(0.16,1,0.3,1) both'
+          animation: 'slideUpFade 0.6s 0.28s cubic-bezier(0.16,1,0.3,1) both'
         }}
       >
         {displayedTools.map((tool) => (
@@ -386,13 +330,9 @@ export default function Hero() {
                       toggleBookmarked(path);
                       setBookmarkedPaths(getBookmarkedToolPaths());
                     }}
-                    sx={{ lineHeight: 1, ml: 0.25 }}
+                    sx={{ lineHeight: 1 }}
                   >
-                    <Icon
-                      icon="ph:x"
-                      fontSize={10}
-                      color="rgba(148,163,184,0.5)"
-                    />
+                    <Icon icon="ph:x" fontSize={10} color="#555577" />
                   </Box>
                 )}
               </Stack>
@@ -404,101 +344,25 @@ export default function Hero() {
               height: 30,
               fontSize: '0.75rem',
               fontWeight: 500,
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.09)',
-              color: 'rgba(148,163,184,0.75)',
+              fontFamily: '"Inter", sans-serif',
+              background: '#EFE2BA',
+              border: '1px solid #E8D9A8',
+              color: '#1A1A2E',
               borderRadius: '8px',
               cursor: 'pointer',
-              backdropFilter: 'blur(8px)',
               transition: 'all 0.2s ease',
               '&:hover': {
-                background: 'rgba(6,182,212,0.10)',
-                borderColor: 'rgba(6,182,212,0.30)',
-                color: '#22D3EE',
+                background: alpha(PRIMARY, 0.08),
+                borderColor: alpha(PRIMARY, 0.35),
+                color: PRIMARY,
                 transform: 'translateY(-2px)',
-                boxShadow: '0 4px 14px rgba(6,182,212,0.15)'
+                boxShadow: `0 4px 10px ${alpha(PRIMARY, 0.12)}`
               },
               '& .MuiChip-label': { px: 1.5 }
             }}
           />
         ))}
       </Box>
-
-      {/* ── Stats row ────────────────────────────────────── */}
-      <Stack
-        direction="row"
-        flexWrap="wrap"
-        gap={1.5}
-        justifyContent="center"
-        sx={{
-          animation: 'slideUpFade 0.7s 0.38s cubic-bezier(0.16,1,0.3,1) both'
-        }}
-      >
-        {STATS.map((stat) => (
-          <Box
-            key={stat.label}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1.25,
-              px: 2,
-              py: 1.25,
-              borderRadius: '12px',
-              background: 'rgba(8,11,17,0.55)',
-              border: '1px solid rgba(255,255,255,0.07)',
-              backdropFilter: 'blur(12px)',
-              transition: 'all 0.25s ease',
-              '&:hover': {
-                background: `${alpha(stat.color, 0.07)}`,
-                borderColor: alpha(stat.color, 0.22),
-                transform: 'translateY(-3px)',
-                boxShadow: `0 8px 20px ${alpha(stat.color, 0.14)}`
-              }
-            }}
-          >
-            <Box
-              sx={{
-                width: 34,
-                height: 34,
-                borderRadius: '9px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: alpha(stat.color, 0.12),
-                color: stat.color,
-                boxShadow: `0 0 10px ${alpha(stat.color, 0.2)}`
-              }}
-            >
-              <Icon icon={stat.icon} fontSize={17} />
-            </Box>
-            <Box>
-              <Typography
-                sx={{
-                  fontFamily: '"Outfit", sans-serif',
-                  fontWeight: 800,
-                  fontSize: '1.15rem',
-                  color: stat.color,
-                  lineHeight: 1,
-                  textShadow: `0 0 12px ${alpha(stat.color, 0.45)}`
-                }}
-              >
-                {stat.value}
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: '0.68rem',
-                  color: 'rgba(148,163,184,0.5)',
-                  fontWeight: 500,
-                  lineHeight: 1.2,
-                  mt: 0.2
-                }}
-              >
-                {stat.label}
-              </Typography>
-            </Box>
-          </Box>
-        ))}
-      </Stack>
     </Box>
   );
 }

@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Box,
   Container,
@@ -9,17 +8,17 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
-import logo from '../assets/logo.png';
 import { useTranslation } from 'react-i18next';
 
-const GLASS = 'rgba(11, 15, 25, 0.80)';
-const BORDER = 'rgba(148, 163, 184, 0.08)';
+const PRIMARY = '#4056A1';
+const PRIMARY_DARK = '#2D3D7A';
+const GOLD = '#D79922';
+const GOLD_LIGHT = '#F0C040';
+const WHITE = '#FFFFFF';
+const WHITE_MUTED = 'rgba(255,255,255,0.60)';
+const WHITE_BORDER = 'rgba(255,255,255,0.10)';
 
-const footerLinks: {
-  section: string;
-  icon: string;
-  items: { label: string; to: string }[];
-}[] = [
+const footerLinks = [
   {
     section: 'Tools & Site',
     icon: 'ph:wrench-duotone',
@@ -39,15 +38,6 @@ const footerLinks: {
   }
 ];
 
-const socialLinks = [
-  { icon: 'ph:github-logo-fill', href: 'https://github.com', label: 'GitHub' },
-  {
-    icon: 'ph:twitter-logo-fill',
-    href: 'https://twitter.com',
-    label: 'Twitter'
-  }
-];
-
 export default function Footer() {
   const { t } = useTranslation('translation');
 
@@ -55,44 +45,34 @@ export default function Footer() {
     <Box
       component="footer"
       sx={{
-        position: 'relative',
-        background: GLASS,
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
-        borderTop: `1px solid ${BORDER}`,
+        background: `linear-gradient(135deg, ${PRIMARY_DARK} 0%, ${PRIMARY} 60%, #4D64B8 100%)`,
+        color: WHITE,
         mt: 'auto',
         width: '100%',
-        overflow: 'hidden'
-      }}
-    >
-      {/* Top gradient accent line */}
-      <Box
-        sx={{
+        position: 'relative',
+        overflow: 'hidden',
+        /* Subtle decorative dot pattern */
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          backgroundImage:
+            'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+          pointerEvents: 'none'
+        },
+        /* Gold top accent line */
+        '&::after': {
+          content: '""',
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
-          height: '1px',
-          background:
-            'linear-gradient(90deg, transparent 0%, #6366F1 20%, #06B6D4 50%, #8B5CF6 80%, transparent 100%)',
-          opacity: 0.5
-        }}
-      />
-
-      {/* Faint aurora glow behind footer */}
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: 0,
-          left: '30%',
-          width: '40%',
-          height: '180px',
-          background:
-            'radial-gradient(ellipse at 50% 100%, rgba(99,102,241,0.08) 0%, transparent 70%)',
-          pointerEvents: 'none'
-        }}
-      />
-
+          height: '3px',
+          background: `linear-gradient(90deg, transparent, ${GOLD} 30%, ${GOLD_LIGHT} 50%, ${GOLD} 70%, transparent)`
+        }
+      }}
+    >
       <Container
         maxWidth="lg"
         sx={{ position: 'relative', py: { xs: 5, md: 7 } }}
@@ -101,27 +81,13 @@ export default function Footer() {
           {/* Brand column */}
           <Grid item xs={12} md={4}>
             <Stack direction="row" spacing={1.5} alignItems="center" mb={2}>
-              <Box
-                component="img"
-                src={logo}
-                alt="FreeEditingTools"
-                sx={{
-                  height: 38,
-                  width: 'auto',
-                  filter: 'drop-shadow(0 0 6px rgba(99,102,241,0.45))'
-                }}
-              />
               <Typography
-                variant="h6"
                 sx={{
-                  fontFamily: '"Outfit", sans-serif',
-                  fontWeight: 800,
-                  fontSize: '1.1rem',
-                  background:
-                    'linear-gradient(135deg, #818CF8 0%, #22D3EE 60%, #A78BFA 100%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
+                  fontFamily: '"Playfair Display", serif',
+                  fontWeight: 700,
+                  fontSize: '1.15rem',
+                  color: WHITE,
+                  letterSpacing: '-0.01em'
                 }}
               >
                 {t('hero.brand')}
@@ -129,9 +95,10 @@ export default function Footer() {
             </Stack>
 
             <Typography
-              variant="body2"
               sx={{
-                color: 'rgba(148,163,184,0.75)',
+                fontFamily: '"Inter", sans-serif',
+                fontSize: '0.875rem',
+                color: WHITE_MUTED,
                 lineHeight: 1.7,
                 maxWidth: 300,
                 mb: 3
@@ -140,7 +107,7 @@ export default function Footer() {
               {t('hero.description')}
             </Typography>
 
-            {/* Built client-side badge */}
+            {/* Privacy badge */}
             <Box
               sx={{
                 display: 'inline-flex',
@@ -149,11 +116,12 @@ export default function Footer() {
                 px: 1.5,
                 py: 0.6,
                 borderRadius: '20px',
-                background: 'rgba(16, 185, 129, 0.1)',
-                border: '1px solid rgba(16,185,129,0.2)',
-                color: '#10B981',
+                background: 'rgba(255,255,255,0.08)',
+                border: `1px solid ${WHITE_BORDER}`,
+                color: GOLD_LIGHT,
                 fontSize: '0.72rem',
                 fontWeight: 600,
+                fontFamily: '"Inter", sans-serif',
                 letterSpacing: '0.03em'
               }}
             >
@@ -162,49 +130,12 @@ export default function Footer() {
                   width: 6,
                   height: 6,
                   borderRadius: '50%',
-                  background: '#10B981',
-                  boxShadow: '0 0 6px rgba(16,185,129,0.8)',
-                  animation: 'pulseGlow 2s ease-in-out infinite'
+                  background: GOLD_LIGHT,
+                  boxShadow: `0 0 6px ${GOLD_LIGHT}`
                 }}
               />
-              100% Client-Side Processing
+              100% Client-Side · Zero Data Sent
             </Box>
-
-            {/* Social links */}
-            <Stack direction="row" spacing={1} mt={2.5}>
-              {socialLinks.map((s) => (
-                <Box
-                  key={s.label}
-                  component="a"
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  sx={{
-                    width: 36,
-                    height: 36,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: '9px',
-                    border: '1px solid rgba(148,163,184,0.12)',
-                    background: 'rgba(255,255,255,0.03)',
-                    color: 'rgba(148,163,184,0.6)',
-                    transition: 'all 0.2s ease',
-                    textDecoration: 'none',
-                    '&:hover': {
-                      color: '#818CF8',
-                      borderColor: 'rgba(99,102,241,0.4)',
-                      background: 'rgba(99,102,241,0.1)',
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 4px 12px rgba(99,102,241,0.2)'
-                    }
-                  }}
-                >
-                  <Icon icon={s.icon} fontSize={18} />
-                </Box>
-              ))}
-            </Stack>
           </Grid>
 
           {/* Link columns */}
@@ -216,19 +147,15 @@ export default function Footer() {
                 alignItems="center"
                 mb={2.5}
               >
-                <Icon
-                  icon={group.icon}
-                  fontSize={15}
-                  color="rgba(99,102,241,0.7)"
-                />
+                <Icon icon={group.icon} fontSize={14} color={GOLD} />
                 <Typography
-                  variant="caption"
                   sx={{
                     fontWeight: 700,
-                    fontSize: '0.72rem',
-                    letterSpacing: '0.08em',
+                    fontSize: '0.70rem',
+                    letterSpacing: '0.09em',
                     textTransform: 'uppercase',
-                    color: 'rgba(148,163,184,0.5)'
+                    color: WHITE_MUTED,
+                    fontFamily: '"Inter", sans-serif'
                   }}
                 >
                   {group.section}
@@ -242,17 +169,17 @@ export default function Footer() {
                     style={{ textDecoration: 'none' }}
                   >
                     <Typography
-                      variant="body2"
                       sx={{
-                        color: 'rgba(148,163,184,0.65)',
+                        fontFamily: '"Inter", sans-serif',
                         fontSize: '0.875rem',
                         fontWeight: 500,
+                        color: WHITE_MUTED,
                         transition: 'all 0.2s ease',
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: 0.5,
                         '&:hover': {
-                          color: '#818CF8',
+                          color: GOLD_LIGHT,
                           transform: 'translateX(3px)'
                         }
                       }}
@@ -265,16 +192,16 @@ export default function Footer() {
             </Grid>
           ))}
 
-          {/* Stats mini column */}
+          {/* Stats column */}
           <Grid item xs={12} md={3}>
             <Typography
-              variant="caption"
               sx={{
                 fontWeight: 700,
-                fontSize: '0.72rem',
-                letterSpacing: '0.08em',
+                fontSize: '0.70rem',
+                letterSpacing: '0.09em',
                 textTransform: 'uppercase',
-                color: 'rgba(148,163,184,0.5)',
+                color: WHITE_MUTED,
+                fontFamily: '"Inter", sans-serif',
                 display: 'block',
                 mb: 2.5
               }}
@@ -283,9 +210,9 @@ export default function Footer() {
             </Typography>
             <Stack spacing={2}>
               {[
-                { value: '119+', label: 'Free Tools', color: '#6366F1' },
-                { value: '10', label: 'Languages', color: '#06B6D4' },
-                { value: '0', label: 'Data Sent', color: '#10B981' }
+                { value: '119+', label: 'Free Tools', color: GOLD_LIGHT },
+                { value: '10', label: 'Languages', color: WHITE },
+                { value: '0', label: 'Data Sent', color: '#6EE7B7' }
               ].map((stat) => (
                 <Stack
                   key={stat.label}
@@ -295,20 +222,22 @@ export default function Footer() {
                 >
                   <Typography
                     sx={{
-                      fontFamily: '"Outfit", sans-serif',
-                      fontWeight: 800,
-                      fontSize: '1.3rem',
+                      fontFamily: '"Playfair Display", serif',
+                      fontWeight: 700,
+                      fontSize: '1.4rem',
                       color: stat.color,
                       lineHeight: 1,
-                      minWidth: 48,
-                      textShadow: `0 0 12px ${stat.color}60`
+                      minWidth: 52
                     }}
                   >
                     {stat.value}
                   </Typography>
                   <Typography
-                    variant="body2"
-                    sx={{ color: 'rgba(148,163,184,0.55)', fontSize: '0.8rem' }}
+                    sx={{
+                      fontFamily: '"Inter", sans-serif',
+                      fontSize: '0.8rem',
+                      color: WHITE_MUTED
+                    }}
                   >
                     {stat.label}
                   </Typography>
@@ -318,33 +247,36 @@ export default function Footer() {
           </Grid>
         </Grid>
 
-        {/* Bottom bar */}
-        <Divider sx={{ borderColor: BORDER, my: 4 }} />
+        <Divider sx={{ borderColor: WHITE_BORDER, my: 4 }} />
+
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
           justifyContent="space-between"
-          alignItems={{ xs: 'center', sm: 'center' }}
+          alignItems="center"
           spacing={1}
         >
           <Typography
-            variant="caption"
-            sx={{ color: 'rgba(148,163,184,0.4)', fontSize: '0.75rem' }}
+            sx={{
+              fontFamily: '"Inter", sans-serif',
+              fontSize: '0.78rem',
+              color: WHITE_MUTED
+            }}
           >
             &copy; {new Date().getFullYear()} {t('hero.brand')}. All rights
             reserved.
           </Typography>
           <Typography
-            variant="caption"
             sx={{
-              color: 'rgba(148,163,184,0.4)',
-              fontSize: '0.75rem',
+              fontFamily: '"Inter", sans-serif',
+              fontSize: '0.78rem',
+              color: WHITE_MUTED,
               display: 'flex',
               alignItems: 'center',
               gap: 0.5
             }}
           >
             Built with
-            <Icon icon="ph:heart-fill" fontSize={11} color="#EC4899" />
+            <Icon icon="ph:heart-fill" fontSize={11} color={GOLD} />
             for privacy-first computing
           </Typography>
         </Stack>

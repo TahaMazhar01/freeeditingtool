@@ -1,44 +1,40 @@
 /* ============================================================
    FreeEditingTools — Global Design System
-   Hero-image-first aesthetic — NO manual grids or aurora blobs
-   The uploaded 3D cube background image provides all visual depth
+   Light-mode only. Playfair Display headings + Inter body.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap');
 
-/* ── CSS Custom Properties ─────────────────────────────────── */
+/* ── Design Tokens ──────────────────────────────────────────── */
 :root {
-  /* Palette extracted from the hero image */
-  --bg-base:       #080B11;  /* deep navy — matches image edges */
-  --bg-surface:    #0D1420;  /* slightly lighter navy */
-  --bg-card:       rgba(8, 11, 17, 0.72);
+  --color-primary:       #4056A1;   /* Deep Blue — nav, buttons, headings   */
+  --color-primary-light: #C5CBE3;   /* Light Blue — hover states, badges    */
+  --color-primary-dark:  #2D3D7A;   /* Darker Blue — active, pressed        */
+  --color-accent:        #F13C20;   /* Red — CTAs, highlights, alerts       */
+  --color-accent-light:  #FF6B4A;   /* Lighter Red — hover                  */
+  --color-gold:          #D79922;   /* Gold — icons, tags, premium          */
+  --color-gold-light:    #F0C040;   /* Light Gold — hover                   */
+  --color-cream:         #EFE2BA;   /* Cream — card/section backgrounds     */
+  --color-cream-dark:    #E8D9A8;   /* Deeper cream — borders, dividers     */
+  --color-text:          #1A1A2E;   /* Primary dark text                    */
+  --color-text-muted:    #555577;   /* Secondary / helper text              */
+  --color-bg:            #FAFAF8;   /* Warm white page background           */
+  --color-white:         #FFFFFF;
+  --color-border:        #E8E4D9;   /* Warm gray border                     */
+  --color-shadow:        rgba(64, 86, 161, 0.08);
 
-  --neon-cyan:     #06B6D4;
-  --neon-cyan-lt:  #22D3EE;
-  --neon-purple:   #7C3AED;
-  --neon-violet:   #818CF8;
-  --neon-indigo:   #6366F1;
-
-  --text-primary:   #F1F5F9;
-  --text-secondary: #94A3B8;
-  --text-muted:     #475569;
-
-  --glass-bg:     rgba(8, 11, 17, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.07);
-  --glass-blur:   blur(20px);
-
-  /* Capsule navbar height + top gap — used for page offset calculations */
+  /* Capsule navbar geometry */
   --navbar-h:     56px;
   --navbar-top:   16px;
-  --navbar-total: calc(var(--navbar-h) + var(--navbar-top) + 8px);
+  --navbar-total: calc(var(--navbar-h) + var(--navbar-top) + 12px);
+
+  /* Typography scale */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
 }
 
-/* ── Reset & Base ───────────────────────────────────────────── */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+/* ── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
 
 html {
   font-size: 16px;
@@ -48,35 +44,44 @@ html {
   text-rendering: optimizeLegibility;
 }
 
-/* Body — solid deep navy matching the hero image edges.
-   NO grid pattern, NO aurora blobs.
-   The hero background image supplies all visual richness. */
+/* ── Base — light mode only ─────────────────────────────────── */
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-  background-color: var(--bg-base);
-  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-#root {
-  position: relative;
-  z-index: 1;
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--color-primary);
+  line-height: 1.2;
+  margin: 0;
 }
 
-/* ── Link overrides ─────────────────────────────────────────── */
+h5, h6 {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  margin: 0;
+}
+
+p { margin: 0; }
+
 a {
-  color: var(--neon-violet);
+  color: var(--color-primary);
   text-decoration: none;
   transition: color 0.2s ease;
 }
-a:hover { color: var(--neon-cyan-lt); }
+a:hover { color: var(--color-accent); }
 
-/* ── Shared Animation Keyframes ─────────────────────────────── */
+/* ── Keyframes ──────────────────────────────────────────────── */
 @keyframes slideUpFade {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -85,92 +90,72 @@ a:hover { color: var(--neon-cyan-lt); }
   to   { opacity: 1; }
 }
 
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.7; }
-  50%       { opacity: 1;   }
-}
-
 @keyframes shimmerSlide {
   0%   { background-position: -200% center; }
   100% { background-position:  200% center; }
 }
 
 @keyframes floatY {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-6px); }
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
 }
 
-@keyframes capsuleGlow {
-  0%, 100% { box-shadow: 0 4px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(6,182,212,0.05), inset 0 1px 0 rgba(255,255,255,0.05); }
-  50%       { box-shadow: 0 4px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(6,182,212,0.14), inset 0 1px 0 rgba(255,255,255,0.07); }
+@keyframes pulseRing {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(64,86,161,0.12); }
+  50%       { box-shadow: 0 0 0 5px rgba(64,86,161,0.22); }
 }
 
-/* ── Utility Animation Classes ──────────────────────────────── */
-.animate-slide-up   { animation: slideUpFade 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-.animate-fade-in    { animation: fadeIn 0.5s ease forwards; }
-.animate-float      { animation: floatY 6s ease-in-out infinite; }
-.animate-pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
+/* ── Utility animation classes ──────────────────────────────── */
+.animate-slide-up { animation: slideUpFade 0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-fade-in  { animation: fadeIn 0.5s ease forwards; }
+.animate-float    { animation: floatY 5s ease-in-out infinite; }
 
-.stagger-1  { animation-delay: 0.06s; }
-.stagger-2  { animation-delay: 0.12s; }
-.stagger-3  { animation-delay: 0.18s; }
-.stagger-4  { animation-delay: 0.24s; }
-.stagger-5  { animation-delay: 0.30s; }
+.stagger-1 { animation-delay: 0.06s; }
+.stagger-2 { animation-delay: 0.12s; }
+.stagger-3 { animation-delay: 0.18s; }
+.stagger-4 { animation-delay: 0.24s; }
+.stagger-5 { animation-delay: 0.30s; }
 
-/* ── Glass Utilities ────────────────────────────────────────── */
-.glass {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+/* ── Card utility ───────────────────────────────────────────── */
+.card-light {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 12px var(--color-shadow);
+  border-radius: 12px;
 }
 
-.glass-bright {
-  background: rgba(13, 20, 32, 0.80);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+.card-cream {
+  background: var(--color-cream);
+  border: 1px solid var(--color-cream-dark);
+  border-radius: 12px;
 }
 
-/* ── Gradient Text ──────────────────────────────────────────── */
+/* ── Gradient text ──────────────────────────────────────────── */
 .gradient-text {
-  background: linear-gradient(135deg, #818CF8 0%, #22D3EE 50%, #A78BFA 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, #6B7FBD 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.gradient-text-animate {
-  background: linear-gradient(135deg, #818CF8 0%, #22D3EE 35%, #A78BFA 65%, #818CF8 100%);
-  background-size: 300% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmerSlide 5s linear infinite;
-}
-
-/* ── Neon glow borders ──────────────────────────────────────── */
-.neon-cyan  { border-color: rgba(6,182,212,0.35); box-shadow: 0 0 16px rgba(6,182,212,0.2); }
-.neon-indigo{ border-color: rgba(99,102,241,0.35); box-shadow: 0 0 16px rgba(99,102,241,0.2); }
-
-/* ── Custom Scrollbar ───────────────────────────────────────── */
-::-webkit-scrollbar        { width: 5px; height: 5px; }
-::-webkit-scrollbar-track  { background: transparent; }
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: var(--color-cream); }
 ::-webkit-scrollbar-thumb  {
-  background: rgba(6, 182, 212, 0.3);
+  background: var(--color-primary-light);
   border-radius: 3px;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(6, 182, 212, 0.55); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
 
 /* ── Selection ──────────────────────────────────────────────── */
 ::selection {
-  background: rgba(6, 182, 212, 0.25);
-  color: #F1F5F9;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
 }
 
 /* ── Focus ring ─────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid rgba(6, 182, 212, 0.55);
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
   border-radius: 4px;
 }

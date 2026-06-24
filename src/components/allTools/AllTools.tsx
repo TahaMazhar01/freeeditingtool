@@ -26,28 +26,23 @@ export default function AllTools({ title, toolCards }: AllToolsProps) {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: 1.5,
+          gap: 2,
           mb: 3,
           '&::after': {
             content: '""',
             flex: 1,
-            height: '1px',
-            background:
-              'linear-gradient(90deg, rgba(99,102,241,0.3) 0%, transparent 100%)'
+            height: '2px',
+            background: 'linear-gradient(90deg, #E8E4D9 0%, transparent 100%)'
           }
         }}
       >
         <Typography
-          variant="h5"
+          variant="h3"
           sx={{
-            fontFamily: '"Outfit", sans-serif',
-            fontWeight: 800,
+            fontFamily: '"Playfair Display", serif',
+            fontWeight: 700,
             fontSize: { xs: '1.3rem', md: '1.5rem' },
-            background:
-              'linear-gradient(135deg, #818CF8 0%, #22D3EE 60%, #A78BFA 100%)',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
+            color: '#4056A1',
             whiteSpace: 'nowrap'
           }}
         >
@@ -55,7 +50,6 @@ export default function AllTools({ title, toolCards }: AllToolsProps) {
         </Typography>
       </Box>
 
-      {/* Tools grid */}
       <Grid container spacing={2}>
         {toolCards.map((card, index) => (
           <Grid item xs={12} md={6} lg={4} key={index}>

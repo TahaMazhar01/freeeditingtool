@@ -1,66 +1,55 @@
 /**
- * FreeEditingTools brand palette
- * Calibrated to match the hero background image:
- *   - Deep navy charcoal base  (#080B11 → #0D1420)
- *   - Neon cyan accent         (#06B6D4 / #22D3EE)   — cyan glass cubes
- *   - Purple / violet accent   (#7C3AED / #818CF8)   — purple glass cubes
+ * FreeEditingTools brand palette — light mode only.
+ * Deep Blue + Gold + Cream editorial aesthetic.
  */
 export const brandColors = {
   primary: {
-    main: '#818CF8', // Soft violet-indigo — readable on dark
-    light: '#A5B4FC',
-    dark: '#6366F1',
+    main: '#4056A1' /* Deep Blue */,
+    light: '#C5CBE3' /* Light Blue */,
+    dark: '#2D3D7A' /* Dark Blue */,
     contrastText: '#FFFFFF'
   },
   secondary: {
-    main: '#06B6D4', // Neon cyan — matches cube highlights
-    light: '#22D3EE',
-    dark: '#0891B2',
+    main: '#F13C20' /* Red — CTAs, alerts */,
+    light: '#FF6B4A',
+    dark: '#C02A10',
     contrastText: '#FFFFFF'
   },
-  accent: {
-    purple: '#7C3AED',
-    cyan: '#22D3EE',
-    indigo: '#6366F1',
-    pink: '#EC4899',
-    violet: '#818CF8'
+  gold: {
+    main: '#D79922',
+    light: '#F0C040',
+    dark: '#B07A10'
   },
-  /** Used for the "light" mode variant (still dark, image-matched) */
+  cream: {
+    main: '#EFE2BA',
+    dark: '#E8D9A8',
+    border: '#E8E4D9'
+  },
   light: {
-    background: '#0D1420',
-    paper: '#111827',
-    text: '#E2E8F0',
-    textSecondary: '#94A3B8',
-    hover: 'rgba(6, 182, 212, 0.10)',
-    lightSecondary: '#111827',
-    darkSecondary: '#1C2333',
-    border: 'rgba(255, 255, 255, 0.07)',
-    shadow: 'rgba(0, 0, 0, 0.6)'
+    background: '#FAFAF8',
+    paper: '#FFFFFF',
+    text: '#1A1A2E',
+    textSecondary: '#555577',
+    hover: 'rgba(64, 86, 161, 0.06)',
+    lightSecondary: '#EFE2BA',
+    darkSecondary: '#C5CBE3',
+    border: '#E8E4D9',
+    shadow: 'rgba(64, 86, 161, 0.08)'
   },
-  /** Dark mode — deep space navy */
+  /* Keep dark key so existing imports don't break — mirrors light */
   dark: {
-    background: '#080B11',
-    paper: '#0D1420',
-    text: '#F1F5F9',
-    textSecondary: '#94A3B8',
-    hover: 'rgba(6, 182, 212, 0.10)',
-    lightSecondary: '#0D1420',
-    darkSecondary: '#141D2E',
-    border: 'rgba(255, 255, 255, 0.07)',
-    shadow: 'rgba(0, 0, 0, 0.7)'
+    background: '#FAFAF8',
+    paper: '#FFFFFF',
+    text: '#1A1A2E',
+    textSecondary: '#555577',
+    hover: 'rgba(64, 86, 161, 0.06)',
+    lightSecondary: '#EFE2BA',
+    darkSecondary: '#C5CBE3',
+    border: '#E8E4D9',
+    shadow: 'rgba(64, 86, 161, 0.08)'
   }
 } as const;
 
-export const brandGradient = `linear-gradient(135deg, #818CF8 0%, #22D3EE 50%, #A78BFA 100%)`;
+export const brandGradient = `linear-gradient(135deg, #4056A1 0%, #6B7FBD 50%, #4056A1 100%)`;
 
-export const brandGradientButton = `linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)`;
-
-/** Reusable glass card CSS-in-JS values */
-export const glassSurface = {
-  background: 'rgba(8, 11, 17, 0.72)',
-  backdropFilter: 'blur(20px)',
-  WebkitBackdropFilter: 'blur(20px)',
-  border: '1px solid rgba(255, 255, 255, 0.07)',
-  boxShadow:
-    '0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.05)'
-} as const;
+export const brandGradientButton = `linear-gradient(135deg, #4056A1 0%, #2D3D7A 100%)`;

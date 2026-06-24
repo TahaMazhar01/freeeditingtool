@@ -7,7 +7,6 @@ import {
   CardContent,
   Stack,
   alpha,
-  useTheme,
   Typography
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -18,23 +17,26 @@ import { useUserTypeFilter } from '../../providers/UserTypeFilterProvider';
 import AdPlaceholder from 'components/AdPlaceholder';
 import { DefinedTool } from '@tools/defineTool';
 
-/* Neon accent palette cycling across categories */
+const PRIMARY = '#4056A1';
+const GOLD = '#D79922';
+
+/* Accent cycling palette — all readable on white */
 const CATEGORY_COLORS = [
-  '#6366F1', // Indigo
-  '#06B6D4', // Cyan
-  '#A855F7', // Purple
-  '#10B981', // Emerald
-  '#F59E0B', // Amber
-  '#EC4899', // Pink
-  '#3B82F6', // Blue
-  '#14B8A6', // Teal
-  '#8B5CF6', // Violet
-  '#F97316', // Orange
-  '#22D3EE', // Light Cyan
-  '#84CC16' // Lime
+  '#4056A1' /* Deep Blue  */,
+  '#D79922' /* Gold       */,
+  '#F13C20' /* Red        */,
+  '#2D3D7A' /* Dark Blue  */,
+  '#B07A10' /* Dark Gold  */,
+  '#4056A1' /* Deep Blue  */,
+  '#D79922' /* Gold       */,
+  '#2D9E6B' /* Teal       */,
+  '#8B4513' /* Sienna     */,
+  '#4056A1' /* Deep Blue  */,
+  '#D79922' /* Gold       */,
+  '#F13C20' /* Red        */
 ];
 
-/* ─── Individual tool card inside a category section ──── */
+/* ─── Individual tool mini-card ──────────────────────────── */
 interface ToolCardProps {
   tool: DefinedTool;
   accentColor: string;
@@ -53,36 +55,25 @@ function ToolCard({ tool, accentColor }: ToolCardProps) {
         sx={{
           height: '100%',
           cursor: 'pointer',
-          /* glass base — MUI theme overrides backdrop-filter already */
-          background: 'rgba(17, 24, 39, 0.55)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          border: '1px solid rgba(148, 163, 184, 0.09)',
-          borderRadius: '14px',
-          transition: 'all 0.28s cubic-bezier(0.4, 0, 0.2, 1)',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.35)',
+          background: '#FFFFFF',
+          border: '1px solid #E8E4D9',
+          boxShadow: '0 2px 12px rgba(64,86,161,0.08)',
+          borderRadius: '12px',
+          transition: 'all 0.25s cubic-bezier(0.4,0,0.2,1)',
           '&:hover': {
-            transform: 'translateY(-5px) scale(1.01)',
-            border: `1px solid ${alpha(accentColor, 0.35)}`,
-            boxShadow: `0 16px 40px rgba(0,0,0,0.5), 0 0 0 1px ${alpha(
-              accentColor,
-              0.15
-            )}, inset 0 1px 0 rgba(255,255,255,0.07)`,
-            '& .tool-icon-wrap': {
-              boxShadow: `0 0 18px ${alpha(accentColor, 0.45)}`,
-              background: alpha(accentColor, 0.18)
-            },
-            '& .tool-name': {
-              color: accentColor
-            }
+            transform: 'translateY(-4px)',
+            borderColor: alpha(accentColor, 0.45),
+            boxShadow: `0 8px 28px ${alpha(accentColor, 0.14)}`,
+            '& .tc-icon': { background: alpha(accentColor, 0.15) },
+            '& .tc-title': { color: accentColor }
           }
         }}
       >
         <CardContent sx={{ p: '18px !important' }}>
           <Stack spacing={1.5}>
-            {/* Icon badge */}
+            {/* Colored icon badge */}
             <Box
-              className="tool-icon-wrap"
+              className="tc-icon"
               sx={{
                 width: 40,
                 height: 40,
@@ -90,26 +81,25 @@ function ToolCard({ tool, accentColor }: ToolCardProps) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: alpha(accentColor, 0.1),
+                background: alpha(accentColor, 0.08),
                 color: accentColor,
-                transition: 'all 0.25s ease',
-                border: `1px solid ${alpha(accentColor, 0.18)}`
+                border: `1px solid ${alpha(accentColor, 0.15)}`,
+                transition: 'background 0.22s ease',
+                flexShrink: 0
               }}
             >
               <Icon icon={tool.icon ?? 'ph:compass-tool-thin'} fontSize={20} />
             </Box>
 
-            {/* Text */}
             <Box>
               <Typography
-                className="tool-name"
-                variant="subtitle2"
-                fontWeight={700}
+                className="tc-title"
                 sx={{
-                  fontFamily: '"Outfit", sans-serif',
-                  fontSize: '0.92rem',
+                  fontFamily: '"Inter", sans-serif',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
                   lineHeight: 1.3,
-                  color: '#E2E8F0',
+                  color: '#1A1A2E',
                   mb: 0.5,
                   transition: 'color 0.2s ease'
                 }}
@@ -117,11 +107,11 @@ function ToolCard({ tool, accentColor }: ToolCardProps) {
                 {toolName}
               </Typography>
               <Typography
-                variant="body2"
                 sx={{
+                  fontFamily: '"Inter", sans-serif',
                   fontSize: '0.75rem',
                   lineHeight: 1.55,
-                  color: 'rgba(148,163,184,0.65)',
+                  color: '#555577',
                   display: '-webkit-box',
                   WebkitLineClamp: 2,
                   WebkitBoxOrient: 'vertical',
@@ -138,7 +128,7 @@ function ToolCard({ tool, accentColor }: ToolCardProps) {
   );
 }
 
-/* ─── Main Categories component ─────────────────────── */
+/* ─── Main Categories component ──────────────────────────── */
 export default function Categories() {
   const { selectedUserTypes } = useUserTypeFilter();
   const { t } = useTranslation();
@@ -165,45 +155,42 @@ export default function Categories() {
         const toolsList = [...category.tools];
 
         return (
-          <Box
-            key={category.type}
-            sx={{
-              mb: 7,
-              position: 'relative',
-              /* Faint left accent stripe */
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                left: -24,
-                top: 0,
-                bottom: 0,
-                width: '2px',
-                background: `linear-gradient(180deg, ${accentColor} 0%, transparent 100%)`,
-                opacity: 0.35,
-                borderRadius: '1px'
-              }
-            }}
-          >
-            {/* ── Category header ───────────────────────── */}
+          <Box key={category.type} sx={{ mb: 7 }}>
+            {/* ── Category header ─────────────────────── */}
             <Stack
               direction={{ xs: 'column', sm: 'row' }}
               spacing={2}
               alignItems={{ xs: 'flex-start', sm: 'center' }}
-              sx={{ mb: 3.5 }}
+              sx={{
+                mb: 3,
+                pb: 2,
+                borderBottom: '2px solid #E8E4D9',
+                position: 'relative',
+                /* Gold left accent bar */
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  left: -20,
+                  top: 0,
+                  bottom: 2,
+                  width: 3,
+                  background: `linear-gradient(180deg, ${accentColor} 0%, transparent 100%)`,
+                  borderRadius: 2
+                }
+              }}
             >
-              {/* Icon */}
+              {/* Icon badge */}
               <Box
                 sx={{
-                  width: 52,
-                  height: 52,
-                  borderRadius: '13px',
+                  width: 50,
+                  height: 50,
+                  borderRadius: '12px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  background: alpha(accentColor, 0.1),
+                  background: alpha(accentColor, 0.08),
                   color: accentColor,
-                  border: `1px solid ${alpha(accentColor, 0.22)}`,
-                  boxShadow: `0 0 16px ${alpha(accentColor, 0.2)}`,
+                  border: `1px solid ${alpha(accentColor, 0.2)}`,
                   flexShrink: 0
                 }}
               >
@@ -213,23 +200,23 @@ export default function Categories() {
               {/* Text */}
               <Box sx={{ flex: 1 }}>
                 <Typography
-                  variant="h5"
+                  variant="h3"
                   sx={{
-                    fontFamily: '"Outfit", sans-serif',
-                    fontWeight: 800,
+                    fontFamily: '"Playfair Display", serif',
+                    fontWeight: 700,
                     fontSize: { xs: '1.2rem', md: '1.35rem' },
+                    color: PRIMARY,
                     lineHeight: 1.2,
-                    color: '#E2E8F0',
-                    mb: 0.4
+                    mb: 0.25
                   }}
                 >
                   {categoryTitle}
                 </Typography>
                 <Typography
-                  variant="body2"
                   sx={{
-                    color: 'rgba(148,163,184,0.6)',
-                    fontSize: '0.83rem',
+                    fontFamily: '"Inter", sans-serif',
+                    fontSize: '0.82rem',
+                    color: '#555577',
                     lineHeight: 1.5
                   }}
                 >
@@ -243,12 +230,13 @@ export default function Categories() {
                   px: 1.5,
                   py: 0.4,
                   borderRadius: '20px',
-                  background: alpha(accentColor, 0.1),
-                  border: `1px solid ${alpha(accentColor, 0.22)}`,
+                  background: alpha(accentColor, 0.08),
+                  border: `1px solid ${alpha(accentColor, 0.2)}`,
                   color: accentColor,
                   fontSize: '0.72rem',
                   fontWeight: 700,
-                  letterSpacing: '0.05em',
+                  fontFamily: '"Inter", sans-serif',
+                  letterSpacing: '0.04em',
                   whiteSpace: 'nowrap',
                   flexShrink: 0
                 }}
@@ -257,7 +245,7 @@ export default function Categories() {
               </Box>
             </Stack>
 
-            {/* ── Tools grid ────────────────────────────── */}
+            {/* ── Tools grid ──────────────────────────── */}
             <Grid container spacing={2}>
               {toolsList.map((tool, toolIndex) => {
                 const elements: React.ReactNode[] = [
@@ -268,7 +256,6 @@ export default function Categories() {
                   />
                 ];
 
-                /* Inject ad card as 4th item (index 3) for qualifying categories */
                 if (showAd && toolIndex === 3) {
                   elements.unshift(
                     <Grid
@@ -287,7 +274,6 @@ export default function Categories() {
                 return elements;
               })}
 
-              {/* Append ad if category has fewer than 4 tools */}
               {showAd && toolsList.length < 4 && (
                 <Grid
                   item

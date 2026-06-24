@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 import { Icon } from '@iconify/react';
 
@@ -6,12 +5,12 @@ interface AdPlaceholderProps {
   variant: 'banner' | 'rectangle';
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Premium glass ad containers that blend into the UI as
-   content cards rather than obvious ad placeholders.
-   Replace the inner content with your real AdSense <ins> tags.
-   ───────────────────────────────────────────────────────────── */
-
+/*
+ * Premium light-theme ad containers.
+ * Cream background + deep-blue accents blend naturally into the
+ * #FAFAF8 page body without looking like spam.
+ * Replace the inner content with your real AdSense <ins> tags.
+ */
 export default function AdPlaceholder({ variant }: AdPlaceholderProps) {
   if (variant === 'banner') {
     return (
@@ -26,41 +25,38 @@ export default function AdPlaceholder({ variant }: AdPlaceholderProps) {
           alignItems: 'center',
           justifyContent: 'space-between',
           px: 3,
-          borderRadius: '14px',
-          background: 'rgba(17,24,39,0.55)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          border: '1px solid rgba(99,102,241,0.15)',
-          boxShadow:
-            '0 4px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05)',
+          borderRadius: '12px',
+          background: '#EFE2BA',
+          border: '1px solid #E8D9A8',
+          boxShadow: '0 2px 12px rgba(64,86,161,0.08)',
           position: 'relative',
           overflow: 'hidden',
-          /* Subtle shimmer sweep on the premium ad slot */
           '&::before': {
             content: '""',
             position: 'absolute',
-            inset: 0,
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '3px',
             background:
-              'linear-gradient(105deg, transparent 40%, rgba(99,102,241,0.06) 50%, transparent 60%)',
-            backgroundSize: '200% 100%',
-            animation: 'shimmerSlide 4s linear infinite',
-            pointerEvents: 'none'
+              'linear-gradient(90deg, #4056A1 0%, #D79922 50%, #4056A1 100%)',
+            opacity: 0.6
           }
         }}
       >
-        {/* Left — slot label */}
+        {/* Left — label */}
         <Stack direction="row" spacing={1.5} alignItems="center">
           <Box
             sx={{
               width: 32,
               height: 32,
               borderRadius: '8px',
-              background: 'rgba(99,102,241,0.12)',
-              border: '1px solid rgba(99,102,241,0.2)',
+              background: 'rgba(64,86,161,0.10)',
+              border: '1px solid rgba(64,86,161,0.18)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#818CF8'
+              color: '#4056A1'
             }}
           >
             <Icon icon="ph:lightning-duotone" fontSize={16} />
@@ -68,11 +64,12 @@ export default function AdPlaceholder({ variant }: AdPlaceholderProps) {
           <Box>
             <Typography
               sx={{
-                fontSize: '0.68rem',
+                fontSize: '0.65rem',
                 fontWeight: 700,
-                letterSpacing: '0.1em',
+                letterSpacing: '0.12em',
                 textTransform: 'uppercase',
-                color: 'rgba(99,102,241,0.6)',
+                color: '#4056A1',
+                fontFamily: '"Inter", sans-serif',
                 lineHeight: 1
               }}
             >
@@ -80,8 +77,9 @@ export default function AdPlaceholder({ variant }: AdPlaceholderProps) {
             </Typography>
             <Typography
               sx={{
-                fontSize: '0.75rem',
-                color: 'rgba(148,163,184,0.45)',
+                fontSize: '0.72rem',
+                color: '#555577',
+                fontFamily: '"Inter", sans-serif',
                 lineHeight: 1.3,
                 mt: 0.3
               }}
@@ -91,18 +89,19 @@ export default function AdPlaceholder({ variant }: AdPlaceholderProps) {
           </Box>
         </Stack>
 
-        {/* Right — decorative neon pill */}
+        {/* Right — badge */}
         <Box
           sx={{
-            px: 1.5,
-            py: 0.4,
+            px: 1.25,
+            py: 0.35,
             borderRadius: '20px',
-            background: 'rgba(99,102,241,0.08)',
-            border: '1px solid rgba(99,102,241,0.15)',
-            color: 'rgba(99,102,241,0.5)',
-            fontSize: '0.65rem',
-            fontWeight: 600,
-            letterSpacing: '0.06em',
+            background: 'rgba(64,86,161,0.08)',
+            border: '1px solid rgba(64,86,161,0.18)',
+            color: '#4056A1',
+            fontSize: '0.62rem',
+            fontWeight: 700,
+            fontFamily: '"Inter", sans-serif',
+            letterSpacing: '0.07em',
             textTransform: 'uppercase'
           }}
         >
@@ -112,7 +111,7 @@ export default function AdPlaceholder({ variant }: AdPlaceholderProps) {
     );
   }
 
-  /* ── Rectangle / inline variant ─────────────────────── */
+  /* ── Rectangle variant ───────────────────────────────── */
   return (
     <Box
       className="adsense-rectangle"
@@ -125,22 +124,21 @@ export default function AdPlaceholder({ variant }: AdPlaceholderProps) {
         alignItems: 'center',
         justifyContent: 'center',
         gap: 1.5,
-        borderRadius: '14px',
-        background: 'rgba(17,24,39,0.50)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        border: '1px solid rgba(99,102,241,0.12)',
-        boxShadow:
-          '0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04)',
+        borderRadius: '12px',
+        background: '#EFE2BA',
+        border: '1px solid #E8D9A8',
+        boxShadow: '0 2px 10px rgba(64,86,161,0.07)',
         position: 'relative',
         overflow: 'hidden',
         '&::before': {
           content: '""',
           position: 'absolute',
-          inset: 0,
-          background:
-            'radial-gradient(ellipse at 50% 50%, rgba(99,102,241,0.06) 0%, transparent 70%)',
-          pointerEvents: 'none'
+          top: 0,
+          left: 0,
+          bottom: 0,
+          width: '3px',
+          background: 'linear-gradient(180deg, #4056A1 0%, #D79922 100%)',
+          opacity: 0.55
         }
       }}
     >
@@ -149,13 +147,12 @@ export default function AdPlaceholder({ variant }: AdPlaceholderProps) {
           width: 44,
           height: 44,
           borderRadius: '12px',
-          background: 'rgba(99,102,241,0.10)',
-          border: '1px solid rgba(99,102,241,0.18)',
+          background: 'rgba(64,86,161,0.09)',
+          border: '1px solid rgba(64,86,161,0.18)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#818CF8',
-          mb: 0.5
+          color: '#4056A1'
         }}
       >
         <Icon icon="ph:lightning-duotone" fontSize={22} />
@@ -163,11 +160,12 @@ export default function AdPlaceholder({ variant }: AdPlaceholderProps) {
 
       <Typography
         sx={{
-          fontSize: '0.68rem',
+          fontSize: '0.65rem',
           fontWeight: 700,
-          letterSpacing: '0.1em',
+          letterSpacing: '0.12em',
           textTransform: 'uppercase',
-          color: 'rgba(99,102,241,0.55)'
+          color: '#4056A1',
+          fontFamily: '"Inter", sans-serif'
         }}
       >
         Sponsored
@@ -175,7 +173,8 @@ export default function AdPlaceholder({ variant }: AdPlaceholderProps) {
       <Typography
         sx={{
           fontSize: '0.72rem',
-          color: 'rgba(148,163,184,0.35)',
+          color: '#555577',
+          fontFamily: '"Inter", sans-serif',
           textAlign: 'center'
         }}
       >

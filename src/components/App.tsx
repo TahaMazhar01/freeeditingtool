@@ -2,20 +2,20 @@ import { BrowserRouter, useRoutes } from 'react-router-dom';
 import routesConfig from '../config/routesConfig';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { Suspense, useState, useEffect } from 'react';
+import { Suspense } from 'react';
 import Loading from './Loading';
-import { CssBaseline, Theme, ThemeProvider, Box } from '@mui/material';
+import { CssBaseline, ThemeProvider, Box } from '@mui/material';
 import { CustomSnackBarProvider } from '../contexts/CustomSnackBarContext';
 import { SnackbarProvider } from 'notistack';
 import { tools } from '../tools';
 import './index.css';
-import { darkTheme, lightTheme } from '../config/muiConfig';
+import { theme } from '../config/muiConfig';
 import ScrollToTopButton from './ScrollToTopButton';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../i18n';
 import { UserTypeFilterProvider } from 'providers/UserTypeFilterProvider';
 
-export type Mode = 'dark' | 'light' | 'system';
+/* Light-mode only — no mode type exported, no toggle needed */
 
 const AppRoutes = () => {
   const updatedRoutesConfig = [...routesConfig];
@@ -26,37 +26,13 @@ const AppRoutes = () => {
 };
 
 function App() {
-  const [mode, setMode] = useState<Mode>(
-    () => (localStorage.getItem('theme') || 'dark') as Mode
-  );
-  const [theme, setTheme] = useState<Theme>(() => getTheme(mode));
-  useEffect(() => setTheme(getTheme(mode)), [mode]);
-
-  // Make sure to update the theme when the mode changes
-  useEffect(() => {
-    const systemDarkModeQuery = window.matchMedia(
-      '(prefers-color-scheme: dark)'
-    );
-    const handleThemeChange = (e: MediaQueryListEvent) => {
-      setTheme(e.matches ? darkTheme : lightTheme);
-    };
-    systemDarkModeQuery.addEventListener('change', handleThemeChange);
-
-    return () => {
-      systemDarkModeQuery.removeEventListener('change', handleThemeChange);
-    };
-  }, []);
-
   return (
     <I18nextProvider i18n={i18n}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <SnackbarProvider
           maxSnack={5}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right'
-          }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         >
           <CustomSnackBarProvider>
             <UserTypeFilterProvider>
@@ -65,31 +41,23 @@ function App() {
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    minHeight: '100vh'
+                    minHeight: '100vh',
+                    backgroundColor: '#FAFAF8'
                   }}
                 >
                   {/*
-                    Navbar is position:fixed (floating capsule).
-                    It takes zero space in the flex column.
-                    The 84px paddingTop below clears its height
-                    for all non-hero pages (tool pages, about, etc.).
-                    The home page Hero section applies mt:'-84px' to
-                    pull its background image under the navbar.
+                    Navbar renders as position:fixed (floating capsule).
+                    The 102px paddingTop clears its height on all pages.
+                    The home page Hero pulls up via mt:'-102px' so its
+                    background fills behind the capsule.
                   */}
-                  <Navbar
-                    mode={mode}
-                    onChangeMode={() => {
-                      setMode((prev) => nextMode(prev));
-                      localStorage.setItem('theme', nextMode(mode));
-                    }}
-                  />
+                  <Navbar />
                   <Box
                     sx={{
                       flexGrow: 1,
                       display: 'flex',
                       flexDirection: 'column',
-                      /* Clears the floating navbar (56px height + 16px top + 12px gap) */
-                      pt: '84px'
+                      pt: '102px'
                     }}
                   >
                     <Suspense fallback={<Loading />}>
@@ -106,23 +74,6 @@ function App() {
       </ThemeProvider>
     </I18nextProvider>
   );
-}
-
-function getTheme(mode: Mode): Theme {
-  switch (mode) {
-    case 'dark':
-      return darkTheme;
-    case 'light':
-      return lightTheme;
-    default:
-      return window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? darkTheme
-        : lightTheme;
-  }
-}
-
-function nextMode(mode: Mode): Mode {
-  return mode === 'light' ? 'dark' : mode === 'dark' ? 'system' : 'light';
 }
 
 export default App;
