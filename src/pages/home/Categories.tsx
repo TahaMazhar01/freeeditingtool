@@ -155,95 +155,94 @@ export default function Categories() {
         const toolsList = [...category.tools];
 
         return (
-          <Box key={category.type} sx={{ mb: 7 }}>
-            {/* ── Category header ─────────────────────── */}
-            <Stack
-              direction={{ xs: 'column', sm: 'row' }}
-              spacing={2}
-              alignItems={{ xs: 'flex-start', sm: 'center' }}
+          <Box key={category.type} sx={{ mb: { xs: 9, md: 14 } }}>
+            {/* ── Category header (centered, no side line) ─── */}
+            <Box
               sx={{
-                mb: 3,
-                pb: 2,
-                borderBottom: '2px solid #E8E4D9',
-                position: 'relative',
-                /* Gold left accent bar */
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  left: -20,
-                  top: 0,
-                  bottom: 2,
-                  width: 3,
-                  background: `linear-gradient(180deg, ${accentColor} 0%, transparent 100%)`,
-                  borderRadius: 2
-                }
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+                mb: { xs: 4, md: 5 }
               }}
             >
               {/* Icon badge */}
               <Box
                 sx={{
-                  width: 50,
-                  height: 50,
-                  borderRadius: '12px',
+                  width: 60,
+                  height: 60,
+                  borderRadius: '16px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   background: alpha(accentColor, 0.08),
                   color: accentColor,
                   border: `1px solid ${alpha(accentColor, 0.2)}`,
-                  flexShrink: 0
+                  mb: 2
                 }}
               >
-                <Icon icon={category.icon} fontSize={26} />
+                <Icon icon={category.icon} fontSize={30} />
               </Box>
 
-              {/* Text */}
-              <Box sx={{ flex: 1 }}>
-                <Typography
-                  variant="h3"
-                  sx={{
-                    fontFamily: '"Playfair Display", serif',
-                    fontWeight: 700,
-                    fontSize: { xs: '1.2rem', md: '1.35rem' },
-                    color: PRIMARY,
-                    lineHeight: 1.2,
-                    mb: 0.25
-                  }}
-                >
-                  {categoryTitle}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: '"Inter", sans-serif',
-                    fontSize: '0.82rem',
-                    color: '#555577',
-                    lineHeight: 1.5
-                  }}
-                >
-                  {categoryDescription}
-                </Typography>
-              </Box>
+              {/* Heading — larger, centered */}
+              <Typography
+                variant="h2"
+                sx={{
+                  fontFamily: '"Playfair Display", serif',
+                  fontWeight: 700,
+                  fontSize: { xs: '1.7rem', md: '2.3rem' },
+                  color: PRIMARY,
+                  lineHeight: 1.15,
+                  mb: 1.25
+                }}
+              >
+                {categoryTitle}
+              </Typography>
+
+              {/* Short gold underline accent */}
+              <Box
+                sx={{
+                  width: 56,
+                  height: 3,
+                  borderRadius: 2,
+                  background: GOLD,
+                  mb: 2
+                }}
+              />
+
+              {/* Description */}
+              <Typography
+                sx={{
+                  fontFamily: '"Inter", sans-serif',
+                  fontSize: { xs: '0.88rem', md: '0.95rem' },
+                  color: '#555577',
+                  lineHeight: 1.65,
+                  maxWidth: 600,
+                  mb: 2
+                }}
+              >
+                {categoryDescription}
+              </Typography>
 
               {/* Tool count badge */}
               <Box
                 sx={{
-                  px: 1.5,
-                  py: 0.4,
+                  px: 1.75,
+                  py: 0.5,
                   borderRadius: '20px',
                   background: alpha(accentColor, 0.08),
                   border: `1px solid ${alpha(accentColor, 0.2)}`,
                   color: accentColor,
-                  fontSize: '0.72rem',
+                  fontSize: '0.74rem',
                   fontWeight: 700,
                   fontFamily: '"Inter", sans-serif',
                   letterSpacing: '0.04em',
-                  whiteSpace: 'nowrap',
-                  flexShrink: 0
+                  whiteSpace: 'nowrap'
                 }}
               >
                 {toolsList.length} tool{toolsList.length !== 1 ? 's' : ''}
               </Box>
-            </Stack>
+            </Box>
 
             {/* ── Tools grid ──────────────────────────── */}
             <Grid container spacing={2}>
