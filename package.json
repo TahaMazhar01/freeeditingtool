@@ -4,13 +4,13 @@
   "version": "0.1.0",
   "private": true,
   "author": {
-    "name": "Ibrahima Gaye Coulibaly",
-    "email": "ibracool99@gmail.com",
-    "url": "https://github.com/iib0011"
+    "name": "Taha Mazhar",
+    "email": "tahamazhar01@gmail.com",
+    "url": "https://github.com/TahaMazhar01"
   },
   "bugs": {
-    "url": "https://github.com/iib0011/omni-tools/issues",
-    "email": "ibracool99@gmail.com"
+    "url": "https://github.com/TahaMazhar01/freeeditingtool/issues",
+    "email": "tahamazhar01@gmail.com"
   },
   "scripts": {
     "dev": "vite",

@@ -1,3 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
-  <image href="/favicon-96x96.png" width="96" height="96" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="ftbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4056A1"/>
+      <stop offset="1" stop-color="#2D3D7A"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect x="3" y="3" width="94" height="94" rx="22" fill="url(#ftbg)"/>
+  <!-- Letter F (FreeEditingTools) -->
+  <rect x="35" y="25" width="12" height="49" rx="2.5" fill="#FFFFFF"/>
+  <rect x="35" y="25" width="34" height="12" rx="2.5" fill="#FFFFFF"/>
+  <rect x="35" y="44" width="25" height="11" rx="2.5" fill="#FFFFFF"/>
+  <!-- Gold underline accent (echoes the brand wordmark) -->
+  <rect x="35" y="79" width="30" height="6" rx="3" fill="#D79922"/>
 </svg>
