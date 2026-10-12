@@ -7,6 +7,9 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   define: {
+    __APP_BUILD_VERSION__: JSON.stringify(
+      process.env.VERCEL_GIT_COMMIT_SHA || Date.now().toString()
+    ),
     'process.env': {}
   },
   optimizeDeps: {

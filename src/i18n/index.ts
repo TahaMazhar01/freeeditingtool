@@ -35,7 +35,8 @@ i18n
       escapeValue: false // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
     },
     backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json'
+      // Version locale requests with the bundle so cached labels cannot lag behind new UI.
+      loadPath: `/locales/{{lng}}/{{ns}}.json?v=${__APP_BUILD_VERSION__}`
     },
     detection: {
       lookupLocalStorage: 'lang',
