@@ -26,11 +26,13 @@ const DOMPURIFY_CONFIG = {
 export default function ToolDiffResult({
   title = 'Differences',
   value,
+  copyValue,
   loading,
   isHtml = false
 }: {
   title?: string;
   value: string;
+  copyValue?: string;
   loading?: boolean;
   isHtml?: boolean;
 }) {
@@ -39,7 +41,7 @@ export default function ToolDiffResult({
   const { showSnackBar } = useContext(CustomSnackBarContext);
 
   const handleCopy = () => {
-    const text = isHtml ? stripAndDecodeHtml(value) : value;
+    const text = copyValue ?? (isHtml ? stripAndDecodeHtml(value) : value);
     navigator.clipboard
       .writeText(text)
       .then(() => showSnackBar(t('toolTextResult.copied'), 'success'))
@@ -50,7 +52,13 @@ export default function ToolDiffResult({
 
   const handleDownload = () => {
     const mimeType = isHtml ? 'text/html' : 'text/plain';
-    const blob = new Blob([value], { type: mimeType });
+    const exportValue = isHtml
+      ? `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Text differences</title><style>body{font-family:monospace;white-space:pre-wrap;padding:24px}.diff-added{background:#d8f5df;text-decoration:underline}.diff-removed{background:#ffdddd;text-decoration:line-through}</style></head><body>${DOMPurify.sanitize(
+          value,
+          DOMPURIFY_CONFIG
+        )}</body></html>`
+      : value;
+    const blob = new Blob([exportValue], { type: mimeType });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;

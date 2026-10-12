@@ -32,10 +32,28 @@ const SelectWithDesc = <T extends string | boolean>({
   };
 
   return (
-    <Box mb={3}>
-      <Select displayEmpty value={selected} onChange={handleChange}>
+    <Box mb={3} sx={{ minWidth: 0, width: '100%' }}>
+      <Select
+        displayEmpty
+        fullWidth
+        value={selected}
+        onChange={handleChange}
+        inputProps={{ 'aria-label': description }}
+        sx={{
+          minWidth: 0,
+          maxWidth: '100%',
+          '& .MuiSelect-select': {
+            whiteSpace: 'normal',
+            overflowWrap: 'anywhere'
+          }
+        }}
+      >
         {options.map((option) => (
-          <MenuItem key={option.label} value={option.value.toString()}>
+          <MenuItem
+            key={option.label}
+            value={option.value.toString()}
+            sx={{ whiteSpace: 'normal', overflowWrap: 'anywhere' }}
+          >
             {option.label}
           </MenuItem>
         ))}

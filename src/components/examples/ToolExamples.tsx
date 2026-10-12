@@ -39,11 +39,28 @@ export default function ToolExamples<T>({
 
   return (
     <Box id={'examples'} mt={4}>
-      <Box mt={4} display="flex" gap={1} alignItems="center">
-        <Typography mb={2} fontSize={30} color={'primary'}>
+      <Box
+        mt={4}
+        display="flex"
+        gap={1}
+        alignItems="center"
+        sx={{ flexWrap: 'wrap', minWidth: 0 }}
+      >
+        <Typography
+          component="h2"
+          mb={2}
+          fontSize={30}
+          color={'primary'}
+          sx={{ minWidth: 0, overflowWrap: 'anywhere' }}
+        >
           {t('toolExamples.title', { title })}
         </Typography>
-        <Typography mb={2} fontSize={30} color={'secondary'}>
+        <Typography
+          mb={2}
+          fontSize={30}
+          color={'secondary'}
+          sx={{ minWidth: 0, overflowWrap: 'anywhere' }}
+        >
           {subtitle ?? t('toolExamples.subtitle')}
         </Typography>
       </Box>

@@ -12,7 +12,8 @@ import {
   Typography,
   Divider,
   alpha,
-  InputBase
+  InputBase,
+  IconButton
 } from '@mui/material';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
@@ -422,7 +423,10 @@ const Navbar: React.FC = () => {
 
   /* ── Mobile hamburger ───────────────────────────────────── */
   const hamburger = (
-    <Box
+    <IconButton
+      aria-label="Open navigation menu"
+      aria-expanded={drawerOpen}
+      aria-controls="mobile-navigation"
       onClick={() => setDrawerOpen(true)}
       sx={{
         width: 40,
@@ -439,12 +443,17 @@ const Navbar: React.FC = () => {
       }}
     >
       <Icon icon="ph:list-bold" fontSize={20} />
-    </Box>
+    </IconButton>
   );
 
   /* ── Mobile drawer ──────────────────────────────────────── */
   const drawerContent = (
-    <Box sx={{ width: 300, pt: 2.5 }}>
+    <Box
+      component="nav"
+      id="mobile-navigation"
+      aria-label="Mobile navigation"
+      sx={{ width: 300, maxWidth: '100vw', pt: 2.5 }}
+    >
       <Box sx={{ px: 2.5, pb: 2 }}>{brandLink}</Box>
       <Divider sx={{ borderColor: BORDER, mb: 2 }} />
 

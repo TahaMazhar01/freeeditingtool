@@ -119,25 +119,15 @@ export default function CsvToJson({ title }: ToolComponentProps) {
 
   const compute = (values: InitialValuesType, input: string) => {
     if (input) {
-      try {
-        const jsonResult = convertCsvToJson(input, {
-          delimiter: values.delimiter,
-          quote: values.quote,
-          comment: values.comment,
-          useHeaders: values.useHeaders,
-          skipEmptyLines: values.skipEmptyLines,
-          dynamicTypes: values.dynamicTypes
-        });
-        setResult(jsonResult);
-      } catch (error) {
-        setResult(
-          `${t('csvToJson.error')}: ${
-            error instanceof Error
-              ? error.message
-              : t('csvToJson.invalidCsvFormat')
-          }`
-        );
-      }
+      const jsonResult = convertCsvToJson(input, {
+        delimiter: values.delimiter,
+        quote: values.quote,
+        comment: values.comment,
+        useHeaders: values.useHeaders,
+        skipEmptyLines: values.skipEmptyLines,
+        dynamicTypes: values.dynamicTypes
+      });
+      setResult(jsonResult);
     }
   };
 

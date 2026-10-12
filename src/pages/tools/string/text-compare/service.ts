@@ -7,6 +7,20 @@ const DIFF_FN = {
   char: diffChars
 } as const;
 
+export function compareTextsPlain(
+  textA: string,
+  textB: string,
+  level: level
+): string {
+  return DIFF_FN[level](textA, textB)
+    .map((part) => {
+      if (part.added) return `[+${part.value}+]`;
+      if (part.removed) return `[-${part.value}-]`;
+      return part.value;
+    })
+    .join('');
+}
+
 export function compareTextsHtml(
   textA: string,
   textB: string,

@@ -17,7 +17,13 @@ export default function ToolOptionGroups({
   return (
     <Grid container spacing={2}>
       {groups.map((group) => (
-        <Grid item xs={12} md={vertical ? 12 : 4} key={group.title}>
+        <Grid
+          item
+          xs={12}
+          md={vertical ? 12 : 4}
+          key={group.title}
+          sx={{ minWidth: 0 }}
+        >
           <Typography mb={1} fontSize={22}>
             {group.title}
           </Typography>

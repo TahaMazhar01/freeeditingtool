@@ -2,6 +2,26 @@ import { describe, expect, it } from 'vitest';
 import { compute } from './service';
 
 describe('compute function', () => {
+  it.each(['smart', 'delimiter'] as const)(
+    'preserves signs and decimal values in %s mode',
+    (mode) => {
+      expect(compute('10\n-2\n3.5', mode, false, '\\n')).toBe('11.5');
+    }
+  );
+  it('supports signed fractions and scientific notation', () => {
+    expect(compute('Values: -.5 +.25 1e2 -2.5e1', 'smart', false, ',')).toBe(
+      '74.75'
+    );
+  });
+  it('decodes escaped tabs and handles CRLF records', () => {
+    expect(compute('10\t-2\t3.5', 'delimiter', false, '\\t')).toBe('11.5');
+    expect(compute('10\r\n-2\r\n3.5', 'delimiter', true, '\\n')).toBe(
+      '10\n8\n11.5\n'
+    );
+  });
+  it('rejects values outside the finite number range', () => {
+    expect(() => compute('1e309', 'smart', false, ',')).toThrow('finite');
+  });
   it('should correctly sum numbers in smart extraction mode', () => {
     const input = 'The 2 cats have 4 and 7 kittens';
     const result = compute(input, 'smart', false, ',');

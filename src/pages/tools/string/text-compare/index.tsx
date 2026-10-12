@@ -7,7 +7,7 @@ import ToolTextInput from '@components/input/ToolTextInput';
 import ToolDiffResult from '@components/result/ToolDiffResult';
 import SelectWithDesc from '@components/options/SelectWithDesc';
 import { useTranslation } from 'react-i18next';
-import { compareTextsHtml } from './service';
+import { compareTextsHtml, compareTextsPlain } from './service';
 import { level, InitialValuesType } from './types';
 
 const initialValues: InitialValuesType = {
@@ -19,6 +19,7 @@ export default function TextCompare({ title }: ToolComponentProps) {
   const [inputA, setInputA] = useState<string>('');
   const [inputB, setInputB] = useState<string>('');
   const [result, setResult] = useState<string>('');
+  const [plainResult, setPlainResult] = useState<string>('');
 
   const input = useMemo(() => ({ a: inputA, b: inputB }), [inputA, inputB]);
   const compute = (
@@ -26,6 +27,7 @@ export default function TextCompare({ title }: ToolComponentProps) {
     input: { a: string; b: string }
   ) => {
     setResult(compareTextsHtml(input.a, input.b, values.level));
+    setPlainResult(compareTextsPlain(input.a, input.b, values.level));
   };
 
   const getGroups: GetGroupsType<InitialValuesType> = ({
@@ -73,6 +75,7 @@ export default function TextCompare({ title }: ToolComponentProps) {
       resultComponent={
         <ToolDiffResult
           value={result}
+          copyValue={plainResult}
           title={t('textCompare.resultTitle')}
           isHtml
         />

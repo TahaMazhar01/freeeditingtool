@@ -1,5 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { compareTextsHtml } from './service';
+import { compareTextsHtml, compareTextsPlain } from './service';
+
+it('preserves change markers in the plain text diff', () => {
+  expect(compareTextsPlain('Hello world', 'Hello tools', 'word')).toBe(
+    'Hello [-world-][+tools+]'
+  );
+  expect(compareTextsPlain('A\nB', 'A\nC', 'char')).toBe('A\n[-B-][+C+]');
+  expect(compareTextsPlain('<script>', '<script>', 'word')).toBe('<script>');
+});
 
 describe('compareTextsHtml', () => {
   it('should highlight added text', () => {

@@ -55,16 +55,8 @@ export default function CsvToXml({ title }: ToolComponentProps) {
 
   const compute = (values: InitialValuesType, input: string) => {
     if (input) {
-      try {
-        const xmlResult = convertCsvToXml(input, values);
-        setResult(xmlResult);
-      } catch (error) {
-        setResult(
-          `Error: ${
-            error instanceof Error ? error.message : 'Invalid CSV format'
-          }`
-        );
-      }
+      const xmlResult = convertCsvToXml(input, values);
+      setResult(xmlResult);
     }
   };
 

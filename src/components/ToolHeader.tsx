@@ -116,11 +116,25 @@ export default function ToolHeader({
       />
       <Grid mt={1} container spacing={2}>
         <Grid item xs={12} md={8}>
-          <Stack direction={'row'} spacing={2} alignItems={'center'}>
-            <Typography mb={2} fontSize={30} color={'primary'}>
+          <Stack
+            direction={'row'}
+            spacing={2}
+            alignItems={'center'}
+            sx={{ minWidth: 0 }}
+          >
+            <Typography
+              component="h1"
+              mb={2}
+              fontSize={30}
+              color={'primary'}
+              sx={{ minWidth: 0, flex: 1, overflowWrap: 'anywhere' }}
+            >
               {title}
             </Typography>
             <IconButton
+              aria-label={bookmarked ? 'Remove bookmark' : 'Bookmark tool'}
+              aria-pressed={bookmarked}
+              sx={{ flexShrink: 0 }}
               onClick={(e) => {
                 toggleBookmarked(path);
                 setBookmarked(!bookmarked);
