@@ -9,12 +9,11 @@ import {
 } from '@mui/material';
 
 import { styled } from '@mui/material/styles';
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { DefinedTool } from '@tools/defineTool';
-import { filterTools, tools } from '@tools/index';
+import { filterTools, tools, getToolCategoryTitle } from '@tools/index';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
-import { getToolCategoryTitle } from '@utils/string';
 import { useTranslation } from 'react-i18next';
 import { FullI18nKey, validNamespaces } from '../i18n';
 import {
@@ -75,15 +74,24 @@ export default function Hero() {
   );
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFilteredTools(filterTools(tools, inputValue, selectedUserTypes, t));
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [inputValue, selectedUserTypes, t]);
+
   const handleInputChange = (_e: unknown, val: string) => {
     setInputValue(val);
-    setFilteredTools(filterTools(tools, val, selectedUserTypes, t));
   };
 
-  const toolsMap = new Map<string, ToolInfo>();
-  for (const tool of filteredTools) {
-    toolsMap.set(tool.path, { label: tool.name, url: '/' + tool.path });
-  }
+  const toolsMap = useMemo(() => {
+    const map = new Map<string, ToolInfo>();
+    for (const tool of filteredTools) {
+      map.set(tool.path, { label: tool.name, url: '/' + tool.path });
+    }
+    return map;
+  }, [filteredTools]);
 
   const displayedTools =
     bookmarkedPaths.length > 0

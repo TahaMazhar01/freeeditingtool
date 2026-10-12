@@ -1,4 +1,4 @@
-export const globalInputHeight = 300;
+export const globalInputHeight = 320;
 export const codeInputHeightOffset = 7;
 export const globalDescriptionFontSize = 12;
 

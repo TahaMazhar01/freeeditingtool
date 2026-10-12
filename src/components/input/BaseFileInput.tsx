@@ -1,8 +1,18 @@
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
-import { Box, useTheme } from '@mui/material';
-import Typography from '@mui/material/Typography';
+import {
+  Box,
+  Button,
+  Chip,
+  Stack,
+  Typography,
+  useTheme,
+  alpha
+} from '@mui/material';
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import InputHeader from '../InputHeader';
-import InputFooter from './InputFooter';
 import {
   BaseFileInputProps,
   createObjectURL,
@@ -19,6 +29,28 @@ interface BaseFileInputComponentProps extends BaseFileInputProps {
   type: 'image' | 'video' | 'audio' | 'pdf';
 }
 
+const formatFileSize = (bytes?: number): string => {
+  if (!bytes) return '';
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+};
+
+const formatAcceptedTypes = (accept: string[]): string => {
+  return accept
+    .map((type) => {
+      if (type.includes('/')) {
+        const ext = type.split('/')[1];
+        return ext === '*'
+          ? type.split('/')[0].toUpperCase()
+          : ext.toUpperCase();
+      }
+      return type.replace('.', '').toUpperCase();
+    })
+    .slice(0, 4)
+    .join(', ');
+};
+
 export default function BaseFileInput({
   value,
   onChange,
@@ -34,16 +66,23 @@ export default function BaseFileInput({
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const { showSnackBar } = useContext(CustomSnackBarContext);
 
+  const currentFile = isArray(value) ? value[0] : value;
+
   useEffect(() => {
     if (value) {
       try {
-        const objectUrl = createObjectURL(value);
-        setPreview(objectUrl);
-        return () => revokeObjectURL(objectUrl);
+        const target = isArray(value) ? value[0] : value;
+        if (target) {
+          const objectUrl = createObjectURL(target);
+          setPreview(objectUrl);
+          return () => revokeObjectURL(objectUrl);
+        }
       } catch (error) {
         console.error('Error previewing file:', error);
       }
-    } else setPreview(null);
+    } else {
+      setPreview(null);
+    }
   }, [value]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,16 +95,27 @@ export default function BaseFileInput({
   };
 
   const handleCopy = () => {
-    if (isArray(value)) {
-      const blob = new Blob([value[0]], { type: value[0].type });
-      const clipboardItem = new ClipboardItem({ [value[0].type]: blob });
+    const targetFile = isArray(value) ? value[0] : value;
+    if (targetFile) {
+      try {
+        const blob = new Blob([targetFile], { type: targetFile.type });
+        const clipboardItem = new ClipboardItem({ [targetFile.type]: blob });
 
-      navigator.clipboard
-        .write([clipboardItem])
-        .then(() => showSnackBar(t('baseFileInput.fileCopied'), 'success'))
-        .catch((err) => {
-          showSnackBar(t('baseFileInput.copyFailed', { error: err }), 'error');
-        });
+        navigator.clipboard
+          .write([clipboardItem])
+          .then(() => showSnackBar(t('baseFileInput.fileCopied'), 'success'))
+          .catch((err) => {
+            showSnackBar(
+              t('baseFileInput.copyFailed', { error: err }),
+              'error'
+            );
+          });
+      } catch (err) {
+        showSnackBar(
+          'Clipboard copy not supported for this file type',
+          'error'
+        );
+      }
     }
   };
 
@@ -77,9 +127,7 @@ export default function BaseFileInput({
     if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
       const file = event.dataTransfer.files[0];
 
-      // Check if file type is acceptable
       const isAcceptable = accept.some((acceptType) => {
-        // Handle wildcards like "image/*"
         if (acceptType.endsWith('/*')) {
           const category = acceptType.split('/')[0];
           return file.type.startsWith(category);
@@ -142,28 +190,126 @@ export default function BaseFileInput({
     };
   }, [onChange]);
 
+  const headerActions = (
+    <Stack direction="row" spacing={1} alignItems="center">
+      {preview ? (
+        <>
+          {type === 'image' && (
+            <Button
+              onClick={handleCopy}
+              size="small"
+              variant="outlined"
+              startIcon={<ContentPasteIcon fontSize="small" />}
+              sx={{
+                borderRadius: 999,
+                fontWeight: 600,
+                fontSize: '0.8rem',
+                px: 1.5,
+                borderColor: alpha(theme.palette.primary.main, 0.3)
+              }}
+            >
+              Copy
+            </Button>
+          )}
+          <Button
+            onClick={handleImportClick}
+            size="small"
+            variant="outlined"
+            startIcon={<SyncAltIcon fontSize="small" />}
+            sx={{
+              borderRadius: 999,
+              fontWeight: 600,
+              fontSize: '0.8rem',
+              px: 1.5,
+              borderColor: alpha(theme.palette.primary.main, 0.3)
+            }}
+          >
+            Change
+          </Button>
+          <Button
+            onClick={handleClear}
+            size="small"
+            color="error"
+            variant="text"
+            startIcon={<DeleteOutlineIcon fontSize="small" />}
+            sx={{
+              borderRadius: 999,
+              fontWeight: 600,
+              fontSize: '0.8rem',
+              px: 1.2
+            }}
+          >
+            Clear
+          </Button>
+        </>
+      ) : (
+        <Button
+          onClick={handleImportClick}
+          size="small"
+          variant="outlined"
+          startIcon={<CloudUploadOutlinedIcon fontSize="small" />}
+          sx={{
+            borderRadius: 999,
+            fontWeight: 600,
+            fontSize: '0.8rem',
+            px: 2,
+            borderColor: alpha(theme.palette.primary.main, 0.35)
+          }}
+        >
+          Browse
+        </Button>
+      )}
+    </Stack>
+  );
+
+  const headerBadge = currentFile ? (
+    <Chip
+      size="small"
+      label={formatFileSize(currentFile.size)}
+      sx={{
+        fontWeight: 600,
+        fontSize: '0.75rem',
+        bgcolor: alpha(theme.palette.primary.main, 0.08),
+        color: 'primary.main',
+        border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`
+      }}
+    />
+  ) : null;
+
   return (
     <Box>
       <InputHeader
         title={title || 'Input ' + type.charAt(0).toUpperCase() + type.slice(1)}
+        actions={headerActions}
+        badge={headerBadge}
       />
       <Box
         sx={{
           width: '100%',
           height: globalInputHeight,
-          border: preview ? 0 : 1,
-          borderRadius: 2,
-          boxShadow: '5',
+          minHeight: globalInputHeight,
+          maxHeight: globalInputHeight,
+          boxSizing: 'border-box',
+          borderRadius: 3,
+          boxShadow: preview ? '0 2px 14px rgba(64,86,161,0.08)' : 'none',
           bgcolor: 'background.paper',
           position: 'relative',
+          overflow: 'hidden',
+          border: preview ? `1px solid ${theme.palette.divider}` : '2px dashed',
           borderColor: isDragging
             ? theme.palette.secondary.main
-            : theme.palette.divider,
-          borderWidth: isDragging ? 2 : 1,
-          borderStyle: isDragging ? 'dashed' : 'solid',
-          transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+            : preview
+              ? theme.palette.divider
+              : alpha(theme.palette.primary.main, 0.3),
+          backgroundColor: isDragging
+            ? alpha(theme.palette.secondary.main, 0.05)
+            : 'background.paper',
+          transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
           '&:hover': {
-            borderColor: theme.palette.secondary.main
+            borderColor: preview
+              ? alpha(theme.palette.primary.main, 0.5)
+              : theme.palette.primary.main,
+            boxShadow: '0 6px 22px rgba(64,86,161,0.1)'
           }
         }}
         onDrop={handleDrop}
@@ -180,12 +326,75 @@ export default function BaseFileInput({
               alignItems: 'center',
               justifyContent: 'center',
               backgroundImage:
-                theme.palette.mode === 'dark' ? null : `url(${greyPattern})`,
+                type === 'image' ? `url(${greyPattern})` : 'none',
               position: 'relative',
               overflow: 'hidden'
             }}
           >
             {children({ preview })}
+
+            {currentFile && (
+              <Box
+                sx={{
+                  position: 'absolute',
+                  bottom: 10,
+                  left: 12,
+                  right: 12,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  bgcolor: 'rgba(255, 255, 255, 0.94)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: 999,
+                  px: 2,
+                  py: 0.6,
+                  border: '1px solid rgba(0, 0, 0, 0.08)',
+                  boxShadow: '0 4px 14px rgba(0, 0, 0, 0.08)',
+                  zIndex: 10
+                }}
+              >
+                <Typography
+                  variant="caption"
+                  noWrap
+                  sx={{
+                    fontWeight: 600,
+                    color: 'text.primary',
+                    maxWidth: { xs: '50%', sm: '65%' }
+                  }}
+                >
+                  {currentFile.name}
+                </Typography>
+                <Stack direction="row" spacing={0.8} alignItems="center">
+                  <Button
+                    size="small"
+                    onClick={handleImportClick}
+                    sx={{
+                      py: 0.2,
+                      px: 1,
+                      minWidth: 'auto',
+                      fontSize: '0.75rem',
+                      fontWeight: 600
+                    }}
+                  >
+                    Replace
+                  </Button>
+                  <Button
+                    size="small"
+                    color="error"
+                    onClick={handleClear}
+                    sx={{
+                      py: 0.2,
+                      px: 1,
+                      minWidth: 'auto',
+                      fontSize: '0.75rem',
+                      fontWeight: 600
+                    }}
+                  >
+                    Clear
+                  </Button>
+                </Stack>
+              </Box>
+            )}
           </Box>
         ) : (
           <Box
@@ -195,38 +404,96 @@ export default function BaseFileInput({
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: 5,
+              padding: { xs: 2.5, sm: 3.5 },
               height: '100%',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              userSelect: 'none'
             }}
           >
-            {isDragging ? (
-              <Typography
-                color={theme.palette.primary.main}
-                variant="h6"
-                align="center"
-              >
-                {t('baseFileInput.dropFileHere', { type })}
-              </Typography>
-            ) : (
-              <Typography
-                color={
-                  theme.palette.mode === 'dark'
-                    ? theme.palette.grey['300']
-                    : theme.palette.grey['600']
+            <Box
+              sx={{
+                width: 60,
+                height: 60,
+                borderRadius: '50%',
+                bgcolor: alpha(theme.palette.primary.main, 0.08),
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mb: 1.5,
+                color: 'primary.main',
+                border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
+                transition: 'transform 0.22s cubic-bezier(0.4, 0, 0.2, 1)',
+                '&:hover': {
+                  transform: 'scale(1.08)'
                 }
-              >
-                {t('baseFileInput.selectFileDescription', { type })}
-              </Typography>
-            )}
+              }}
+            >
+              <CloudUploadOutlinedIcon sx={{ fontSize: 32 }} />
+            </Box>
+
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: 700,
+                fontSize: { xs: '1rem', sm: '1.15rem' },
+                color: isDragging
+                  ? theme.palette.secondary.main
+                  : 'text.primary',
+                mb: 0.5,
+                textAlign: 'center',
+                letterSpacing: '-0.01em'
+              }}
+            >
+              {isDragging
+                ? `Drop your ${type} here`
+                : `Drag & Drop or Upload ${
+                    type === 'image'
+                      ? 'Image'
+                      : type.charAt(0).toUpperCase() + type.slice(1)
+                  } / Files`}
+            </Typography>
+
+            <Button
+              variant="contained"
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleImportClick();
+              }}
+              sx={{
+                mt: 1,
+                mb: 1.2,
+                px: 3,
+                py: 0.7,
+                borderRadius: 999,
+                fontWeight: 600,
+                fontSize: '0.85rem'
+              }}
+            >
+              Browse from Device
+            </Button>
+
+            <Typography
+              variant="caption"
+              sx={{
+                color: 'text.secondary',
+                textAlign: 'center',
+                display: 'flex',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                gap: 0.6,
+                fontSize: '0.78rem'
+              }}
+            >
+              <span>Supports {formatAcceptedTypes(accept)}</span>
+              <span>•</span>
+              <span>Press Ctrl+V to paste</span>
+            </Typography>
           </Box>
         )}
       </Box>
-      <InputFooter
-        handleCopy={handleCopy}
-        handleImport={handleImportClick}
-        handleClear={value ? handleClear : undefined}
-      />
+
       <input
         ref={fileInputRef}
         style={{ display: 'none' }}

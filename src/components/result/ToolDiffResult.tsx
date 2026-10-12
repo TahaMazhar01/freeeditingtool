@@ -1,11 +1,21 @@
-import { Box, Typography, CircularProgress, useTheme } from '@mui/material';
+import {
+  Box,
+  Typography,
+  CircularProgress,
+  useTheme,
+  Button,
+  Stack,
+  alpha
+} from '@mui/material';
+import DownloadIcon from '@mui/icons-material/Download';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import InputHeader from '../InputHeader';
 import ResultFooter from './ResultFooter';
 import { useContext } from 'react';
 import { CustomSnackBarContext } from '../../contexts/CustomSnackBarContext';
 import { globalInputHeight } from '../../config/uiConfig';
 import { useTranslation } from 'react-i18next';
-import { stripAndDecodeHtml } from 'utils/string';
+import { stripAndDecodeHtml } from '@utils/string';
 import DOMPurify from 'dompurify';
 
 const DOMPURIFY_CONFIG = {
@@ -54,18 +64,61 @@ export default function ToolDiffResult({
   const sharedBoxSx = {
     p: 2,
     backgroundColor: 'background.paper',
-    border: '1px solid',
-    borderColor: 'divider',
-    borderRadius: 1,
+    border: `1px solid ${theme.palette.divider}`,
+    borderRadius: 3,
+    boxShadow: '0 2px 14px rgba(64,86,161,0.08)',
     fontFamily: 'monospace',
     whiteSpace: 'pre-wrap',
     wordBreak: 'break-word',
-    minHeight: '265px'
+    height: globalInputHeight,
+    minHeight: globalInputHeight,
+    maxHeight: globalInputHeight,
+    boxSizing: 'border-box' as const,
+    overflowY: 'auto' as const
   } as const;
+
+  const headerActions = (
+    <Stack direction="row" spacing={1} alignItems="center">
+      <Button
+        disabled={!value || loading}
+        onClick={handleCopy}
+        size="small"
+        variant="outlined"
+        startIcon={<ContentPasteIcon fontSize="small" />}
+        sx={{
+          borderRadius: 999,
+          fontWeight: 600,
+          fontSize: '0.8rem',
+          px: 1.8,
+          borderColor: alpha(theme.palette.primary.main, 0.35)
+        }}
+      >
+        Copy Diff
+      </Button>
+      <Button
+        disabled={!value || loading}
+        onClick={handleDownload}
+        variant="contained"
+        color="primary"
+        size="small"
+        startIcon={<DownloadIcon fontSize="small" />}
+        sx={{
+          borderRadius: 999,
+          fontWeight: 700,
+          fontSize: '0.85rem',
+          px: 2.5,
+          py: 0.6,
+          boxShadow: value ? '0 4px 14px rgba(64,86,161,0.35)' : 'none'
+        }}
+      >
+        Download
+      </Button>
+    </Stack>
+  );
 
   return (
     <Box>
-      <InputHeader title={title} />
+      <InputHeader title={title} actions={headerActions} />
       {loading ? (
         <Box
           sx={{
@@ -73,12 +126,24 @@ export default function ToolDiffResult({
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            height: globalInputHeight
+            height: globalInputHeight,
+            minHeight: globalInputHeight,
+            maxHeight: globalInputHeight,
+            boxSizing: 'border-box',
+            borderRadius: 3,
+            bgcolor: 'background.paper',
+            border: `1px solid ${theme.palette.divider}`,
+            gap: 1.5,
+            p: 3
           }}
         >
-          <CircularProgress />
-          <Typography variant="body2" sx={{ mt: 2 }}>
-            {t('toolTextResult.loading')}
+          <CircularProgress
+            size={42}
+            thickness={4}
+            sx={{ color: 'primary.main' }}
+          />
+          <Typography variant="body1" sx={{ fontWeight: 600 }}>
+            {t('toolTextResult.loading') || 'Processing...'}
           </Typography>
         </Box>
       ) : isHtml ? (
@@ -107,7 +172,6 @@ export default function ToolDiffResult({
       ) : (
         <Box sx={sharedBoxSx}>{value}</Box>
       )}
-      <ResultFooter handleCopy={handleCopy} handleDownload={handleDownload} />
     </Box>
   );
 }

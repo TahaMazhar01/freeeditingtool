@@ -29,7 +29,23 @@ export default function Home() {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-      <Helmet title="FreeEditingTools — 119+ Free Browser Tools" />
+      <Helmet>
+        <title>FreeEditingTools — 119+ Free Browser Tools</title>
+        <meta
+          name="description"
+          content="Free online suite of 119+ tools for images, videos, PDFs, text, and data conversion. 100% private and processed directly in your browser."
+        />
+        <link rel="canonical" href="https://freeeditingtools.com/" />
+        <meta
+          property="og:title"
+          content="FreeEditingTools — 119+ Free Browser Tools"
+        />
+        <meta
+          property="og:description"
+          content="Free online suite of 119+ tools for images, videos, PDFs, text, and data conversion. 100% private and client-side."
+        />
+        <meta property="og:url" content="https://freeeditingtools.com/" />
+      </Helmet>
 
       {/* ══════════════════════════════════════════════════
           HERO SECTION

@@ -18,5 +18,34 @@ export default defineConfig({
     setupFiles: '.vitest/setup',
     include: ['**/*.test.{ts,tsx}']
   },
-  worker: { format: 'es' }
+  worker: { format: 'es' },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('@mui') || id.includes('@emotion')) {
+              return 'vendor-mui';
+            }
+            if (id.includes('monaco-editor') || id.includes('@monaco-editor')) {
+              return 'vendor-monaco';
+            }
+            if (
+              id.includes('pdfjs-dist') ||
+              id.includes('pdf-lib') ||
+              id.includes('jspdf')
+            ) {
+              return 'vendor-pdf';
+            }
+            if (id.includes('i18next') || id.includes('react-i18next')) {
+              return 'vendor-i18n';
+            }
+            if (id.includes('@iconify')) {
+              return 'vendor-icons';
+            }
+          }
+        }
+      }
+    }
+  }
 });

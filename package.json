@@ -14,7 +14,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "node scripts/generate-sitemap.mjs && tsc && vite build",
+    "sitemap": "node scripts/generate-sitemap.mjs",
     "serve": "vite preview",
     "test": "vitest",
     "test:e2e": "playwright test",

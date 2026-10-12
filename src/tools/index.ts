@@ -348,6 +348,21 @@ export const filterTools = (
   return scored.map(({ tool }) => tool);
 };
 
+const groupByHelper = <T, K extends PropertyKey>(
+  arr: T[],
+  fn: (item: T) => K
+): Partial<Record<K, T[]>> => {
+  if (typeof (Object as any).groupBy === 'function') {
+    return (Object as any).groupBy(arr, fn);
+  }
+  return arr.reduce<Partial<Record<K, T[]>>>((acc, item) => {
+    const key = fn(item);
+    if (!acc[key]) acc[key] = [];
+    acc[key]!.push(item);
+    return acc;
+  }, {});
+};
+
 export const getToolsByCategory = (
   userTypes: UserType[] = [],
   t: TFunction<I18nNamespaces[]>
@@ -359,10 +374,9 @@ export const getToolsByCategory = (
   type: ToolCategory;
   example: { title: string; path: string };
   tools: DefinedTool[];
-  userTypes: UserType[]; // <-- Add this line
+  userTypes: UserType[];
 }[] => {
-  const groupedByType: Partial<Record<ToolCategory, DefinedTool[]>> =
-    Object.groupBy(tools, ({ type }) => type);
+  const groupedByType = groupByHelper(tools, ({ type }) => type);
 
   return (Object.entries(groupedByType) as Entries<typeof groupedByType>)
     .map(([type, tools]) => {
@@ -396,7 +410,7 @@ export const getToolsByCategory = (
           filteredTools.length > 0
             ? { title: filteredTools[0].name, path: filteredTools[0].path }
             : { title: '', path: '' },
-        userTypes: aggregatedUserTypes // <-- Add this line
+        userTypes: aggregatedUserTypes
       };
     })
     .filter((category) => category.tools.length > 0)
@@ -406,10 +420,20 @@ export const getToolsByCategory = (
             .filter(Boolean)
             .some((categoryUserType) => userTypes.includes(categoryUserType!))
         : true
-    ) // Only show categories with tools
+    )
     .sort(
       (a, b) =>
         toolCategoriesOrder.indexOf(a.type) -
         toolCategoriesOrder.indexOf(b.type)
     );
+};
+
+export const getToolCategoryTitle = (
+  categoryName: string,
+  t: TFunction<I18nNamespaces[]>
+): string => {
+  const category = getToolsByCategory([], t).find(
+    (item) => item.type === categoryName
+  );
+  return category ? category.rawTitle : capitalizeFirstLetter(categoryName);
 };

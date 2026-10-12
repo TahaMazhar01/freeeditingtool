@@ -2,9 +2,7 @@
    FreeEditingTools — Global Design System
    Light-mode only. Playfair Display headings + Inter body.
    ============================================================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap');
-
+/* Fonts are preloaded in index.html to prevent render-blocking CSS waterfall */
 /* ── Design Tokens ──────────────────────────────────────────── */
 :root {
   --color-primary:       #4056A1;   /* Deep Blue — nav, buttons, headings   */

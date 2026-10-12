@@ -65,6 +65,23 @@ export default function ToolLayout({
     >
       <Helmet>
         <title>{`${toolTitle} - FreeEditingTools`}</title>
+        <meta name="description" content={toolDescription} />
+        <link
+          rel="canonical"
+          href={`https://freeeditingtools.com/${fullPath}`}
+        />
+        <meta property="og:title" content={`${toolTitle} - FreeEditingTools`} />
+        <meta property="og:description" content={toolDescription} />
+        <meta
+          property="og:url"
+          content={`https://freeeditingtools.com/${fullPath}`}
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          name="twitter:title"
+          content={`${toolTitle} - FreeEditingTools`}
+        />
+        <meta name="twitter:description" content={toolDescription} />
       </Helmet>
       <Box width={'85%'}>
         <ToolHeader

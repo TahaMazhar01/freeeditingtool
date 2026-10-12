@@ -10,15 +10,16 @@ import {
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { filterTools, getToolsByCategory } from '../../tools';
-import Hero from 'components/Hero';
 import {
-  getI18nNamespaceFromToolCategory,
+  filterTools,
+  getToolsByCategory,
   getToolCategoryTitle
-} from '@utils/string';
+} from '../../tools';
+import Hero from 'components/Hero';
+import { getI18nNamespaceFromToolCategory } from '@utils/string';
 import { Icon } from '@iconify/react';
 import { categoriesColors } from 'config/uiConfig';
-import React, { useEffect } from 'react';
+import React from 'react';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SearchIcon from '@mui/icons-material/Search';
@@ -39,7 +40,6 @@ const StyledLink = styled(Link)(({ theme }) => ({
 export default function ToolsByCategory() {
   const navigate = useNavigate();
   const theme = useTheme();
-  const mainContentRef = React.useRef<HTMLDivElement>(null);
   const { categoryName } = useParams();
   const [searchTerm, setSearchTerm] = React.useState<string>('');
   const { selectedUserTypes, setSelectedUserTypes } = useUserTypeFilter();
@@ -58,16 +58,16 @@ export default function ToolsByCategory() {
     t
   );
 
-  useEffect(() => {
-    if (mainContentRef.current) {
-      mainContentRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, []);
-
   return (
     <Box sx={{ backgroundColor: 'background.default' }}>
       <Helmet>
-        <title>{rawTitle}</title>
+        <title>{`${rawTitle} - FreeEditingTools`}</title>
+        <meta
+          name="description"
+          content={`Free online ${rawTitle.toLowerCase()} utilities. Browse and use ${
+            categoryDefinedTools.length
+          } tools completely free in your browser.`}
+        />
       </Helmet>
       <Box
         padding={{ xs: 1, md: 3, lg: 5 }}
@@ -80,7 +80,7 @@ export default function ToolsByCategory() {
         <Hero />
       </Box>
       <Divider sx={{ borderColor: theme.palette.primary.main }} />
-      <Box ref={mainContentRef} mt={3} ml={{ xs: 1, md: 2, lg: 3 }} padding={3}>
+      <Box mt={3} ml={{ xs: 1, md: 2, lg: 3 }} padding={3}>
         <Stack direction={'row'} justifyContent={'space-between'} spacing={2}>
           <Stack direction={'row'} alignItems={'center'} spacing={1}>
             <IconButton onClick={() => navigate('/')}>

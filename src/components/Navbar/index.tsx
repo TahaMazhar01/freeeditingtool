@@ -90,21 +90,28 @@ const Navbar: React.FC = () => {
     localStorage.setItem('lang', e.target.value);
   };
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-    if (query.trim().length < 1) {
+  useEffect(() => {
+    if (searchQuery.trim().length < 1) {
       setSearchResults([]);
       setSearchOpen(false);
       return;
     }
-    const results = filterTools(
-      tools,
-      query,
-      ['generalUsers', 'developers'],
-      tAll
-    );
-    setSearchResults(results.slice(0, 8));
-    setSearchOpen(results.length > 0);
+    const timer = setTimeout(() => {
+      const results = filterTools(
+        tools,
+        searchQuery,
+        ['generalUsers', 'developers'],
+        tAll
+      );
+      setSearchResults(results.slice(0, 8));
+      setSearchOpen(results.length > 0);
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery, tAll]);
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
   };
 
   const navItems = [

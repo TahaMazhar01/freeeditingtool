@@ -9,13 +9,20 @@ import { ToolComponentProps } from '@tools/defineTool';
 import SelectWithDesc from '@components/options/SelectWithDesc';
 import CheckboxWithDesc from '@components/options/CheckboxWithDesc';
 import CircularProgress from '@mui/material/CircularProgress';
-import { extractTextFromImage, getAvailableLanguages } from './service';
+import {
+  extractTextFromImage,
+  getAvailableLanguages,
+  getAvailableLayoutModes
+} from './service';
 import { InitialValuesType } from './types';
 import { CustomSnackBarContext } from '../../../../../contexts/CustomSnackBarContext';
 
 const initialValues: InitialValuesType = {
   language: 'eng',
-  detectParagraphs: true
+  detectParagraphs: true,
+  layoutMode: 'sparse',
+  enhanceContrast: true,
+  filterNoise: true
 };
 
 const validationSchema = Yup.object({
@@ -61,6 +68,30 @@ export default function ImageToText({ title }: ToolComponentProps) {
               'Select the primary language in the image for better accuracy'
             }
             options={getAvailableLanguages()}
+          />
+          <SelectWithDesc
+            selected={values.layoutMode}
+            onChange={(val) => updateField('layoutMode', val as any)}
+            description={
+              'Use "Poster / Flyer" mode for social media graphics, flyers, and scattered text'
+            }
+            options={getAvailableLayoutModes()}
+          />
+          <CheckboxWithDesc
+            checked={values.enhanceContrast}
+            onChange={(value) => updateField('enhanceContrast', value)}
+            description={
+              'Applies canvas luminance enhancement and contrast stretching to separate text from background graphics'
+            }
+            title={'Enhance Contrast'}
+          />
+          <CheckboxWithDesc
+            checked={values.filterNoise}
+            onChange={(value) => updateField('filterNoise', value)}
+            description={
+              'Suppresses low-confidence graphic artifacts, icon shapes, and stray symbol noise'
+            }
+            title={'Filter Graphic Artifacts & Noise'}
           />
           <CheckboxWithDesc
             checked={values.detectParagraphs}

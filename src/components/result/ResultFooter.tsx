@@ -1,5 +1,4 @@
-import { Stack } from '@mui/material';
-import Button from '@mui/material/Button';
+import { Stack, Button, alpha, useTheme } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import React from 'react';
@@ -19,20 +18,40 @@ export default function ResultFooter({
   downloadLabel?: string;
 }) {
   const { t } = useTranslation();
+  const theme = useTheme();
+
   return (
-    <Stack mt={1} direction={'row'} spacing={2}>
+    <Stack mt={1.5} direction={'row'} spacing={1.5} alignItems="center">
       <Button
         disabled={disabled}
         onClick={handleDownload}
-        startIcon={<DownloadIcon />}
+        variant="contained"
+        color="primary"
+        size="small"
+        startIcon={<DownloadIcon fontSize="small" />}
+        sx={{
+          borderRadius: 999,
+          fontWeight: 700,
+          px: 2.5,
+          py: 0.6,
+          boxShadow: disabled ? 'none' : '0 4px 14px rgba(64,86,161,0.28)'
+        }}
       >
         {downloadLabel || t('resultFooter.download')}
       </Button>
-      {!hideCopy && (
+      {!hideCopy && handleCopy && (
         <Button
           disabled={disabled}
           onClick={handleCopy}
-          startIcon={<ContentPasteIcon />}
+          variant="outlined"
+          size="small"
+          startIcon={<ContentPasteIcon fontSize="small" />}
+          sx={{
+            borderRadius: 999,
+            fontWeight: 600,
+            px: 2,
+            borderColor: alpha(theme.palette.primary.main, 0.35)
+          }}
         >
           {t('resultFooter.copy')}
         </Button>

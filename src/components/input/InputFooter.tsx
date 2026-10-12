@@ -1,5 +1,4 @@
-import { Stack } from '@mui/material';
-import Button from '@mui/material/Button';
+import { Stack, Button, alpha, useTheme } from '@mui/material';
 import PublishIcon from '@mui/icons-material/Publish';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -15,19 +14,53 @@ export default function InputFooter({
   handleClear?: () => void;
 }) {
   const { t } = useTranslation();
+  const theme = useTheme();
 
   return (
-    <Stack mt={1} direction={'row'} spacing={2}>
-      <Button onClick={handleImport} startIcon={<PublishIcon />}>
+    <Stack mt={1.5} direction={'row'} spacing={1.5} alignItems="center">
+      <Button
+        onClick={handleImport}
+        variant="outlined"
+        size="small"
+        startIcon={<PublishIcon fontSize="small" />}
+        sx={{
+          borderRadius: 999,
+          fontWeight: 600,
+          px: 2,
+          borderColor: alpha(theme.palette.primary.main, 0.35)
+        }}
+      >
         {t('inputFooter.importFromFile')}
       </Button>
       {handleCopy && (
-        <Button onClick={handleCopy} startIcon={<ContentPasteIcon />}>
+        <Button
+          onClick={handleCopy}
+          variant="outlined"
+          size="small"
+          startIcon={<ContentPasteIcon fontSize="small" />}
+          sx={{
+            borderRadius: 999,
+            fontWeight: 600,
+            px: 2,
+            borderColor: alpha(theme.palette.primary.main, 0.35)
+          }}
+        >
           {t('inputFooter.copyToClipboard')}
         </Button>
       )}
       {handleClear && (
-        <Button onClick={handleClear} startIcon={<ClearIcon />}>
+        <Button
+          onClick={handleClear}
+          variant="text"
+          color="error"
+          size="small"
+          startIcon={<ClearIcon fontSize="small" />}
+          sx={{
+            borderRadius: 999,
+            fontWeight: 600,
+            px: 1.5
+          }}
+        >
           {t('inputFooter.clear')}
         </Button>
       )}

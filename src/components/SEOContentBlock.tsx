@@ -10,6 +10,7 @@ import {
   ListItemText
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Helmet } from 'react-helmet';
 
 interface SEOContentBlockProps {
   toolName: string;
@@ -38,6 +39,33 @@ export default function SEOContentBlock({
     }
   ];
 
+  const appSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: toolName,
+    description: toolDescription,
+    applicationCategory: 'UtilityApplication',
+    operatingSystem: 'All',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD'
+    }
+  };
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.a
+      }
+    }))
+  };
+
   return (
     <Box
       sx={{
@@ -52,6 +80,10 @@ export default function SEOContentBlock({
         boxSizing: 'border-box'
       }}
     >
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(appSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </Helmet>
       <Typography variant="h5" component="h2" gutterBottom fontWeight={800}>
         How to Use the {toolName} Online Utility
       </Typography>
