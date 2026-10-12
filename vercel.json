@@ -1,4 +1,9 @@
 {
+  "git": {
+    "deploymentEnabled": {
+      "codex/local-fixes-and-blog": false
+    }
+  },
   "headers": [
     {
       "source": "/assets/(.*)",

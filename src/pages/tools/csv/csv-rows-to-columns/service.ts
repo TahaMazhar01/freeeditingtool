@@ -1,3 +1,4 @@
+import { splitCsv, serializeCsv } from '@utils/csv';
 function compute(rows: string[][], columnCount: number): string[][] {
   const result: string[][] = [];
   for (let i = 0; i < rows.length; i++) {
@@ -21,12 +22,8 @@ export function csvRowsToColumns(
     return '';
   }
 
-  const rows = input
-    .split('\n')
-    .map((row) => row.split(','))
-    .filter(
-      (row) => row.length > 0 && !row[0].trim().startsWith(commentCharacter)
-    );
+  const rows = splitCsv(input, true, commentCharacter, false);
+  if (!rows.length) return '';
   const columnCount = Math.max(...rows.map((row) => row.length));
   for (let i = 0; i < rows.length; i++) {
     for (let j = 0; j < columnCount; j++) {
@@ -36,5 +33,5 @@ export function csvRowsToColumns(
     }
   }
   const result = compute(rows, columnCount);
-  return result.join('\n');
+  return serializeCsv(result);
 }

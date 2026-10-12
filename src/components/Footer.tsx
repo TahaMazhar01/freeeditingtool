@@ -24,6 +24,7 @@ const footerLinks = [
     icon: 'ph:wrench-duotone',
     items: [
       { label: 'Home', to: '/' },
+      { label: 'Blog', to: '/blog' },
       { label: 'About', to: '/about' }
     ]
   },

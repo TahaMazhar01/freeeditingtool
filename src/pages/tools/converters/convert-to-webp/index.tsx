@@ -1,7 +1,7 @@
 import { Box, Slider, Typography } from '@mui/material';
 import ColorSelector from 'components/options/ColorSelector';
 import ToolFileResult from 'components/result/ToolFileResult';
-import React, { useContext, useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import ToolContent from '@components/ToolContent';
 import { ToolComponentProps } from '@tools/defineTool';
@@ -10,10 +10,8 @@ import ToolMultipleImageInput, {
   MultiImageInput
 } from '@components/input/ToolMultipleImageInput';
 import ToolMultiFileResult from '@components/result/ToolMultiFileResult';
-import { CustomSnackBarContext } from '../../../../contexts/CustomSnackBarContext';
 import { convertToWebp } from './service';
 import { useTranslation } from 'react-i18next';
-import debounce from 'lodash/debounce';
 
 const initialValues: InitialValuesType = {
   backgroundColor: '#ffffff',
@@ -22,11 +20,7 @@ const initialValues: InitialValuesType = {
 
 const validationSchema = Yup.object({
   quality: Yup.number().min(1).max(100).required('Quality is required'),
-  backgroundColor: Yup.string().required('Background color is required'),
-  maxFileSizeInMb: Yup.number()
-    .min(1)
-    .max(100)
-    .required('Maximum file size is required')
+  backgroundColor: Yup.string().required('Background color is required')
 });
 
 export default function ConvertToWebp({ title }: ToolComponentProps) {
@@ -35,7 +29,6 @@ export default function ConvertToWebp({ title }: ToolComponentProps) {
   const [result, setResult] = useState<File[]>([]);
   const [zipFile, setZipFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const { showSnackBar } = useContext(CustomSnackBarContext);
 
   const compute = async (
     optionsValues: typeof initialValues,
@@ -54,23 +47,20 @@ export default function ConvertToWebp({ title }: ToolComponentProps) {
       );
 
       if (!output) {
-        showSnackBar(t('convertToWebp.failedToConvert'), 'error');
-        return;
+        throw new Error(t('convertToWebp.failedToConvert'));
       } else {
         setResult(output.convertedFiles);
         setZipFile(output.zipFile);
       }
     } catch (error) {
-      showSnackBar(`Error converting files: ${error}`, 'error');
       setZipFile(null);
+      throw error;
     } finally {
       setIsProcessing(false);
     }
 
     console.log('Images are processed');
   };
-
-  const debouncedCompute = useCallback(debounce(compute, 1000), []);
 
   return (
     <ToolContent
@@ -143,7 +133,8 @@ export default function ConvertToWebp({ title }: ToolComponentProps) {
           )
         }
       ]}
-      compute={debouncedCompute}
+      compute={compute}
+      computeDebounceMs={1000}
       setInput={setInput}
     />
   );

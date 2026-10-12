@@ -25,13 +25,7 @@ const categories = [
   'converters'
 ];
 
-const staticPages = [
-  '',
-  'about',
-  'privacy',
-  'terms',
-  'contact'
-];
+const staticPages = ['', 'about', 'blog', 'privacy', 'terms', 'contact'];
 
 const toolPaths = [];
 
@@ -57,6 +51,20 @@ walk(path.join(rootDir, 'src', 'pages', 'tools'));
 const today = new Date().toISOString().split('T')[0];
 
 const urls = [];
+const blogPosts = JSON.parse(
+  fs.readFileSync(
+    path.join(rootDir, 'src', 'content', 'blogPosts.json'),
+    'utf8'
+  )
+);
+for (const post of blogPosts) {
+  urls.push(`  <url>
+    <loc>${BASE_URL}/blog/${post.slug}</loc>
+    <lastmod>${post.date}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`);
+}
 
 // Static pages
 for (const p of staticPages) {

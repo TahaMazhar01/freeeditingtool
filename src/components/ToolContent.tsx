@@ -1,5 +1,12 @@
-import React, { ReactNode, useContext, useEffect } from 'react';
-import { Box } from '@mui/material';
+import React, {
+  ReactNode,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
+import { Box, Alert, Typography } from '@mui/material';
 import { Formik, FormikValues, useFormikContext } from 'formik';
 import ToolOptions, { GetGroupsType } from '@components/options/ToolOptions';
 import ToolInputAndResult from '@components/ToolInputAndResult';
@@ -11,31 +18,117 @@ import ToolExamples, {
 import { ToolComponentProps } from '@tools/defineTool';
 import { CustomSnackBarContext } from '../contexts/CustomSnackBarContext';
 
+function validationMessages(errors: unknown): string[] {
+  if (typeof errors === 'string') return [errors];
+  if (errors && typeof errors === 'object') {
+    return Object.values(errors).flatMap(validationMessages);
+  }
+  return [];
+}
+
 const FormikListenerComponent = <T,>({
   input,
   compute,
-  onValuesChange
+  onValuesChange,
+  debounceMs,
+  inputComponent,
+  resultComponent
 }: {
   input: any;
-  compute: (optionsValues: T, input: any) => void;
+  compute: (optionsValues: T, input: any) => void | Promise<void>;
   onValuesChange?: (values: T) => void;
+  debounceMs: number;
+  inputComponent?: ReactNode;
+  resultComponent?: ReactNode;
 }) => {
-  const { values } = useFormikContext<T>();
+  const { values, validateForm } = useFormikContext<T>();
   const { showSnackBar } = useContext(CustomSnackBarContext);
+  const callbacks = useRef({ compute, validateForm, showSnackBar });
+  callbacks.current = { compute, validateForm, showSnackBar };
+  const queue = useRef<Promise<void>>(Promise.resolve());
+  // A fresh request identity also distinguishes A → B → A input changes.
+  const request = useMemo(
+    () => ({ values, input }),
+    [values, input, debounceMs]
+  );
+  const [completed, setCompleted] = useState<{ values: T; input: any } | null>(
+    null
+  );
+  const [failure, setFailure] = useState<{
+    request: typeof request;
+    message: string;
+  } | null>(null);
+  const emptyInput =
+    input === null ||
+    input === '' ||
+    (Array.isArray(input) && input.length === 0);
 
   React.useEffect(() => {
-    try {
-      compute(values, input);
-    } catch (exception: unknown) {
-      if (exception instanceof Error) showSnackBar(exception.message, 'error');
-      else console.error(exception);
-    }
-  }, [values, input, showSnackBar]);
+    let cancelled = false;
+    if (emptyInput) return;
+    const timer = setTimeout(() => {
+      // One job at a time: legacy tools update their own React result state.
+      // Waiting for that job prevents it from overwriting a newer result.
+      queue.current = queue.current.then(async () => {
+        if (cancelled) return;
+        const job = callbacks.current;
+        try {
+          const errors = await job.validateForm(values);
+          if (cancelled) return;
+          if (Object.keys(errors).length > 0) {
+            setFailure({
+              request,
+              message: `Check the tool options: ${validationMessages(
+                errors
+              ).join(' ')}`
+            });
+            return;
+          }
+          await job.compute(values, input);
+          if (!cancelled) {
+            setFailure(null);
+            setCompleted(request);
+          }
+        } catch (exception: unknown) {
+          if (cancelled) return;
+          const message =
+            exception instanceof Error ? exception.message : String(exception);
+          setFailure({ request, message });
+          job.showSnackBar(message, 'error');
+        }
+      });
+    }, debounceMs);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [request, values, input, emptyInput, debounceMs]);
 
   useEffect(() => {
     onValuesChange?.(values);
   }, [onValuesChange, values]);
-  return null; // This component doesn't render anything
+  const error = failure?.request === request ? failure.message : null;
+  const current = !emptyInput && completed === request && !error;
+  return (
+    <ToolInputAndResult
+      input={inputComponent}
+      result={
+        resultComponent ? (
+          current ? (
+            resultComponent
+          ) : error ? (
+            <Alert severity="error">{error}</Alert>
+          ) : (
+            <Box role="status" aria-busy={!emptyInput} sx={{ p: 3 }}>
+              <Typography color="text.secondary">
+                {emptyInput ? 'Enter input to see a result.' : 'Processing…'}
+              </Typography>
+            </Box>
+          )
+        ) : undefined
+      }
+    />
+  );
 };
 
 interface ToolContentProps<Options, Input> extends ToolComponentProps {
@@ -50,7 +143,8 @@ interface ToolContentProps<Options, Input> extends ToolComponentProps {
    * should return non-empty array or null
    */
   getGroups: GetGroupsType<Options> | null;
-  compute: (optionsValues: Options, input: Input) => void;
+  compute: (optionsValues: Options, input: Input) => void | Promise<void>;
+  computeDebounceMs?: number;
   toolInfo?: {
     title: string;
     description?: string;
@@ -70,6 +164,7 @@ export default function ToolContent<T extends FormikValues, I>({
   initialValues,
   getGroups,
   compute,
+  computeDebounceMs = 0,
   toolInfo,
   exampleCards,
   input,
@@ -89,18 +184,17 @@ export default function ToolContent<T extends FormikValues, I>({
         {({ values, setFieldValue }) => {
           return (
             <>
-              <ToolInputAndResult
-                input={
+              <FormikListenerComponent<T>
+                compute={compute}
+                input={input}
+                debounceMs={computeDebounceMs}
+                onValuesChange={onValuesChange}
+                inputComponent={
                   inputComponent ??
                   (renderCustomInput &&
                     renderCustomInput(values, setFieldValue))
                 }
-                result={resultComponent}
-              />
-              <FormikListenerComponent<T>
-                compute={compute}
-                input={input}
-                onValuesChange={onValuesChange}
+                resultComponent={resultComponent}
               />
               <ToolOptions getGroups={getGroups} vertical={verticalGroups} />
 

@@ -30,7 +30,7 @@ const validationSchema = Yup.object({
     .min(1, 'Must generate at least 1 term')
     .max(1000, 'Maximum 1000 terms allowed')
     .required('Number of terms is required'),
-  separator: Yup.string().required('Separator is required')
+  separator: Yup.string().defined('Separator is required')
 });
 
 const exampleCards: CardExampleType<InitialValuesType>[] = [

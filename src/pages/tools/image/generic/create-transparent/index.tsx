@@ -78,15 +78,17 @@ export default function CreateTransparent({ title }: ToolComponentProps) {
 
       ctx.putImageData(imageData, 0, 0);
 
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const newFile = new File([blob], file.name, { type: 'image/png' });
-          setResult(newFile);
-        }
-      }, 'image/png');
+      const blob = await new Promise<Blob>((resolve, reject) => {
+        canvas.toBlob(
+          (blob) =>
+            blob ? resolve(blob) : reject(new Error('Failed to create image.')),
+          'image/png'
+        );
+      });
+      setResult(new File([blob], file.name, { type: 'image/png' }));
     };
 
-    processImage(input, fromRgb, Number(similarity));
+    return processImage(input, fromRgb, Number(similarity));
   };
 
   const getGroups: GetGroupsType<typeof initialValues> = ({

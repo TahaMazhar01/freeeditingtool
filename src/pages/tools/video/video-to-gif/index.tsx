@@ -68,7 +68,7 @@ export default function VideoToGif({
       const outputName = 'output.gif';
 
       try {
-        ffmpeg.writeFile(fileName, await fetchFile(file));
+        await ffmpeg.writeFile(fileName, await fetchFile(file));
 
         await ffmpeg.exec([
           '-i',
@@ -115,7 +115,7 @@ export default function VideoToGif({
       }
     };
 
-    convertVideoToGif(input, fps, scale, start, end);
+    return convertVideoToGif(input, fps, scale, start, end);
   };
 
   const getGroups: GetGroupsType<InitialValuesType> | null = ({
@@ -225,6 +225,7 @@ export default function VideoToGif({
         )
       }
       initialValues={initialValues}
+      validationSchema={validationSchema}
       getGroups={getGroups}
       setInput={setInput}
       compute={compute}

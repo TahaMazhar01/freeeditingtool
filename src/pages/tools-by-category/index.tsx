@@ -1,3 +1,4 @@
+import ToolCard from '@components/allTools/ToolCard';
 import {
   Box,
   Divider,
@@ -118,57 +119,14 @@ export default function ToolsByCategory() {
           />
         </Box>
         <Grid container spacing={2}>
-          {categoryTools.map((tool, index) => (
+          {categoryTools.map((tool) => (
             <Grid item xs={12} md={6} lg={4} key={tool.path}>
-              <Stack
-                sx={{
-                  backgroundColor: 'background.paper',
-                  border: `1px solid ${theme.palette.divider}`,
-                  boxShadow: `0 4px 16px ${alpha(
-                    theme.palette.primary.main,
-                    theme.palette.mode === 'dark' ? 0.12 : 0.08
-                  )}`,
-                  cursor: 'pointer',
-                  height: '100%',
-                  transition:
-                    'transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease',
-                  '&:hover': {
-                    backgroundColor: theme.palette.background.hover,
-                    transform: 'translateY(-2px)',
-                    boxShadow: `0 8px 24px ${alpha(
-                      theme.palette.primary.main,
-                      0.18
-                    )}`
-                  }
-                }}
-                onClick={() => navigate('/' + tool.path)}
-                direction={'row'}
-                alignItems={'center'}
-                spacing={2}
-                padding={2}
-                borderRadius={2}
-              >
-                <Icon
-                  icon={tool.icon ?? 'ph:compass-tool-thin'}
-                  fontSize={'60px'}
-                  color={categoriesColors[index % categoriesColors.length]}
-                />
-                <Box>
-                  <StyledLink
-                    style={{
-                      fontSize: 20
-                    }}
-                    to={'/' + tool.path}
-                  >
-                    {/*@ts-ignore*/}
-                    {t(tool.name)}
-                  </StyledLink>
-                  <Typography sx={{ mt: 2 }}>
-                    {/*@ts-ignore*/}
-                    {t(tool.shortDescription)}
-                  </Typography>
-                </Box>
-              </Stack>
+              <ToolCard
+                title={t(tool.name)}
+                description={t(tool.shortDescription)}
+                link={'/' + tool.path}
+                icon={tool.icon}
+              />
             </Grid>
           ))}
         </Grid>

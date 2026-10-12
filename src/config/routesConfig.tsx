@@ -1,4 +1,4 @@
-import { Navigate, RouteObject } from 'react-router-dom';
+import { RouteObject } from 'react-router-dom';
 import { lazy } from 'react';
 
 const Home = lazy(() => import('../pages/home'));
@@ -7,6 +7,9 @@ const ToolsByCategory = lazy(() => import('../pages/tools-by-category'));
 const Privacy = lazy(() => import('../pages/legal/Privacy'));
 const Terms = lazy(() => import('../pages/legal/Terms'));
 const Contact = lazy(() => import('../pages/legal/Contact'));
+const NotFound = lazy(() => import('../pages/not-found'));
+const Blog = lazy(() => import('../pages/blog'));
+const BlogArticle = lazy(() => import('../pages/blog/Article'));
 
 const routes: RouteObject[] = [
   {
@@ -34,8 +37,16 @@ const routes: RouteObject[] = [
     element: <Contact />
   },
   {
+    path: '/blog',
+    element: <Blog />
+  },
+  {
+    path: '/blog/:slug',
+    element: <BlogArticle />
+  },
+  {
     path: '*',
-    element: <Navigate to="404" />
+    element: <NotFound />
   }
 ];
 

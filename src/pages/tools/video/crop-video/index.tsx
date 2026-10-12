@@ -1,5 +1,5 @@
 import { Box, Typography, TextField, Alert } from '@mui/material';
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import ToolContent from '@components/ToolContent';
 import { ToolComponentProps } from '@tools/defineTool';
 import { cropVideo, getVideoDimensions } from './service';
@@ -7,7 +7,6 @@ import { InitialValuesType } from './types';
 import ToolVideoInput from '@components/input/ToolVideoInput';
 import { GetGroupsType } from '@components/options/ToolOptions';
 import ToolFileResult from '@components/result/ToolFileResult';
-import { debounce } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 const initialValues: InitialValuesType = {
@@ -75,15 +74,13 @@ export default function CropVideo({ title }: ToolComponentProps) {
     } catch (error) {
       console.error('Error cropping video:', error);
       setProcessingError(t('cropVideo.errorCroppingVideo'));
+      throw error;
     } finally {
       setLoading(false);
     }
   };
 
   // 2 seconds to avoid starting job half way through
-  const debouncedCompute = useCallback(debounce(compute, 2000), [
-    videoDimensions
-  ]);
 
   const getGroups: GetGroupsType<InitialValuesType> = ({
     values,
@@ -218,7 +215,8 @@ export default function CropVideo({ title }: ToolComponentProps) {
       }
       initialValues={initialValues}
       getGroups={getGroups}
-      compute={debouncedCompute}
+      compute={compute}
+      computeDebounceMs={2000}
       setInput={setInput}
     />
   );

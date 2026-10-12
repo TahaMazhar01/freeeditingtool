@@ -6,14 +6,13 @@ import ToolMultipleImageInput, {
 import ColorSelector from 'components/options/ColorSelector';
 import ToolFileResult from '@components/result/ToolFileResult';
 import ToolMultiFileResult from '@components/result/ToolMultiFileResult';
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useContext } from 'react';
 import * as Yup from 'yup';
 import ToolContent from '@components/ToolContent';
 import { ToolComponentProps } from '@tools/defineTool';
 import InitialValuesType from './types';
 import { convertToJPG } from './service';
 import { CustomSnackBarContext } from 'contexts/CustomSnackBarContext';
-import debounce from 'lodash/debounce';
 
 const initialValues: InitialValuesType = {
   quality: 85,
@@ -48,8 +47,7 @@ export default function ConvertToJpg({ title }: ToolComponentProps) {
       );
 
       if (!output) {
-        showSnackBar(t('convertToJPG.failedToConvert'), 'error');
-        return;
+        throw new Error(t('convertToJPG.failedToConvert'));
       }
 
       if (output.results.length < input.length) {
@@ -60,12 +58,11 @@ export default function ConvertToJpg({ title }: ToolComponentProps) {
       setZipFile(output.zipFile);
     } catch (err) {
       console.error('Error in conversion:', err);
+      throw err;
     } finally {
       setIsProcessing(false);
     }
   };
-
-  const debouncedCompute = useCallback(debounce(compute, 1000), []);
 
   return (
     <ToolContent
@@ -137,7 +134,8 @@ export default function ConvertToJpg({ title }: ToolComponentProps) {
           )
         }
       ]}
-      compute={debouncedCompute}
+      compute={compute}
+      computeDebounceMs={1000}
       setInput={setInput}
     />
   );

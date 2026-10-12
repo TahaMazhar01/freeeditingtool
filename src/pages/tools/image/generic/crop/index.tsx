@@ -98,17 +98,19 @@ export default function CropImage({ title }: ToolComponentProps) {
       }
 
       // Convert canvas to blob and create file
-      destCanvas.toBlob((blob) => {
-        if (blob) {
-          const newFile = new File([blob], file.name, {
-            type: file.type
-          });
-          setResult(newFile);
-        }
-      }, file.type);
+      const blob = await new Promise<Blob>((resolve, reject) => {
+        destCanvas.toBlob(
+          (blob) =>
+            blob
+              ? resolve(blob)
+              : reject(new Error('Failed to create cropped image.')),
+          file.type
+        );
+      });
+      setResult(new File([blob], file.name, { type: file.type }));
     };
 
-    processImage(input, x, y, width, height, isCircular);
+    return processImage(input, x, y, width, height, isCircular);
   };
   const handleCropChange =
     (values: InitialValuesType, updateField: UpdateField<InitialValuesType>) =>

@@ -9,15 +9,23 @@ import { getJsonHeaders } from 'utils/json';
 function flattenRecursive(
   value: unknown,
   prefix = '',
-  result: Record<string, string> = {}
+  result: Record<string, string> = Object.create(null)
 ): Record<string, string> {
   if (value === null || value === undefined) {
-    if (prefix) result[prefix] = '';
+    if (prefix) {
+      if (Object.hasOwn(result, prefix))
+        throw new Error(`Flattened key collision: ${prefix}`);
+      result[prefix] = '';
+    }
     return result;
   }
 
   if (typeof value !== 'object') {
-    if (prefix) result[prefix] = String(value);
+    if (prefix) {
+      if (Object.hasOwn(result, prefix))
+        throw new Error(`Flattened key collision: ${prefix}`);
+      result[prefix] = String(value);
+    }
     return result;
   }
 
@@ -66,7 +74,8 @@ function quoteCell(value: string, options: InitialValuesType): string {
     value.includes(delimiter) ||
     value.includes('"') ||
     value.includes('\n') ||
-    value.includes('\r');
+    value.includes('\r') ||
+    value !== value.trim();
 
   if (quoteStrings === 'always') return `"${escaped}"`;
 

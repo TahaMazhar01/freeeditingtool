@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import ToolFileResult from '@components/result/ToolFileResult';
 import ToolContent from '@components/ToolContent';
@@ -9,7 +9,6 @@ import TextFieldWithDesc from '@components/options/TextFieldWithDesc';
 import { updateNumberField } from '@utils/string';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile } from '@ffmpeg/util';
-import { debounce } from 'lodash';
 import ToolVideoInput from '@components/input/ToolVideoInput';
 import { useTranslation } from 'react-i18next';
 
@@ -79,9 +78,10 @@ export default function TrimVideo({ title }: ToolComponentProps) {
       setResult(trimmedFile);
     } catch (error) {
       console.error('Error trimming video:', error);
+      throw error;
     }
   };
-  const debouncedCompute = useCallback(debounce(compute, 1000), []);
+
   const getGroups: GetGroupsType<typeof initialValues> = ({
     values,
     updateField
@@ -138,7 +138,8 @@ export default function TrimVideo({ title }: ToolComponentProps) {
       }
       initialValues={initialValues}
       getGroups={getGroups}
-      compute={debouncedCompute}
+      compute={compute}
+      computeDebounceMs={1000}
       setInput={setInput}
       validationSchema={validationSchema}
     />

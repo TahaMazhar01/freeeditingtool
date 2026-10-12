@@ -107,7 +107,10 @@ cheese;1;8.99`,
       csvSeparator: ';'
     }
   }
-];
+].map((card) => ({
+  ...card,
+  sampleResult: main(card.sampleText, card.sampleOptions)
+}));
 export default function CsvToYaml({
   title,
   longDescription

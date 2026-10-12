@@ -83,7 +83,9 @@ const Navbar: React.FC = () => {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) =>
+    location.pathname === path ||
+    (path === '/blog' && location.pathname.startsWith('/blog/'));
 
   const handleLangChange = (e: { target: { value: string } }) => {
     i18n.changeLanguage(e.target.value);
@@ -116,6 +118,7 @@ const Navbar: React.FC = () => {
 
   const navItems = [
     { label: t('navbar.home'), path: '/' },
+    { label: 'Blog', path: '/blog' },
     { label: t('navbar.about'), path: '/about' }
   ];
 

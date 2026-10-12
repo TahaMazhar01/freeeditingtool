@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "compress-images",
+    "source": "https://commons.wikimedia.org/wiki/File:Mountain_lake_in_Grand_Teton_National_Park_(Unsplash).jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/3/33/Mountain_lake_in_Grand_Teton_National_Park_%28Unsplash%29.jpg",
+    "author": "Alexandre Chambon",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "originalDimensions": {
+      "width": 5184,
+      "height": 2916
+    },
+    "changes": "Resized and JPEG optimized. Display crops depend on viewport.",
+    "verifiedOn": "2026-10-12"
+  },
+  {
+    "slug": "image-formats",
+    "source": "https://commons.wikimedia.org/wiki/File:Camera_(Unsplash).jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/6/67/Camera_%28Unsplash%29.jpg",
+    "author": "Alexander Wang",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "originalDimensions": {
+      "width": 4592,
+      "height": 3056
+    },
+    "changes": "Resized and JPEG optimized. Display crops depend on viewport.",
+    "verifiedOn": "2026-10-12"
+  },
+  {
+    "slug": "resize-images",
+    "source": "https://commons.wikimedia.org/wiki/File:Camera_Lens_Reflections_(Unsplash).jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Camera_Lens_Reflections_%28Unsplash%29.jpg",
+    "author": "Jakob Owens",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "originalDimensions": {
+      "width": 5062,
+      "height": 3648
+    },
+    "changes": "Resized and JPEG optimized. Display crops depend on viewport.",
+    "verifiedOn": "2026-10-12"
+  },
+  {
+    "slug": "compress-pdf",
+    "source": "https://commons.wikimedia.org/wiki/File:FileStack.jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/7/7d/FileStack.jpg",
+    "author": "Niklas Bildhauer",
+    "license": "CC BY SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "originalDimensions": {
+      "width": 2592,
+      "height": 1944
+    },
+    "changes": "Resized and JPEG optimized. Display crops depend on viewport.",
+    "verifiedOn": "2026-10-12"
+  },
+  {
+    "slug": "image-to-text",
+    "source": "https://commons.wikimedia.org/wiki/File:Open_book_(Unsplash).jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Open_book_%28Unsplash%29.jpg",
+    "author": "Ben White",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "originalDimensions": {
+      "width": 4288,
+      "height": 2848
+    },
+    "changes": "Resized and JPEG optimized. Display crops depend on viewport.",
+    "verifiedOn": "2026-10-12"
+  },
+  {
+    "slug": "csv-to-json",
+    "source": "https://commons.wikimedia.org/wiki/File:Laptop_on_a_desk.jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/6/61/Laptop_on_a_desk.jpg",
+    "author": "Radek Grzybowski",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "originalDimensions": {
+      "width": 3165,
+      "height": 2334
+    },
+    "changes": "Resized and JPEG optimized. Display crops depend on viewport.",
+    "verifiedOn": "2026-10-12"
+  }
+]

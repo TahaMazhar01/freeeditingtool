@@ -1,8 +1,46 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { generatePassword } from './service';
 import { initialValues } from './initialValues';
 
 describe('generatePassword', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('uses cryptographic randomness and rejects values that would bias the result', () => {
+    const values = [2 ** 32 - 1, 0, 25];
+    const random = vi
+      .spyOn(crypto, 'getRandomValues')
+      .mockImplementation((array) => {
+        (array as Uint32Array)[0] = values.shift()!;
+        return array;
+      });
+    const insecureRandom = vi.spyOn(Math, 'random').mockImplementation(() => {
+      throw new Error('Insecure random source used');
+    });
+
+    expect(
+      generatePassword({
+        ...initialValues,
+        length: '2',
+        includeUppercase: false,
+        includeNumbers: false,
+        includeSymbols: false
+      })
+    ).toBe('az');
+    expect(random).toHaveBeenCalledTimes(3);
+    expect(insecureRandom).not.toHaveBeenCalled();
+  });
+
+  it('does not fall back to insecure randomness if cryptographic randomness fails', () => {
+    vi.spyOn(crypto, 'getRandomValues').mockImplementation(() => {
+      throw new Error('Cryptographic randomness unavailable');
+    });
+    expect(() => generatePassword(initialValues)).toThrow(
+      'Cryptographic randomness unavailable'
+    );
+  });
+
   it('should generate a password with the specified length', () => {
     const options = { ...initialValues, length: '10' };
     const result = generatePassword(options);

@@ -1,4 +1,4 @@
-import { splitCsv } from '@utils/csv';
+import { splitCsv, serializeCsv } from '@utils/csv';
 import { InitialValuesType } from './types';
 
 function retrieveFromAndTo(
@@ -45,6 +45,7 @@ export function csvColumnsSwap(input: string, options: InitialValuesType) {
     options.emptyLines
   );
 
+  if (!rows.length) return '';
   const columnCount = Math.max(...rows.map((row) => row.length));
   for (let i = 0; i < rows.length; i++) {
     for (let j = 0; j < columnCount; j++) {
@@ -57,5 +58,5 @@ export function csvColumnsSwap(input: string, options: InitialValuesType) {
   const positions = retrieveFromAndTo(rows[0], options);
 
   const result = swap(rows, positions[0], positions[1]);
-  return result.join('\n');
+  return serializeCsv(result);
 }

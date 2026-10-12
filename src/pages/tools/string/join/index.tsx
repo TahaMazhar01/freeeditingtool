@@ -18,7 +18,7 @@ const initialValues = {
 };
 type InitialValuesType = typeof initialValues;
 const validationSchema = Yup.object().shape({
-  joinCharacter: Yup.string().required('Join character is required'),
+  joinCharacter: Yup.string().defined('Join character is required'),
   deleteBlank: Yup.boolean().required('Delete blank is required'),
   deleteTrailing: Yup.boolean().required('Delete trailing is required')
 });
@@ -162,6 +162,7 @@ export default function JoinText({ title }: ToolComponentProps) {
         <ToolTextResult title={t('join.resultTitle')} value={result} />
       }
       getGroups={getGroups}
+      validationSchema={validationSchema}
       toolInfo={{
         title: t('join.toolInfo.title'),
         description: t('join.toolInfo.description')

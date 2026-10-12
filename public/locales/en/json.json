@@ -67,8 +67,8 @@
     "useTabsDescription": "Indent output with tabs."
   },
   "stringify": {
-    "description": "Convert JavaScript objects to JSON string format. Serialize data structures into JSON strings for storage or transmission.",
-    "shortDescription": "Convert objects to JSON string",
+    "description": "Format valid JSON with customizable indentation and optional HTML escaping. JavaScript expressions and unquoted object keys are not supported.",
+    "shortDescription": "Format and serialize valid JSON",
     "title": "Stringify JSON"
   },
   "tsvToJson": {

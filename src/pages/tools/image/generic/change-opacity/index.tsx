@@ -86,7 +86,7 @@ export default function ChangeOpacity({ title }: ToolComponentProps) {
 
   const compute = (values: InitialValuesType, input: any) => {
     if (input) {
-      changeOpacity(input, values).then(setResult);
+      return changeOpacity(input, values).then(setResult);
     }
   };
   return (

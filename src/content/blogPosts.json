@@ -1,0 +1,340 @@
+[
+  {
+    "slug": "compress-images",
+    "title": "How to Compress Images Without Losing Important Detail",
+    "category": "Image optimization",
+    "excerpt": "Make photos easier to upload and faster to load with a practical approach to image size and visual quality.",
+    "imageAlt": "Mountain silhouettes reflected in a lake with fine detail in the water",
+    "author": "Alexandre Chambon",
+    "imageSource": "https://commons.wikimedia.org/wiki/File:Mountain_lake_in_Grand_Teton_National_Park_(Unsplash).jpg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "date": "2026-10-12",
+    "intro": "A photo can look beautiful and still be too heavy for a website or an email attachment. The goal of image compression is to remove unnecessary file weight while keeping the parts people actually notice. Start with the final use of the image rather than chasing the smallest possible number.",
+    "sections": [
+      {
+        "id": "choose-a-target",
+        "heading": "Decide what the image needs to do",
+        "paragraphs": [
+          "A product thumbnail has different requirements from a full width portfolio photograph. Check the space where the image will appear. A small preview rarely needs the same pixel dimensions as the original camera file. Keep the original in a separate folder so that every new version starts from a clean source.",
+          "Write down the upload limit if your destination has one. Then aim for a file that fits comfortably below it. Leave enough room for small differences in how an application measures file size. A sensible target is more useful than an arbitrary claim that every photo should fit into one fixed size."
+        ]
+      },
+      {
+        "id": "dimensions-and-quality",
+        "heading": "Treat dimensions and quality as separate decisions",
+        "paragraphs": [
+          "Resizing reduces the number of pixels. Compression changes how those pixels are stored. Both can reduce file size but they affect the result differently. For a photo that is much larger than its display area you may get a cleaner result by reducing dimensions before lowering quality aggressively.",
+          "Our image compressor currently limits the longest side to 1920 pixels. Check the output dimensions if you need a large print or a detailed archive copy. Keep your original for those uses. Compression for a web page should not replace a master photograph."
+        ],
+        "reference": {
+          "label": "MDN guidance on efficient web images",
+          "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Performance/Multimedia"
+        }
+      },
+      {
+        "id": "compress-a-copy",
+        "heading": "Compress a copy and inspect the result",
+        "paragraphs": [
+          "Open Compress Images and select one representative photo first. Choose a maximum file size and start with a moderate quality setting. Download the result once processing finishes. Compare the reported file size with the original rather than assuming the quality number represents a percentage of visible detail.",
+          "Look at faces and small lettering. Check branches against the sky and smooth color gradients. These areas often reveal compression problems sooner than the middle of a photograph. View the result at its intended display size and also inspect a closer crop when detail matters."
+        ]
+      },
+      {
+        "id": "finish-the-batch",
+        "heading": "Use a repeatable review before sharing",
+        "paragraphs": [
+          "Once the sample looks right you can process the rest of the batch. Still check a few images with different lighting and textures. Settings that suit a bright landscape may be too harsh for a dark indoor portrait. Avoid repeatedly compressing an already compressed export because each extra edit can make defects harder to correct.",
+          "If the file is still too large consider a smaller display size or a suitable alternative format. Do not sacrifice readable text just to hit a target. The best result is a file that loads comfortably and still communicates what the viewer needs to see."
+        ]
+      }
+    ],
+    "tools": [
+      { "label": "Compress Images", "path": "/image-generic/compress" },
+      { "label": "Resize Image", "path": "/image-generic/resize" }
+    ]
+  },
+  {
+    "slug": "image-formats",
+    "title": "JPG PNG or WebP Which Image Format Should You Use",
+    "category": "Image formats",
+    "excerpt": "Choose the right format for photographs and transparent graphics without guessing from the file extension.",
+    "imageAlt": "Digital camera and lens used to create original photographs",
+    "author": "Alexander Wang",
+    "imageSource": "https://commons.wikimedia.org/wiki/File:Camera_(Unsplash).jpg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "date": "2026-10-12",
+    "intro": "Changing an image format is useful when it solves a specific problem. Perhaps your logo needs a transparent background. Perhaps a large photograph is slowing down a page. JPG and PNG and WebP each have a place. Choosing between them is easier when you start with the content and the destination.",
+    "sections": [
+      {
+        "id": "jpg-for-photos",
+        "heading": "Use JPG for everyday photographs",
+        "paragraphs": [
+          "JPG is a practical choice for photographs when your destination accepts it and you do not need transparency. Its compression can reduce file size by discarding some visual information. That tradeoff is often acceptable for a normal web photo but can become noticeable around sharp text or fine edges.",
+          "Keep an original copy before converting. A higher quality export cannot recover detail that an earlier JPG export already removed. If you are preparing a white background product photo make sure that the background is intentional before saving a format that cannot preserve transparency."
+        ]
+      },
+      {
+        "id": "png-for-graphics",
+        "heading": "Use PNG when clean edges or transparency matter",
+        "paragraphs": [
+          "PNG uses lossless compression and supports transparency. It can suit interface screenshots and graphics with flat colors. It is also useful when a logo needs to sit on different background colors. A photograph saved as PNG can be much larger than a visually similar JPG so the format should serve a real need.",
+          "Converting a JPG to PNG does not make the original sharper. It changes the storage format. Likewise a white background does not become transparent just because the file is now PNG. Background editing and file conversion are separate jobs."
+        ],
+        "reference": {
+          "label": "MDN image format reference",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types"
+        }
+      },
+      {
+        "id": "webp-for-web",
+        "heading": "Consider WebP for a website",
+        "paragraphs": [
+          "WebP supports both lossy and lossless compression along with transparency. It gives website owners another way to balance quality and file weight. Compare a real export with your JPG or PNG instead of assuming that one format will always be smaller for every image.",
+          "Check the destination before converting a whole collection. A website may accept WebP while a print service or an older editing workflow asks for JPG or PNG. The useful format is the one that preserves the features you need and works where you intend to use it."
+        ],
+        "reference": {
+          "label": "Google explanation of WebP compression",
+          "url": "https://developers.google.com/speed/webp/docs/compression"
+        }
+      },
+      {
+        "id": "compare-an-export",
+        "heading": "Make one comparison before converting everything",
+        "paragraphs": [
+          "Choose a representative image and export it in the formats your destination supports. Compare file size and visible detail at the same dimensions. Inspect transparent areas against a dark background as well as a light one. This catches unwanted white edges that can be hard to notice in a preview.",
+          "Name the result clearly and open the downloaded file once more before sharing it. For a collection with mixed content you may choose different formats for different images. A photo and a logo do not need to follow the same rule simply because they appear on the same page."
+        ]
+      }
+    ],
+    "tools": [
+      { "label": "Convert to JPG", "path": "/converters/convert-to-jpg" },
+      { "label": "Convert to WebP", "path": "/converters/convert-to-webp" }
+    ]
+  },
+  {
+    "slug": "resize-images",
+    "title": "How to Resize Images for Websites and Social Media",
+    "category": "Image editing",
+    "excerpt": "Set useful pixel dimensions and preserve proportions while keeping the subject clear in every crop.",
+    "imageAlt": "A camera lens frames a smaller view of a red car",
+    "author": "Jakob Owens",
+    "imageSource": "https://commons.wikimedia.org/wiki/File:Camera_Lens_Reflections_(Unsplash).jpg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "date": "2026-10-12",
+    "intro": "A stretched portrait or a cropped product can make a good image feel unfinished. Resizing works best when you know the required shape before changing the dimensions. A few checks will help you create an image that fits its space without distorting the subject.",
+    "sections": [
+      {
+        "id": "measure-the-space",
+        "heading": "Start with the actual destination",
+        "paragraphs": [
+          "Check the current upload guidance for the website or social platform you are using. Different placements can ask for different shapes even within the same service. A profile image and a cover image and a feed post are separate uses. Avoid relying on a size chart that may no longer match the upload screen.",
+          "For your own website measure the image area at more than one screen width. A desktop banner may become a much taller crop on a phone. Keep the main subject away from edges when the same photo needs to work in both spaces."
+        ]
+      },
+      {
+        "id": "protect-proportions",
+        "heading": "Keep the aspect ratio unless you intend to crop",
+        "paragraphs": [
+          "Aspect ratio describes the relationship between width and height. A photo that is 1200 pixels wide and 800 pixels tall has the same proportions as one that is 600 pixels wide and 400 pixels tall. Reducing both dimensions together keeps faces and objects looking natural.",
+          "If your destination needs a square you should crop the image to a square before resizing it. Simply forcing a wide photograph into equal dimensions can squash the subject. Use the crop tool to choose what stays in the frame and then resize that selected area."
+        ]
+      },
+      {
+        "id": "choose-pixels",
+        "heading": "Resize by pixels or by percentage",
+        "paragraphs": [
+          "Use pixel sizing when you have a specific target width. In Resize Image leave Maintain Aspect Ratio enabled and choose the dimension you want to control. Use percentage sizing when the task is to make the whole image smaller by a consistent amount. Check the resulting dimensions before downloading.",
+          "Avoid enlarging a small image just to match a large number. More pixels do not create missing texture or sharper lettering. If the original is already soft you may need a better source photo rather than a bigger export."
+        ]
+      },
+      {
+        "id": "responsive-delivery",
+        "heading": "Review the result on a phone",
+        "paragraphs": [
+          "Open the exported file at the size people will actually see. Make sure that the subject still has enough room and that any text remains readable. Then check the file weight. Resizing may reduce it substantially but compression can still help if an upload remains too large.",
+          "Website developers can provide several image sizes through responsive image markup so that a browser can choose a suitable source. That is different from stretching one large file with CSS. A thoughtful image workflow considers both the visual layout and the file delivered to the device.",
+          "Save a clearly named copy for each placement. Keep the uncropped original alongside the exports. When a platform changes its layout you can prepare a fresh crop without trying to undo an earlier edit."
+        ],
+        "reference": {
+          "label": "MDN guide to responsive images",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Responsive_images"
+        }
+      }
+    ],
+    "tools": [
+      { "label": "Resize Image", "path": "/image-generic/resize" },
+      { "label": "Crop Image", "path": "/image-generic/crop" }
+    ]
+  },
+  {
+    "slug": "compress-pdf",
+    "title": "How to Compress a PDF and Keep It Readable",
+    "category": "PDF workflow",
+    "excerpt": "Reduce PDF file size for uploads while checking the pages and details that matter most.",
+    "imageAlt": "A stack of paper documents and folders on a desk",
+    "author": "Niklas Bildhauer",
+    "imageSource": "https://commons.wikimedia.org/wiki/File:FileStack.jpg",
+    "license": "CC BY SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "date": "2026-10-12",
+    "intro": "A PDF that exceeds an upload limit can interrupt an otherwise simple task. Compression can help but the smallest file is not always the best file. A readable application or report is more useful than a tiny document with blurred numbers. Work on a copy and review the pages that carry important information.",
+    "sections": [
+      {
+        "id": "understand-the-file",
+        "heading": "Find out what makes the PDF large",
+        "paragraphs": [
+          "A scanned PDF often contains a full page image for every sheet. A document exported from a text editor may store text and fonts alongside a few images. These files respond differently to compression. A PDF that is already efficient may have little room for further reduction.",
+          "Note the page count and original size before making changes. Keep a separate source copy. If the document contains signatures or interactive fields confirm that your receiving service accepts a rewritten PDF before using an optimized version. Test the actual file rather than relying on a thumbnail preview."
+        ]
+      },
+      {
+        "id": "select-compression",
+        "heading": "Start with the least aggressive setting",
+        "paragraphs": [
+          "Open Compress PDF and choose the source document. Start with Low compression and download the output. Compare the new size against the upload limit. If you need a smaller result try Medium using the original file again. Use High only after checking whether the extra reduction is worth the change in quality.",
+          "The labels describe a processing choice rather than a guaranteed reduction. Results depend on the contents of the document. Do not keep compressing the last output in a long chain. Starting each attempt from the original makes comparisons more meaningful."
+        ]
+      },
+      {
+        "id": "review-critical-pages",
+        "heading": "Check the smallest text and the busiest page",
+        "paragraphs": [
+          "Review the cover and at least one dense page. Look closely at footnotes and table values. Confirm that diagrams remain understandable. For a scan check light handwriting and faint stamps because these details can disappear before the main paragraph becomes difficult to read.",
+          "Search for a word if the source had searchable text. Follow an internal link if the document relies on navigation. Check page count and orientation. For a form try the required fields in a copy. A file size comparison alone will not reveal a missing function."
+        ],
+        "reference": {
+          "label": "Adobe PDF optimization guidance",
+          "url": "https://helpx.adobe.com/acrobat/desktop/create-documents/optimize-pdfs/advance-size-reduction.html"
+        }
+      },
+      {
+        "id": "when-size-stays-large",
+        "heading": "Choose another approach when reduction is limited",
+        "paragraphs": [
+          "If a readable output still exceeds the limit check whether the destination accepts separate parts. You may be able to submit chapters or remove pages that are explicitly optional. Keep the required content intact. A document that passes a size check but omits a necessary page creates a different problem.",
+          "When you control the source consider exporting it again with more appropriate image settings. That often gives you more control than repeatedly processing a finished PDF. Keep the final reviewed version clearly named so that you do not accidentally upload an earlier test."
+        ]
+      }
+    ],
+    "tools": [{ "label": "Compress PDF", "path": "/pdf/compress-pdf" }]
+  },
+  {
+    "slug": "image-to-text",
+    "title": "How to Convert an Image to Text With OCR",
+    "category": "Text extraction",
+    "excerpt": "Turn photographed text into an editable draft and learn which details need careful proofreading.",
+    "imageAlt": "An open book with printed text ready to be photographed for transcription",
+    "author": "Ben White",
+    "imageSource": "https://commons.wikimedia.org/wiki/File:Open_book_(Unsplash).jpg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "date": "2026-10-12",
+    "intro": "Retyping a page is tedious when you only need its text. Optical character recognition can give you an editable starting point from a photograph or a screenshot. The result still needs a human check. Good input and careful proofreading are usually more useful than repeatedly running a poor image through the same settings.",
+    "sections": [
+      {
+        "id": "capture-clear-text",
+        "heading": "Give the tool a clear image",
+        "paragraphs": [
+          "Place the page flat and use even lighting. Hold the camera parallel to the paper so that one side of the text is not smaller than the other. Avoid glare on glossy pages and shadows across lines. Take a closer image if letters look tiny when you open the photo.",
+          "Crop away unrelated background while keeping the full text area. Do not cut off punctuation at the edge of a line. If the page is tilted straighten it before extraction. A clean capture reduces the amount of cleanup you will need later."
+        ]
+      },
+      {
+        "id": "choose-ocr-settings",
+        "heading": "Match the language and layout",
+        "paragraphs": [
+          "Open Image to Text and select your image. Choose the main language of the page. Then select a layout mode that matches the content. A simple paragraph and a poster with scattered labels do not arrange words in the same way. Check the available options rather than using one setting for every document.",
+          "Contrast enhancement and noise filtering can help some images. They can also change the appearance of faint marks. Compare results with those options enabled and disabled if characters go missing. Keep the original image visible while you review the extracted text."
+        ]
+      },
+      {
+        "id": "proofread-the-draft",
+        "heading": "Proofread names and numbers first",
+        "paragraphs": [
+          "OCR can confuse the letter O with zero or the letter l with one. Check names and dates carefully. Verify amounts and reference numbers directly against the image. A paragraph may read smoothly while one incorrect character changes its meaning.",
+          "Look for missing lines and unexpected breaks. Columns may appear in the wrong order. A table may become a plain sequence of words. Rebuild the structure where necessary rather than assuming that editable text preserves the original layout.",
+          "Handwriting and decorative fonts can be harder to recognize. If the draft is unreliable use it as an aid to transcription rather than a finished record. For important documents keep a link or a copy of the source so that another reader can verify the text."
+        ],
+        "reference": {
+          "label": "Adobe guidance on enhancing scanned text",
+          "url": "https://helpx.adobe.com/acrobat/desktop/create-documents/scan-documents-to-pdfs/enhance-scans.html"
+        }
+      },
+      {
+        "id": "save-a-clean-copy",
+        "heading": "Save the reviewed text separately",
+        "paragraphs": [
+          "Copy the reviewed result into your document editor. Restore headings and paragraph spacing as needed. Read the finished text once in its new layout because accidental line breaks are easier to spot there. Preserve exact spelling for names even when a spell checker suggests a more familiar word.",
+          "If you are extracting several pages keep them in order and label each result. This makes it easier to find an uncertain phrase later. OCR saves time when it is part of a careful workflow. It should leave you with less typing and a clear path back to the original."
+        ]
+      }
+    ],
+    "tools": [
+      { "label": "Image to Text", "path": "/image-generic/image-to-text" },
+      { "label": "Crop Image", "path": "/image-generic/crop" }
+    ]
+  },
+  {
+    "slug": "csv-to-json",
+    "title": "How to Convert CSV to JSON Without Losing Data",
+    "category": "Data conversion",
+    "excerpt": "Keep headers and identifiers intact while converting spreadsheet exports into structured JSON.",
+    "imageAlt": "Laptop on a desk used to review spreadsheet exports and structured data",
+    "author": "Radek Grzybowski",
+    "imageSource": "https://commons.wikimedia.org/wiki/File:Laptop_on_a_desk.jpg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "date": "2026-10-12",
+    "intro": "CSV is convenient for spreadsheet exports. JSON is useful when an application needs named fields and structured values. Moving between them looks simple until a quoted field or a customer identifier changes unexpectedly. A reliable conversion starts with understanding the source and ends with checking a few representative records.",
+    "sections": [
+      {
+        "id": "inspect-the-export",
+        "heading": "Inspect the CSV before converting",
+        "paragraphs": [
+          "Open a copy in a plain text editor. Check whether the separator is a comma or another character such as a semicolon. Confirm whether the first record contains field names. A spreadsheet preview can hide quoting and line breaks that matter to a parser.",
+          "Quoted CSV fields can contain separators and line breaks. Quotes inside a field are commonly represented by a doubled quote. This is why splitting every line at each separator is unreliable. Use a CSV parser that reads full records and respects the chosen quote character."
+        ],
+        "reference": {
+          "label": "RFC 4180 CSV format documentation",
+          "url": "https://www.rfc-editor.org/rfc/rfc4180"
+        }
+      },
+      {
+        "id": "headers-and-types",
+        "heading": "Decide which values should stay as text",
+        "paragraphs": [
+          "Use unique headers when you want JSON objects with named fields. Two columns with the same name cannot be represented reliably as two properties in one object. Give them distinct names before conversion. Make sure each record has the expected number of fields.",
+          "An identifier is not necessarily a number. A value such as 00124 may be a product code whose leading zeros matter. Phone numbers and account references should usually stay as strings. Disable dynamic typing when the receiving system expects every field to be text.",
+          "Our converter preserves values with leading zeros and unsafe large integers as text. Even so you should review the result against the receiving system. A literal true or null can have a different meaning when converted to a JSON boolean or null value."
+        ]
+      },
+      {
+        "id": "convert-the-records",
+        "heading": "Use settings that match the source",
+        "paragraphs": [
+          "Open CSV to JSON and paste your CSV. Set the delimiter and quote character. Enable headers if the first record contains field names. Check the comment setting. Disable comments when the chosen marker could be the first character of a real data record.",
+          "Review empty fields explicitly. In this converter an empty field remains an empty string. A short record receives empty strings for missing trailing fields. Extra fields produce an error instead of disappearing. Fix the source record when that error appears rather than guessing which column to remove."
+        ]
+      },
+      {
+        "id": "validate-the-output",
+        "heading": "Check structure as well as valid syntax",
+        "paragraphs": [
+          "JSON requires quoted property names and does not allow trailing separators. Valid syntax is only the first check. Count the output records and compare a row with an empty field. Then check a row with quoted text and a row with an identifier. Confirm that the expected property names appear on each object.",
+          "Test a small sample in the receiving application before importing the full export. A system may require numbers or a specific date format even when your JSON is syntactically correct. Keep the original CSV and record your conversion settings so that the same export can be reproduced later."
+        ],
+        "reference": {
+          "label": "RFC 8259 JSON specification",
+          "url": "https://www.rfc-editor.org/rfc/rfc8259"
+        }
+      }
+    ],
+    "tools": [
+      { "label": "CSV to JSON", "path": "/csv/csv-to-json" },
+      { "label": "JSON to CSV", "path": "/json/json-to-csv" }
+    ]
+  }
+]

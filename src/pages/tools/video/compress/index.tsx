@@ -1,11 +1,10 @@
 import { Box } from '@mui/material';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import ToolFileResult from '@components/result/ToolFileResult';
 import ToolContent from '@components/ToolContent';
 import { ToolComponentProps } from '@tools/defineTool';
 import { GetGroupsType } from '@components/options/ToolOptions';
-import { debounce } from 'lodash';
 import ToolVideoInput from '@components/input/ToolVideoInput';
 import { compressVideo, VideoResolution } from './service';
 import SimpleRadio from '@components/options/SimpleRadio';
@@ -90,12 +89,11 @@ export default function CompressVideo({ title }: ToolComponentProps) {
       setResult(compressedFile);
     } catch (error) {
       console.error('Error compressing video:', error);
+      throw error;
     } finally {
       setLoading(false);
     }
   };
-
-  const debouncedCompute = useCallback(debounce(compute, 1000), []);
 
   const getGroups: GetGroupsType<typeof initialValues> = ({
     values,
@@ -176,7 +174,8 @@ export default function CompressVideo({ title }: ToolComponentProps) {
       }
       initialValues={initialValues}
       getGroups={getGroups}
-      compute={debouncedCompute}
+      compute={compute}
+      computeDebounceMs={1000}
       setInput={setInput}
       validationSchema={validationSchema}
     />

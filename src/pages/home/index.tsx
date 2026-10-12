@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet';
 import { useUserTypeFilter } from 'providers/UserTypeFilterProvider';
 import UserTypeFilter from '@components/UserTypeFilter';
 import AdPlaceholder from 'components/AdPlaceholder';
+import BlogPreview from 'components/blog/BlogCards';
 
 /*
  * Layout — light mode, no background image:
@@ -107,6 +108,7 @@ export default function Home() {
         <Box sx={{ width: '100%', maxWidth: 1400, pb: 12 }}>
           <Categories />
         </Box>
+        <BlogPreview />
       </Box>
     </Box>
   );

@@ -26,8 +26,8 @@ const initialValues: InitialValuesType = {
 const exampleCards: CardExampleType<InitialValuesType>[] = [
   {
     title: 'Simple Object to JSON',
-    description: 'Convert a basic JavaScript object into a JSON string.',
-    sampleText: `{ name: "John", age: 30 }`,
+    description: 'Format a JSON object without executing code.',
+    sampleText: `{"name":"John","age":30}`,
     sampleResult: `{
   "name": "John",
   "age": 30
@@ -42,7 +42,7 @@ const exampleCards: CardExampleType<InitialValuesType>[] = [
     title: 'Array with Mixed Types',
     description:
       'Convert an array containing different types of values into JSON.',
-    sampleText: `[1, "hello", true, null, { x: 10 }]`,
+    sampleText: `[1, "hello", true, null, { "x": 10 }]`,
     sampleResult: `[
     1,
     "hello",
@@ -62,12 +62,12 @@ const exampleCards: CardExampleType<InitialValuesType>[] = [
     title: 'HTML-Escaped JSON',
     description: 'Convert an object to JSON with HTML characters escaped.',
     sampleText: `{
-  html: "<div>Hello & Welcome</div>",
-  message: "Special chars: < > & ' \\""
+  "html": "<div>Hello & Welcome</div>",
+  "message": "Special chars: < > & '"
 }`,
     sampleResult: `{
   &quot;html&quot;: &quot;&lt;div&gt;Hello &amp; Welcome&lt;/div&gt;&quot;,
-  &quot;message&quot;: &quot;Special chars: &lt; &gt; &amp; &#039; &quot;&quot;
+  &quot;message&quot;: &quot;Special chars: &lt; &gt; &amp; &#039;&quot;
 }`,
     sampleOptions: {
       indentationType: 'space',
@@ -104,14 +104,19 @@ export default function StringifyJson({ title }: ToolComponentProps) {
       exampleCards={exampleCards}
       inputComponent={
         <ToolCodeInput
-          title="JavaScript Object/Array"
+          title="Input JSON"
           value={input}
           onChange={setInput}
           language="json"
         />
       }
       resultComponent={
-        <ToolTextResult title="JSON String" value={result} extension={'json'} />
+        <ToolTextResult
+          title="JSON String"
+          value={result}
+          extension={'json'}
+          keepSpecialCharacters
+        />
       }
       getGroups={({ values, updateField }) => [
         {
@@ -153,7 +158,7 @@ export default function StringifyJson({ title }: ToolComponentProps) {
       toolInfo={{
         title: 'What Is JSON Stringify?',
         description:
-          'JSON Stringify is a tool that converts JavaScript objects and arrays into their JSON string representation. It properly formats the output with customizable indentation and offers the option to escape HTML special characters, making it safe for web usage. This tool is particularly useful when you need to serialize data structures for storage or transmission, or when you need to prepare JSON data for HTML embedding.'
+          'Format valid JSON with customizable indentation, or escape HTML characters for embedding. Keys and strings must use double quotes. JavaScript expressions, functions, and object literals with unquoted keys are not supported.'
       }}
     />
   );

@@ -1,6 +1,6 @@
 import { InitialValuesType } from './types';
 import { transpose, normalizeAndFill } from '@utils/array';
-import { splitCsv } from '@utils/csv';
+import { splitCsv, serializeCsv } from '@utils/csv';
 
 export function transposeCSV(
   input: string,
@@ -21,7 +21,9 @@ export function transposeCSV(
     ? normalizeAndFill(rows, options.customFillValue)
     : normalizeAndFill(rows, '');
 
-  return transpose(normalizeAndFillRows)
-    .map((row) => row.join(options.separator))
-    .join('\n');
+  return serializeCsv(
+    transpose(normalizeAndFillRows),
+    options.separator,
+    options.quoteChar
+  );
 }

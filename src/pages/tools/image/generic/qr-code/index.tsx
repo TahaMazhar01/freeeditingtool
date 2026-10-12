@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import * as Yup from 'yup';
 import ToolContent from '@components/ToolContent';
@@ -11,7 +11,6 @@ import ColorSelector from '@components/options/ColorSelector';
 import ToolFileResult from '@components/result/ToolFileResult';
 import { useTranslation } from 'react-i18next';
 import * as QRCode from 'qrcode';
-import { debounce } from 'lodash';
 
 const initialValues: InitialValuesType = {
   qrCodeType: 'URL',
@@ -426,27 +425,22 @@ export default function QRCodeGenerator({ title }: ToolComponentProps) {
 
   const compute = async (options: InitialValuesType) => {
     const qrValue = formatQRCodeData(options);
-    if (!qrValue) return;
+    if (!qrValue) {
+      setResult(null);
+      return;
+    }
     const canvas = document.createElement('canvas');
-    QRCode.toDataURL(
-      canvas,
-      qrValue,
-      {
-        color: {
-          dark: options.fgColor,
-          light: options.bgColor
-        },
-        width: Number(options.size) || 200
+    const url = await QRCode.toDataURL(canvas, qrValue, {
+      color: {
+        dark: options.fgColor,
+        light: options.bgColor
       },
-      async (error, url) => {
-        const res = await fetch(url);
-        const blob = await res.blob();
-        const file = new File([blob], 'Qr code.png', { type: 'image/png' });
-        setResult(file);
-      }
-    );
+      width: Number(options.size) || 200
+    });
+    const res = await fetch(url);
+    const blob = await res.blob();
+    setResult(new File([blob], 'Qr code.png', { type: 'image/png' }));
   };
-  const debouncedCompute = useCallback(debounce(compute, 1000), []);
 
   return (
     <ToolContent
@@ -454,7 +448,8 @@ export default function QRCodeGenerator({ title }: ToolComponentProps) {
       initialValues={initialValues}
       getGroups={getGroups}
       validationSchema={validationSchema}
-      compute={debouncedCompute}
+      compute={compute}
+      computeDebounceMs={1000}
       resultComponent={
         <ToolFileResult title={t('qrCode.resultOutput')} value={result} />
       }

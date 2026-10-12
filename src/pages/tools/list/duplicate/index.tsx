@@ -32,8 +32,8 @@ const initialValues: InitialValuesType = {
 };
 
 const validationSchema = Yup.object({
-  splitSeparator: Yup.string().required('The separator is required'),
-  joinSeparator: Yup.string().required('The join separator is required'),
+  splitSeparator: Yup.string().defined('The separator is required'),
+  joinSeparator: Yup.string().defined('The join separator is required'),
   copy: Yup.number()
     .typeError('Number of copies must be a number')
     .min(0.1, 'Number of copies must be positive')

@@ -1,101 +1,151 @@
-/**
- * Splits a CSV line into string[], handling quoted string.
- * @param {string} input - The CSV input string.
- * @param {string} delimiter - The character used to split csvlines.
- * @param {string} quoteChar - The character used to quotes csv values.
- * @returns {string[][]} - The CSV line as a 1D array.
- */
-function splitCsvLine(
-  line: string,
-  delimiter: string = ',',
-  quoteChar: string = '"'
-): string[] {
-  const result: string[] = [];
-  let current = '';
-  let inQuotes = false;
-
-  for (let i = 0; i < line.length; i++) {
-    const char = line[i];
-    const nextChar = line[i + 1];
-
-    if (char === quoteChar) {
-      if (inQuotes && nextChar === quoteChar) {
-        current += quoteChar;
-        i++; // Skip the escaped quote
-      } else {
-        inQuotes = !inQuotes;
-      }
-    } else if (char === delimiter && !inQuotes) {
-      result.push(current.trim());
-      current = '';
-    } else {
-      current += char;
-    }
-  }
-  result.push(current.trim());
-  return result;
-}
-
-/**
- * Splits a CSV string into rows, skipping any blank lines.
- * @param {string} input - The CSV input string.
- * @param {string} commentCharacter - The character used to denote comments.
- * @returns {string[][]} - The CSV rows as a 2D array.
- */
+/** Parse complete CSV records, including quoted newlines and doubled quotes. */
 export function splitCsv(
   input: string,
   deleteComment: boolean,
   commentCharacter: string,
   deleteEmptyLines: boolean,
-  delimiter: string = ',',
-  quoteChar: string = '"'
+  delimiter = ',',
+  quoteChar = '"'
 ): string[][] {
-  let rows = input
-    .split('\n')
-    .map((row) => splitCsvLine(row, delimiter, quoteChar));
-
-  // Remove comments if deleteComment is true
-  if (deleteComment && commentCharacter) {
-    rows = rows.filter((row) => !row[0].trim().startsWith(commentCharacter));
+  if (!delimiter || /[\r\n]/.test(delimiter))
+    throw new Error('Choose a non-empty CSV separator without line breaks.');
+  if (
+    quoteChar.length > 1 ||
+    /[\r\n]/.test(quoteChar) ||
+    quoteChar === delimiter
+  )
+    throw new Error(
+      'Choose a single quote character different from the separator.'
+    );
+  if (!input) return [];
+  const text = input.replace(/^\uFEFF/, '');
+  const rows: string[][] = [];
+  let row: string[] = [],
+    cell = '',
+    quoted = false,
+    inQuotes = false,
+    closed = false,
+    skippedComment = false,
+    recordHasFields = false;
+  const pushCell = () => {
+    row.push(quoted ? cell : cell.trim());
+    cell = '';
+    quoted = false;
+    closed = false;
+  };
+  const pushRow = () => {
+    pushCell();
+    if (
+      !deleteEmptyLines ||
+      recordHasFields ||
+      row.some((v) => v.trim() !== '')
+    )
+      rows.push(row);
+    row = [];
+    recordHasFields = false;
+  };
+  for (let i = 0; i < text.length; i++) {
+    if (
+      !inQuotes &&
+      row.length === 0 &&
+      cell.trim() === '' &&
+      !quoted &&
+      deleteComment &&
+      commentCharacter &&
+      text.startsWith(commentCharacter, i)
+    ) {
+      while (i < text.length && text[i] !== '\n' && text[i] !== '\r') i++;
+      if (text[i] === '\r' && text[i + 1] === '\n') i++;
+      cell = '';
+      skippedComment = true;
+      continue;
+    }
+    skippedComment = false;
+    const char = text[i];
+    if (inQuotes) {
+      if (char === quoteChar) {
+        if (text[i + 1] === quoteChar) {
+          cell += quoteChar;
+          i++;
+        } else {
+          inQuotes = false;
+          closed = true;
+        }
+      } else cell += char;
+      continue;
+    }
+    if (text.startsWith(delimiter, i)) {
+      recordHasFields = true;
+      pushCell();
+      i += delimiter.length - 1;
+    } else if (char === '\r' || char === '\n') {
+      pushRow();
+      if (char === '\r' && text[i + 1] === '\n') i++;
+    } else if (
+      quoteChar &&
+      char === quoteChar &&
+      cell.trim() === '' &&
+      !closed
+    ) {
+      cell = '';
+      quoted = true;
+      recordHasFields = true;
+      inQuotes = true;
+    } else if (closed && char.trim() !== '')
+      throw new Error('Unexpected text after a quoted CSV field.');
+    else if (!closed) cell += char;
   }
-
-  // Remove empty lines if deleteEmptyLines is true
-  if (deleteEmptyLines) {
-    rows = rows.filter((row) => row.some((cell) => cell.trim() !== ''));
-  }
-
+  if (inQuotes) throw new Error('Unclosed quoted CSV field.');
+  if (
+    !skippedComment &&
+    (row.length || cell || quoted || !/[\r\n]$/.test(text))
+  )
+    pushRow();
   return rows;
 }
-
-/**
- * get the headers from  a CSV string .
- * @param {string} input - The CSV input string.
- * @param {string} csvSeparator - The character used to separate values in the CSV.
- * @param {string} quoteChar - The character used to quotes csv values.
- * @param {string} commentCharacter - The character used to denote comments.
- * @returns {string[]} - The CSV header as a 1D array.
- */
 export function getCsvHeaders(
-  csvString: string,
-  csvSeparator: string = ',',
-  quoteChar: string = '"',
-  commentCharacter?: string
+  input: string,
+  delimiter = ',',
+  quote = '"',
+  comment = ''
 ): string[] {
-  const lines = csvString.split('\n');
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-
-    if (
-      trimmed === '' ||
-      (commentCharacter && trimmed.startsWith(commentCharacter))
-    ) {
-      continue; // skip empty or commented lines
-    }
-
-    const headerLine = splitCsvLine(trimmed, csvSeparator, quoteChar);
-    return headerLine.map((h) => h.replace(/^\uFEFF/, '').trim());
-  }
-
-  return [];
+  return splitCsv(input, true, comment, true, delimiter, quote)[0] ?? [];
+}
+export function validateHeaders(headers: string[]): void {
+  if (new Set(headers).size !== headers.length)
+    throw new Error(
+      'CSV headers must be unique; duplicate headers would lose data.'
+    );
+}
+export function serializeCsv(
+  rows: string[][],
+  delimiter = ',',
+  quote = '"',
+  quoteAll = false
+): string {
+  if (!delimiter) throw new Error('Choose a non-empty output separator.');
+  if (quote.length > 1 || quote === delimiter)
+    throw new Error(
+      'Choose a single output quote character different from the separator.'
+    );
+  return rows
+    .map((row) =>
+      row
+        .map((cell) => {
+          const needsQuote =
+            quoteAll ||
+            cell.includes(delimiter) ||
+            /[\r\n]/.test(cell) ||
+            cell !== cell.trim() ||
+            (!!quote && cell.includes(quote));
+          if (!needsQuote) return cell;
+          if (!quote)
+            throw new Error(
+              'An output quote character is required to preserve this data.'
+            );
+          return quote + cell.split(quote).join(quote + quote) + quote;
+        })
+        .join(delimiter)
+    )
+    .join('\n');
 }

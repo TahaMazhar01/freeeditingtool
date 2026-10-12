@@ -1,153 +1,207 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Stack,
-  Typography,
-  alpha
-} from '@mui/material';
-import { ToolCardProps } from './AllTools';
-import { useNavigate } from 'react-router-dom';
+import { Box, Card, CardContent, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
-
-const PRIMARY = '#4056A1';
-const GOLD = '#D79922';
-
-const ACCENT_COLORS = [
-  '#4056A1' /* Deep Blue  */,
-  '#D79922' /* Gold       */,
-  '#F13C20' /* Red        */,
-  '#2D3D7A' /* Dark Blue  */,
-  '#B07A10' /* Dark Gold  */,
-  '#2D9E6B' /* Teal       */
-];
-
-let _colorIdx = 0;
-const nextAccent = () => ACCENT_COLORS[_colorIdx++ % ACCENT_COLORS.length];
+import { ToolCardProps } from './AllTools';
 
 export default function ToolCard({
   title,
   description,
   link,
   icon
-}: ToolCardProps) {
-  const navigate = useNavigate();
-  const accent = nextAccent();
-
+}: Omit<ToolCardProps, 'title' | 'description'> & {
+  title: string;
+  description: string;
+}) {
   return (
     <Card
-      onClick={() => navigate(link)}
+      component={Link}
+      to={link}
       sx={{
+        display: 'block',
+        textDecoration: 'none',
         height: '100%',
-        cursor: 'pointer',
-        background: '#FFFFFF',
-        border: '1px solid #E8E4D9',
-        boxShadow: '0 2px 12px rgba(64,86,161,0.08)',
-        borderRadius: '12px',
-        transition: 'all 0.25s cubic-bezier(0.4,0,0.2,1)',
-        position: 'relative',
+        minHeight: { xs: 310, sm: 330 },
+        color: '#fff',
+        background:
+          'linear-gradient(135deg, #344B83 0%, #4056A1 62%, #2D3D7A 100%)',
+        border: '1px solid rgba(255,255,255,.22)',
+        borderRadius: '20px',
         overflow: 'hidden',
-        /* Accent left stripe on hover */
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '3px',
-          height: '100%',
-          background: accent,
-          opacity: 0,
-          transition: 'opacity 0.25s ease'
-        },
+        boxShadow: '0 8px 22px rgba(45,61,122,.12)',
+        transition: 'transform .22s ease, box-shadow .22s ease',
         '&:hover': {
-          transform: 'translateY(-4px)',
-          borderColor: alpha(accent, 0.4),
-          boxShadow: `0 8px 28px rgba(64,86,161,0.13)`,
-          '&::before': { opacity: 1 },
-          '& .tc-icon': { background: alpha(accent, 0.14) },
-          '& .tc-title': { color: accent },
-          '& .tc-arrow': { opacity: 1, transform: 'translateX(0)' }
+          transform: 'translateY(-5px)',
+          boxShadow: '0 16px 32px rgba(45,61,122,.22)',
+          '& .tool-illustration': {
+            transform: 'translateY(-5px) rotate(-3deg)'
+          }
+        },
+        '&:focus-visible': { outline: '3px solid #D79922', outlineOffset: 4 },
+        '@media (prefers-reduced-motion: reduce)': {
+          transition: 'none',
+          '&:hover': { transform: 'none' },
+          '& .tool-illustration': { transition: 'none' }
         }
       }}
     >
       <CardContent
         sx={{
-          p: '20px !important',
+          p: { xs: '22px !important', sm: '24px !important' },
           height: '100%',
           display: 'flex',
           flexDirection: 'column'
         }}
       >
-        {/* Header row */}
-        <Stack
-          direction="row"
-          alignItems="flex-start"
-          justifyContent="space-between"
-          mb={1.5}
-          pb={1.5}
-          sx={{ borderBottom: '1px solid #E8E4D9' }}
+        <Typography
+          component="h3"
+          sx={{
+            fontFamily: '"Inter", sans-serif',
+            color: '#FFFFFF',
+            fontWeight: 700,
+            fontSize: { xs: '1.15rem', sm: '1.25rem' },
+            lineHeight: 1.3,
+            overflowWrap: 'anywhere',
+            mb: 1
+          }}
         >
-          <Stack direction="row" spacing={1.5} alignItems="center">
-            <Box
-              className="tc-icon"
-              sx={{
-                width: 42,
-                height: 42,
-                borderRadius: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: alpha(accent, 0.08),
-                color: accent,
-                border: `1px solid ${alpha(accent, 0.16)}`,
-                transition: 'background 0.22s ease',
-                flexShrink: 0
-              }}
-            >
-              <Icon icon={icon} fontSize={22} />
-            </Box>
-            <Typography
-              className="tc-title"
-              sx={{
-                fontFamily: '"Inter", sans-serif',
-                fontWeight: 600,
-                fontSize: '0.95rem',
-                lineHeight: 1.25,
-                color: '#1A1A2E',
-                transition: 'color 0.2s ease'
-              }}
-            >
-              {title}
-            </Typography>
-          </Stack>
-
-          <Box
-            className="tc-arrow"
-            sx={{
-              color: accent,
-              opacity: 0,
-              transform: 'translateX(-6px)',
-              transition: 'all 0.22s ease',
-              mt: 0.5,
-              flexShrink: 0
-            }}
-          >
-            <Icon icon="ph:arrow-right-bold" fontSize={15} />
-          </Box>
-        </Stack>
-
-        {/* Description */}
+          {title}
+        </Typography>
         <Typography
           sx={{
             fontFamily: '"Inter", sans-serif',
-            fontSize: '0.8rem',
-            lineHeight: 1.6,
-            color: '#555577',
-            flex: 1
+            fontSize: '.9rem',
+            lineHeight: 1.65,
+            color: '#E7EBF8',
+            minHeight: 48
           }}
         >
           {description}
         </Typography>
+        <Box
+          aria-hidden="true"
+          sx={{
+            height: 155,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: 1,
+            py: 2
+          }}
+        >
+          <Box sx={{ position: 'relative', width: 180, height: 128 }}>
+            <Box
+              sx={{
+                position: 'absolute',
+                bottom: 0,
+                left: 14,
+                width: 154,
+                height: 18,
+                borderRadius: '50%',
+                bgcolor: 'rgba(15,26,61,.28)'
+              }}
+            />
+            <Box
+              sx={{
+                position: 'absolute',
+                left: 48,
+                top: 16,
+                width: 114,
+                height: 94,
+                borderRadius: '14px',
+                background: '#D79922',
+                transform: 'rotate(9deg)',
+                opacity: 0.8
+              }}
+            />
+            <Box
+              className="tool-illustration"
+              sx={{
+                position: 'absolute',
+                left: 24,
+                top: 4,
+                width: 124,
+                height: 104,
+                borderRadius: '14px',
+                background: 'linear-gradient(135deg,#FFF7DF,#E9D79E)',
+                transform: 'rotate(-8deg)',
+                border: '1px solid rgba(255,255,255,.7)',
+                boxShadow: '7px 9px 0 rgba(15,26,61,.22)',
+                transition: 'transform .22s ease'
+              }}
+            >
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: 77,
+                  color: '#4056A1'
+                }}
+              >
+                <Icon icon={icon ?? 'ph:compass-tool-bold'} fontSize={52} />
+              </Box>
+              <Box
+                sx={{
+                  mx: 'auto',
+                  width: 58,
+                  height: 4,
+                  borderRadius: 4,
+                  bgcolor: 'rgba(64,86,161,.35)'
+                }}
+              />
+              <Box
+                sx={{
+                  mx: 'auto',
+                  mt: 0.7,
+                  width: 38,
+                  height: 4,
+                  borderRadius: 4,
+                  bgcolor: 'rgba(64,86,161,.2)'
+                }}
+              />
+            </Box>
+            <Box
+              sx={{
+                position: 'absolute',
+                right: 6,
+                top: 68,
+                width: 33,
+                height: 33,
+                borderRadius: '50%',
+                background: '#F5D76E',
+                border: '3px solid #C39832',
+                display: 'grid',
+                placeItems: 'center',
+                color: '#2D3D7A'
+              }}
+            >
+              <Icon icon="ph:check-bold" fontSize={18} />
+            </Box>
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            mt: 'auto',
+            pt: 1,
+            display: 'flex',
+            justifyContent: 'flex-end'
+          }}
+        >
+          <Box
+            aria-hidden="true"
+            sx={{
+              width: 34,
+              height: 34,
+              borderRadius: '50%',
+              background: '#F5D76E',
+              color: '#2D3D7A',
+              display: 'grid',
+              placeItems: 'center'
+            }}
+          >
+            <Icon icon="ph:arrow-right" fontSize={20} />
+          </Box>
+        </Box>
       </CardContent>
     </Card>
   );

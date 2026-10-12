@@ -49,6 +49,9 @@ export default function ChangeSpeed({
   const compute = (optionsValues: InitialValuesType, input: File | null) => {
     if (!input) return;
     const { newSpeed } = optionsValues;
+    if (!Number.isFinite(newSpeed) || newSpeed <= 0) {
+      throw new Error('Speed must be a positive, finite number.');
+    }
     let ffmpeg: FFmpeg | null = null;
     let ffmpegLoaded = false;
 
@@ -76,7 +79,7 @@ export default function ChangeSpeed({
       const outputName = 'output.mp4';
 
       try {
-        ffmpeg.writeFile(fileName, await fetchFile(file));
+        await ffmpeg.writeFile(fileName, await fetchFile(file));
 
         const videoFilter = `setpts=${1 / newSpeed}*PTS`;
         const audioFilter = computeAudioFilter(newSpeed);
@@ -122,7 +125,7 @@ export default function ChangeSpeed({
     };
 
     // Here we set the output video
-    processVideo(input, newSpeed);
+    return processVideo(input, newSpeed);
   };
 
   const getGroups: GetGroupsType<InitialValuesType> | null = ({

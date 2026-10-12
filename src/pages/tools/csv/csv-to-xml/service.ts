@@ -1,3 +1,5 @@
+import { splitCsv, validateHeaders } from '@utils/csv';
+import { xmlElement } from '@utils/xml';
 type CsvToXmlOptions = {
   delimiter: string;
   quote: string;
@@ -5,63 +7,28 @@ type CsvToXmlOptions = {
   useHeaders: boolean;
   skipEmptyLines: boolean;
 };
-
-export const convertCsvToXml = (
-  csv: string,
-  options: CsvToXmlOptions
-): string => {
-  const lines = csv.split('\n').map((line) => line.trim());
-
-  let xmlResult = `<?xml version="1.0" encoding="UTF-8" ?>\n<root>\n`;
-  let headers: string[] = [];
-
-  const validLines = lines.filter(
-    (line) =>
-      line &&
-      !line.startsWith(options.comment) &&
-      (!options.skipEmptyLines || line.trim() !== '')
+export function convertCsvToXml(csv: string, options: CsvToXmlOptions): string {
+  const rows = splitCsv(
+    csv,
+    true,
+    options.comment,
+    options.skipEmptyLines,
+    options.delimiter,
+    options.quote
   );
-
-  if (validLines.length === 0) {
-    return `<?xml version="1.0" encoding="UTF-8" ?>\n<root></root>`;
-  }
-
-  if (options.useHeaders) {
-    headers = parseCsvLine(validLines[0], options);
-    validLines.shift();
-  }
-
-  validLines.forEach((line, index) => {
-    const values = parseCsvLine(line, options);
-    xmlResult += `  <row id="${index}">\n`;
-    headers.forEach((header, i) => {
-      xmlResult += `    <${header}>${values[i] || ''}</${header}>\n`;
-    });
-    xmlResult += `  </row>\n`;
-  });
-
-  xmlResult += `</root>`;
-  return xmlResult;
-};
-
-const parseCsvLine = (line: string, options: CsvToXmlOptions): string[] => {
-  const values: string[] = [];
-  let currentValue = '';
-  let inQuotes = false;
-
-  for (let i = 0; i < line.length; i++) {
-    const char = line[i];
-
-    if (char === options.quote) {
-      inQuotes = !inQuotes;
-    } else if (char === options.delimiter && !inQuotes) {
-      values.push(currentValue.trim());
-      currentValue = '';
-    } else {
-      currentValue += char;
-    }
-  }
-
-  values.push(currentValue.trim());
-  return values;
-};
+  const headers = options.useHeaders ? rows.shift() ?? [] : [];
+  validateHeaders(headers);
+  const output = rows
+    .map((row, index) => {
+      if (options.useHeaders && row.length > headers.length)
+        throw new Error(`Record ${index + 2} has more fields than the header.`);
+      const names = options.useHeaders
+        ? headers
+        : row.map((_, i) => `column${i + 1}`);
+      return `  <row id="${index}">\n${names
+        .map((name, i) => `    ${xmlElement(name, row[i] ?? '')}\n`)
+        .join('')}  </row>\n`;
+    })
+    .join('');
+  return `<?xml version="1.0" encoding="UTF-8" ?>\n<root>\n${output}</root>`;
+}

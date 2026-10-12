@@ -91,7 +91,7 @@ export default function ChangeSpeed({ title }: ToolComponentProps) {
       }
     };
 
-    processImage(input, newSpeed);
+    return processImage(input, newSpeed);
   };
   return (
     <ToolContent

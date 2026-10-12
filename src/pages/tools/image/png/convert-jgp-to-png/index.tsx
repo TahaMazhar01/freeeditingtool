@@ -65,14 +65,14 @@ export default function ConvertJgpToPng({ title }: ToolComponentProps) {
         ctx.putImageData(imageData, 0, 0);
       }
 
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const newFile = new File([blob], file.name, {
-            type: 'image/png'
-          });
-          setResult(newFile);
-        }
-      }, 'image/png');
+      const blob = await new Promise<Blob>((resolve, reject) => {
+        canvas.toBlob(
+          (blob) =>
+            blob ? resolve(blob) : reject(new Error('Failed to create PNG.')),
+          'image/png'
+        );
+      });
+      setResult(new File([blob], file.name, { type: 'image/png' }));
     };
 
     if (optionsValues.enableTransparency) {
@@ -84,12 +84,12 @@ export default function ConvertJgpToPng({ title }: ToolComponentProps) {
         return;
       }
 
-      processImage(input, {
+      await processImage(input, {
         color: rgb,
         similarity: Number(optionsValues.similarity)
       });
     } else {
-      processImage(input);
+      await processImage(input);
     }
   };
 

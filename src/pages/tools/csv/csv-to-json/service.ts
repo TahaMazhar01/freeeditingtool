@@ -1,3 +1,4 @@
+import { splitCsv, validateHeaders } from '@utils/csv';
 type CsvToJsonOptions = {
   delimiter: string;
   quote: string;
@@ -6,8 +7,7 @@ type CsvToJsonOptions = {
   skipEmptyLines: boolean;
   dynamicTypes: boolean;
 };
-
-const defaultOptions: CsvToJsonOptions = {
+const defaults: CsvToJsonOptions = {
   delimiter: ',',
   quote: '"',
   comment: '#',
@@ -15,89 +15,57 @@ const defaultOptions: CsvToJsonOptions = {
   skipEmptyLines: true,
   dynamicTypes: true
 };
-
-export const convertCsvToJson = (
+function parseValue(
+  value: string,
+  dynamic: boolean
+): string | number | boolean | null {
+  if (!dynamic || value === '' || value !== value.trim()) return value;
+  if (/^(true|false)$/i.test(value)) return value.toLowerCase() === 'true';
+  if (value === 'null') return null;
+  if (/^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/.test(value)) {
+    const number = Number(value);
+    if (
+      Number.isFinite(number) &&
+      (!Number.isInteger(number) || Number.isSafeInteger(number))
+    )
+      return number;
+  }
+  return value;
+}
+export function convertCsvToJson(
   csv: string,
   options: Partial<CsvToJsonOptions> = {}
-): string => {
-  const opts = { ...defaultOptions, ...options };
-  const lines = csv.split('\n');
-  const result: any[] = [];
-  let headers: string[] = [];
-
-  // Filter out comments and empty lines
-  const validLines = lines.filter((line) => {
-    const trimmedLine = line.trim();
-    return (
-      trimmedLine &&
-      (!opts.skipEmptyLines ||
-        !containsOnlyCustomCharAndSpaces(trimmedLine, opts.delimiter)) &&
-      !trimmedLine.startsWith(opts.comment)
+): string {
+  const opts = { ...defaults, ...options };
+  const rows = splitCsv(
+    csv,
+    true,
+    opts.comment,
+    opts.skipEmptyLines,
+    opts.delimiter,
+    opts.quote
+  );
+  if (!rows.length) return '[]';
+  if (!opts.useHeaders)
+    return JSON.stringify(
+      rows.map((row) => row.map((v) => parseValue(v, opts.dynamicTypes))),
+      null,
+      2
     );
-  });
-
-  if (validLines.length === 0) {
-    return '[]';
-  }
-
-  // Parse headers if enabled
-  if (opts.useHeaders) {
-    headers = parseCsvLine(validLines[0], opts);
-    validLines.shift();
-  }
-
-  // Parse data lines
-  for (const line of validLines) {
-    const values = parseCsvLine(line, opts);
-
-    if (opts.useHeaders) {
-      const obj: Record<string, any> = {};
-      headers.forEach((header, i) => {
-        obj[header] = parseValue(values[i], opts.dynamicTypes);
-      });
-      result.push(obj);
-    } else {
-      result.push(values.map((v) => parseValue(v, opts.dynamicTypes)));
-    }
-  }
-
-  return JSON.stringify(result, null, 2);
-};
-
-const parseCsvLine = (line: string, options: CsvToJsonOptions): string[] => {
-  const values: string[] = [];
-  let currentValue = '';
-  let inQuotes = false;
-
-  for (let i = 0; i < line.length; i++) {
-    const char = line[i];
-
-    if (char === options.quote) {
-      inQuotes = !inQuotes;
-    } else if (char === options.delimiter && !inQuotes) {
-      values.push(currentValue.trim());
-      currentValue = '';
-    } else {
-      currentValue += char;
-    }
-  }
-
-  values.push(currentValue.trim());
-  return values;
-};
-
-const parseValue = (value: string, dynamicTypes: boolean): any => {
-  if (!dynamicTypes) return value;
-
-  if (value.toLowerCase() === 'true') return true;
-  if (value.toLowerCase() === 'false') return false;
-  if (value === 'null') return null;
-  if (!isNaN(Number(value))) return Number(value);
-
-  return value;
-};
-
-function containsOnlyCustomCharAndSpaces(str: string, customChar: string) {
-  const regex = new RegExp(`^[${customChar}\\s]*$`);
-  return regex.test(str);
+  const headers = rows.shift()!;
+  validateHeaders(headers);
+  return JSON.stringify(
+    rows.map((row, index) => {
+      if (row.length > headers.length)
+        throw new Error(`Record ${index + 2} has more fields than the header.`);
+      return Object.fromEntries(
+        headers.map((header, i) => [
+          header,
+          parseValue(row[i] ?? '', opts.dynamicTypes)
+        ])
+      );
+    }),
+    null,
+    2
+  );
 }

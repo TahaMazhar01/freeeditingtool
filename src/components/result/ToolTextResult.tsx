@@ -24,7 +24,7 @@ export default function ToolTextResult({
   title = 'Result',
   value,
   extension = 'txt',
-  keepSpecialCharacters,
+  keepSpecialCharacters = true,
   loading
 }: {
   title?: string;

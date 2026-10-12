@@ -26,7 +26,9 @@ export function getJsonHeaders(
 
   return Array.from(
     rows.reduce<Set<string>>((set, row) => {
-      Object.keys(row).forEach((key) => set.add(key));
+      if (row !== null && typeof row === 'object' && !Array.isArray(row)) {
+        Object.keys(row).forEach((key) => set.add(key));
+      }
       return set;
     }, new Set())
   );

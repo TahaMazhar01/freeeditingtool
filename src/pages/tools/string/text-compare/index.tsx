@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import ToolContent from '@components/ToolContent';
 import { ToolComponentProps } from '@tools/defineTool';
 import { GetGroupsType } from '@components/options/ToolOptions';
@@ -18,16 +18,15 @@ export default function TextCompare({ title }: ToolComponentProps) {
   const { t } = useTranslation('string');
   const [inputA, setInputA] = useState<string>('');
   const [inputB, setInputB] = useState<string>('');
-  const [level, setLevel] = useState<level>('word');
   const [result, setResult] = useState<string>('');
 
-  const compute = () => {
-    setResult(compareTextsHtml(inputA, inputB, level));
+  const input = useMemo(() => ({ a: inputA, b: inputB }), [inputA, inputB]);
+  const compute = (
+    values: InitialValuesType,
+    input: { a: string; b: string }
+  ) => {
+    setResult(compareTextsHtml(input.a, input.b, values.level));
   };
-
-  useEffect(() => {
-    compute();
-  }, [inputA, inputB, level]);
 
   const getGroups: GetGroupsType<InitialValuesType> = ({
     values,
@@ -45,7 +44,6 @@ export default function TextCompare({ title }: ToolComponentProps) {
             ]}
             onChange={(value) => {
               updateField('level', value);
-              setLevel(value);
             }}
             description={t('textCompare.options.levelDesc')}
           />
@@ -57,7 +55,7 @@ export default function TextCompare({ title }: ToolComponentProps) {
   return (
     <ToolContent
       title={title}
-      input={inputA}
+      input={input}
       inputComponent={
         <Box display="flex" flexDirection="column" gap={2}>
           <ToolTextInput

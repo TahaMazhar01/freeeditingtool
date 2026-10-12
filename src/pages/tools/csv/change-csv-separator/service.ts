@@ -1,5 +1,5 @@
 import { InitialValuesType } from './types';
-import { splitCsv } from '@utils/csv';
+import { splitCsv, serializeCsv } from '@utils/csv';
 
 export function changeCsvSeparator(
   input: string,
@@ -16,16 +16,10 @@ export function changeCsvSeparator(
     options.inputQuoteCharacter
   );
 
-  return rows
-    .map((row) => {
-      return row
-        .map((cell) => {
-          if (options.outputQuoteAll) {
-            return `${options.OutputQuoteCharacter}${cell}${options.OutputQuoteCharacter}`;
-          }
-          return cell;
-        })
-        .join(options.outputSeparator);
-    })
-    .join('\n');
+  return serializeCsv(
+    rows,
+    options.outputSeparator,
+    options.OutputQuoteCharacter,
+    options.outputQuoteAll
+  );
 }

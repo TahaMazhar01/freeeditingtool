@@ -6,13 +6,17 @@ export const stringifyJson = (
 ): string => {
   let parsedInput;
   try {
-    // Safely evaluate the input string as JavaScript
-    parsedInput = eval('(' + input + ')');
+    parsedInput = JSON.parse(input);
   } catch (e) {
-    throw new Error('Invalid JavaScript object/array');
+    throw new Error(
+      'Invalid JSON. Use double-quoted keys and strings; JavaScript expressions are not supported.'
+    );
   }
 
-  const indent = indentationType === 'tab' ? '\t' : ' '.repeat(spacesCount);
+  if (!Number.isInteger(spacesCount) || spacesCount < 0 || spacesCount > 10) {
+    throw new Error('Indentation must be a whole number between 0 and 10.');
+  }
+  const indent = indentationType === 'tab' ? '\t' : spacesCount;
   let result = JSON.stringify(parsedInput, null, indent);
 
   if (escapeHtml) {

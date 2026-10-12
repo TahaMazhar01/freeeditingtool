@@ -13,7 +13,7 @@ const initialValues = {
   rate: '50'
 };
 const validationSchema = Yup.object({
-  // splitSeparator: Yup.string().required('The separator is required')
+  rate: Yup.number().min(1).max(100).required('Compression rate is required')
 });
 
 export default function ChangeColorsInPng({ title }: ToolComponentProps) {
@@ -41,6 +41,7 @@ export default function ChangeColorsInPng({ title }: ToolComponentProps) {
       setCompressedSize(compressedFile.size); // Set compressed file size
     } catch (error) {
       console.error('Error during compression:', error);
+      throw error;
     }
   };
 
@@ -48,7 +49,7 @@ export default function ChangeColorsInPng({ title }: ToolComponentProps) {
     if (!input) return;
 
     const { rate } = optionsValues;
-    compressImage(input, Number(rate)); // Pass the rate as a number
+    return compressImage(input, Number(rate));
   };
 
   return (
@@ -71,6 +72,7 @@ export default function ChangeColorsInPng({ title }: ToolComponentProps) {
         />
       }
       initialValues={initialValues}
+      validationSchema={validationSchema}
       getGroups={({ values, updateField }) => [
         {
           title: 'Compression options',
