@@ -1,7 +1,6 @@
 import {
   Autocomplete,
   Box,
-  Chip,
   Stack,
   TextField,
   Typography,
@@ -12,7 +11,7 @@ import { styled } from '@mui/material/styles';
 import { useState, useEffect, useMemo } from 'react';
 import { DefinedTool } from '@tools/defineTool';
 import { filterTools, tools, getToolCategoryTitle } from '@tools/index';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useTranslation } from 'react-i18next';
 import { FullI18nKey, validNamespaces } from '../i18n';
@@ -46,24 +45,6 @@ const GroupItems = styled('ul')({ padding: 0 });
 
 type ToolInfo = { label: FullI18nKey; url: string };
 
-const EXAMPLE_TOOLS: ToolInfo[] = [
-  {
-    label: 'translation:hero.examples.createTransparentImage',
-    url: '/image-generic/create-transparent'
-  },
-  { label: 'translation:hero.examples.prettifyJson', url: '/json/prettify' },
-  {
-    label: 'translation:hero.examples.changeGifSpeed',
-    url: '/gif/change-speed'
-  },
-  { label: 'translation:hero.examples.sortList', url: '/list/sort' },
-  { label: 'translation:hero.examples.compressPng', url: '/png/compress-png' },
-  { label: 'translation:hero.examples.splitText', url: '/string/split' },
-  { label: 'translation:hero.examples.splitPdf', url: '/pdf/split-pdf' },
-  { label: 'translation:hero.examples.trimVideo', url: '/video/trim' },
-  { label: 'translation:hero.examples.calculateNumberSum', url: '/number/sum' }
-];
-
 export default function Hero() {
   const { t } = useTranslation(validNamespaces);
   const [inputValue, setInputValue] = useState('');
@@ -87,290 +68,366 @@ export default function Hero() {
 
   const toolsMap = useMemo(() => {
     const map = new Map<string, ToolInfo>();
-    for (const tool of filteredTools) {
+    for (const tool of tools) {
       map.set(tool.path, { label: tool.name, url: '/' + tool.path });
     }
     return map;
-  }, [filteredTools]);
+  }, []);
 
-  const displayedTools =
-    bookmarkedPaths.length > 0
-      ? bookmarkedPaths.flatMap((p) => {
-          const tool = toolsMap.get(p);
-          return tool ? [tool] : [];
-        })
-      : EXAMPLE_TOOLS;
+  const displayedTools = bookmarkedPaths.flatMap((path) => {
+    const tool = toolsMap.get(path);
+    return tool ? [tool] : [];
+  });
 
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
+        gap: 3,
         alignItems: 'center',
         width: '100%',
-        maxWidth: 860,
+        maxWidth: 960,
         mx: 'auto',
         textAlign: 'center',
         px: { xs: 2, md: 4 }
       }}
     >
-      {/* ── Playfair Display headline ────────────────────────── */}
-      <Typography
-        variant="h1"
-        sx={{
-          fontFamily: '"Playfair Display", Georgia, serif',
-          fontWeight: 700,
-          fontSize: { xs: '2.2rem', sm: '3rem', md: '3.6rem', lg: '4rem' },
-          lineHeight: 1.12,
-          letterSpacing: '-0.02em',
-          color: PRIMARY,
-          mb: 1.5,
-          animation: 'slideUpFade 0.6s 0.08s cubic-bezier(0.16,1,0.3,1) both'
-        }}
-      >
-        {t('translation:hero.title')}{' '}
-        <Box
-          component="span"
-          sx={{
-            color: '#F13C20',
-            position: 'relative',
-            /* Gold underline accent on brand name */
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              bottom: 2,
-              left: 0,
-              right: 0,
-              height: 3,
-              borderRadius: 2,
-              background: GOLD,
-              opacity: 0.6
-            }
-          }}
-        >
-          {t('translation:hero.brand')}
-        </Box>
-      </Typography>
-
-      {/* ── Subtitle ────────────────────────────────────────── */}
-      <Typography
-        variant="body1"
-        sx={{
-          fontSize: { xs: '1rem', md: '1.1rem' },
-          color: '#555577',
-          maxWidth: 540,
-          lineHeight: 1.7,
-          mb: 4,
-          fontFamily: '"Inter", sans-serif',
-          animation: 'slideUpFade 0.6s 0.14s cubic-bezier(0.16,1,0.3,1) both'
-        }}
-      >
-        {t('translation:hero.description')}
-      </Typography>
-
-      {/* ── Search bar ─────────────────────────────────────────
-          White background, deep-blue border on focus,
-          gold search icon — clear and readable on cream/white.  */}
       <Box
         sx={{
-          width: '100%',
-          maxWidth: 660,
-          mb: 3.5,
-          animation: 'slideUpFade 0.6s 0.20s cubic-bezier(0.16,1,0.3,1) both'
+          gridColumn: '1 / -1',
+          textAlign: 'center',
+          maxWidth: 920,
+          mx: 'auto'
         }}
       >
-        <Autocomplete
-          autoHighlight
-          options={filteredTools}
-          noOptionsText={t('translation:hero.search.noResult')}
-          filterOptions={(o) => o}
-          groupBy={(o) => o.type}
-          renderGroup={(params) => (
-            <li key={params.key}>
-              <GroupHeader>{getToolCategoryTitle(params.group, t)}</GroupHeader>
-              <GroupItems>{params.children}</GroupItems>
-            </li>
-          )}
-          inputValue={inputValue}
-          getOptionLabel={(o) => t(o.name)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              fullWidth
-              placeholder={t('translation:hero.search.placeholder')}
-              InputProps={{
-                ...params.InputProps,
-                startAdornment: (
-                  <Icon
-                    icon="ph:magnifying-glass-bold"
-                    fontSize={20}
-                    color={GOLD}
-                    style={{ marginRight: 10, flexShrink: 0 }}
-                  />
-                ),
-                sx: {
-                  borderRadius: '12px',
-                  background: '#FFFFFF',
-                  fontSize: '1rem',
-                  color: '#1A1A2E',
-                  border: '1.5px solid #E8E4D9',
-                  boxShadow: '0 2px 8px rgba(64,86,161,0.06)',
-                  transition: 'all 0.25s ease',
-                  '&.Mui-focused': {
-                    border: `1.5px solid ${PRIMARY}`,
-                    boxShadow: `0 0 0 3px ${alpha(
-                      PRIMARY,
-                      0.12
-                    )}, 0 4px 16px rgba(64,86,161,0.10)`
-                  },
-                  '& fieldset': { border: 'none' },
-                  px: 0.5,
-                  py: 0.5
-                }
-              }}
-              onChange={(e) => handleInputChange(e, e.target.value)}
-            />
-          )}
-          renderOption={(props, option) => (
-            <Box
-              component="li"
-              {...props}
-              onClick={() => navigate('/' + option.path)}
-              sx={{
-                transition: 'background 0.15s ease',
-                '&:hover': { background: alpha(PRIMARY, 0.05) }
-              }}
-            >
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-                width="100%"
+        <Typography
+          component="h1"
+          sx={{
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 700,
+            fontSize: { xs: '2.2rem', sm: '3rem', md: '3.6rem', lg: '4rem' },
+            lineHeight: 1.12,
+            letterSpacing: '-0.02em',
+            color: PRIMARY,
+            overflowWrap: 'anywhere'
+          }}
+        >
+          {t('translation:hero.deskHeadingPrefix')}{' '}
+          <Box
+            component="span"
+            sx={{
+              color: '#F13C20',
+              position: 'relative',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: 2,
+                left: 0,
+                right: 0,
+                height: 3,
+                borderRadius: 2,
+                background: GOLD,
+                opacity: 0.6
+              }
+            }}
+          >
+            {t('translation:hero.brand')}
+          </Box>
+        </Typography>
+      </Box>
+      <Box sx={{ minWidth: 0, width: '100%', maxWidth: 660 }}>
+        <Typography
+          sx={{
+            color: '#555577',
+            fontSize: { xs: 16, md: 18 },
+            lineHeight: 1.8,
+            mb: 3,
+            maxWidth: 620,
+            mx: 'auto'
+          }}
+        >
+          {t('translation:hero.deskDescription')}
+        </Typography>
+        {/* ── Search bar ─────────────────────────────────────────
+          White background, deep-blue border on focus,
+          gold search icon — clear and readable on cream/white.  */}
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: 660,
+            mb: 3.5,
+            animation: 'slideUpFade 0.6s 0.20s cubic-bezier(0.16,1,0.3,1) both'
+          }}
+        >
+          <Autocomplete
+            autoHighlight
+            options={filteredTools}
+            noOptionsText={t('translation:hero.search.noResult')}
+            filterOptions={(o) => o}
+            groupBy={(o) => o.type}
+            renderGroup={(params) => (
+              <li key={params.key}>
+                <GroupHeader>
+                  {getToolCategoryTitle(params.group, t)}
+                </GroupHeader>
+                <GroupItems>{params.children}</GroupItems>
+              </li>
+            )}
+            inputValue={inputValue}
+            getOptionLabel={(o) => t(o.name)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                placeholder={t('translation:hero.search.placeholder')}
+                inputProps={{
+                  ...params.inputProps,
+                  'aria-label': t('translation:hero.search.placeholder')
+                }}
+                InputProps={{
+                  ...params.InputProps,
+                  startAdornment: (
+                    <Icon
+                      icon="ph:magnifying-glass-bold"
+                      fontSize={20}
+                      color={GOLD}
+                      style={{ marginRight: 10, flexShrink: 0 }}
+                    />
+                  ),
+                  sx: {
+                    borderRadius: '12px',
+                    background: '#FFFFFF',
+                    fontSize: '1rem',
+                    color: '#1A1A2E',
+                    border: '1.5px solid #E8E4D9',
+                    boxShadow: '0 2px 8px rgba(64,86,161,0.06)',
+                    transition: 'all 0.25s ease',
+                    '&.Mui-focused': {
+                      border: `1.5px solid ${PRIMARY}`,
+                      boxShadow: `0 0 0 3px ${alpha(
+                        PRIMARY,
+                        0.12
+                      )}, 0 4px 16px rgba(64,86,161,0.10)`
+                    },
+                    '& fieldset': { border: 'none' },
+                    px: 0.5,
+                    py: 0.5
+                  }
+                }}
+                onChange={(e) => handleInputChange(e, e.target.value)}
+              />
+            )}
+            renderOption={(props, option) => (
+              <Box
+                component="li"
+                {...props}
+                onClick={() => navigate('/' + option.path)}
+                sx={{
+                  transition: 'background 0.15s ease',
+                  '&:hover': { background: alpha(PRIMARY, 0.05) }
+                }}
               >
-                <Stack direction="row" spacing={1.5} alignItems="center">
-                  <Box
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  width="100%"
+                >
+                  <Stack direction="row" spacing={1.5} alignItems="center">
+                    <Box
+                      sx={{
+                        width: 34,
+                        height: 34,
+                        borderRadius: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: '#EFE2BA',
+                        color: PRIMARY,
+                        flexShrink: 0
+                      }}
+                    >
+                      <Icon icon={option.icon} fontSize={17} />
+                    </Box>
+                    <Box textAlign="left">
+                      <Typography
+                        fontWeight={600}
+                        fontSize="0.88rem"
+                        color="#1A1A2E"
+                        fontFamily='"Inter", sans-serif'
+                      >
+                        {t(option.name)}
+                      </Typography>
+                      <Typography
+                        fontSize="0.73rem"
+                        color="#555577"
+                        fontFamily='"Inter", sans-serif'
+                      >
+                        {t(option.shortDescription)}
+                      </Typography>
+                    </Box>
+                  </Stack>
+                  <IconButton
+                    size="small"
+                    aria-label={
+                      isBookmarked(option.path)
+                        ? `Unsave ${t(option.name)}`
+                        : `Save ${t(option.name)}`
+                    }
+                    aria-pressed={isBookmarked(option.path)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleBookmarked(option.path);
+                      setBookmarkedPaths(getBookmarkedToolPaths());
+                    }}
                     sx={{
-                      width: 34,
-                      height: 34,
-                      borderRadius: '8px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: '#EFE2BA',
-                      color: PRIMARY,
-                      flexShrink: 0
+                      color: isBookmarked(option.path) ? PRIMARY : '#C5CBE3',
+                      '&:hover': { color: PRIMARY }
                     }}
                   >
-                    <Icon icon={option.icon} fontSize={17} />
-                  </Box>
-                  <Box textAlign="left">
-                    <Typography
-                      fontWeight={600}
-                      fontSize="0.88rem"
-                      color="#1A1A2E"
-                      fontFamily='"Inter", sans-serif'
-                    >
-                      {t(option.name)}
-                    </Typography>
-                    <Typography
-                      fontSize="0.73rem"
-                      color="#555577"
-                      fontFamily='"Inter", sans-serif'
-                    >
-                      {t(option.shortDescription)}
-                    </Typography>
-                  </Box>
+                    <Icon
+                      fontSize={15}
+                      icon={
+                        isBookmarked(option.path)
+                          ? 'ph:bookmark-fill'
+                          : 'ph:bookmark'
+                      }
+                    />
+                  </IconButton>
                 </Stack>
-                <IconButton
-                  size="small"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleBookmarked(option.path);
-                    setBookmarkedPaths(getBookmarkedToolPaths());
-                  }}
+              </Box>
+            )}
+            onChange={(_e, newValue) => {
+              if (newValue) navigate('/' + newValue.path);
+            }}
+          />
+        </Box>
+
+        <Typography sx={{ color: '#66708C', fontSize: 13 }}>
+          {t('translation:hero.deskNote')}
+        </Typography>
+      </Box>
+      {displayedTools.length > 0 && (
+        <Box
+          sx={{
+            borderRadius: '28px',
+            background: '#FFFFFF',
+            border: '1px solid #E4DFD2',
+            p: { xs: 2.5, md: 3.5 },
+            boxShadow: '0 18px 48px rgba(40,55,109,0.08)'
+          }}
+        >
+          <Stack direction="row" spacing={1.5} alignItems="center" mb={2.5}>
+            <Box
+              sx={{
+                background: '#F9E9AF',
+                color: PRIMARY,
+                p: 1,
+                borderRadius: '12px',
+                display: 'flex'
+              }}
+            >
+              <Icon
+                icon={
+                  bookmarkedPaths.length
+                    ? 'ph:bookmark-simple-bold'
+                    : 'ph:lightning-bold'
+                }
+                fontSize={24}
+              />
+            </Box>
+            <Box>
+              <Typography
+                component="h2"
+                sx={{ fontSize: 21, fontWeight: 700, color: '#28376D' }}
+              >
+                {t(
+                  bookmarkedPaths.length
+                    ? 'translation:hero.savedDesk'
+                    : 'translation:hero.quickDesk'
+                )}
+              </Typography>
+              <Typography sx={{ fontSize: 13, color: '#66708C' }}>
+                {t('translation:hero.quickDeskNote')}
+              </Typography>
+            </Box>
+          </Stack>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: 'minmax(0, 1fr)',
+                sm: 'repeat(2, minmax(0, 1fr))'
+              },
+              gap: 1
+            }}
+          >
+            {displayedTools.map((tool) => (
+              <Box
+                key={tool.url}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  background: '#F6F7FB',
+                  borderRadius: '12px',
+                  minWidth: 0,
+                  '&:hover': { background: '#EDF0FA' }
+                }}
+              >
+                <Box
+                  component={Link}
+                  to={tool.url}
                   sx={{
-                    color: isBookmarked(option.path) ? PRIMARY : '#C5CBE3',
-                    '&:hover': { color: PRIMARY }
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1.2,
+                    p: 1.5,
+                    flex: 1,
+                    minWidth: 0,
+                    color: '#28376D',
+                    textDecoration: 'none',
+                    '&:focus-visible': {
+                      outline: '2px solid #4056A1',
+                      borderRadius: '12px'
+                    }
                   }}
                 >
                   <Icon
-                    fontSize={15}
                     icon={
-                      isBookmarked(option.path)
-                        ? 'ph:bookmark-fill'
-                        : 'ph:bookmark'
+                      tools.find((item) => '/' + item.path === tool.url)
+                        ?.icon || 'ph:arrow-right'
                     }
+                    fontSize={21}
+                    style={{ flexShrink: 0 }}
                   />
-                </IconButton>
-              </Stack>
-            </Box>
-          )}
-          onChange={(_e, newValue) => {
-            if (newValue) navigate('/' + newValue.path);
-          }}
-        />
-      </Box>
-
-      {/* ── Quick-access chips ────────────────────────────────── */}
-      <Box
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: 1,
-          justifyContent: 'center',
-          maxWidth: 680,
-          mb: 5,
-          animation: 'slideUpFade 0.6s 0.28s cubic-bezier(0.16,1,0.3,1) both'
-        }}
-      >
-        {displayedTools.map((tool) => (
-          <Chip
-            key={tool.label}
-            label={
-              <Stack direction="row" spacing={0.5} alignItems="center">
-                <span>{t(tool.label)}</span>
+                  <Typography
+                    sx={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      overflowWrap: 'anywhere'
+                    }}
+                  >
+                    {t(tool.label)}
+                  </Typography>
+                </Box>
                 {bookmarkedPaths.length > 0 && (
-                  <Box
-                    component="span"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const path = tool.url.substring(1);
-                      toggleBookmarked(path);
+                  <IconButton
+                    size="small"
+                    aria-label={`Unsave ${t(tool.label)}`}
+                    onClick={() => {
+                      toggleBookmarked(tool.url.substring(1));
                       setBookmarkedPaths(getBookmarkedToolPaths());
                     }}
-                    sx={{ lineHeight: 1 }}
                   >
-                    <Icon icon="ph:x" fontSize={10} color="#555577" />
-                  </Box>
+                    <Icon icon="ph:x" fontSize={16} />
+                  </IconButton>
                 )}
-              </Stack>
-            }
-            onClick={() =>
-              navigate(tool.url.startsWith('/') ? tool.url : `/${tool.url}`)
-            }
-            sx={{
-              height: 30,
-              fontSize: '0.75rem',
-              fontWeight: 500,
-              fontFamily: '"Inter", sans-serif',
-              background: '#EFE2BA',
-              border: '1px solid #E8D9A8',
-              color: '#1A1A2E',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              '&:hover': {
-                background: alpha(PRIMARY, 0.08),
-                borderColor: alpha(PRIMARY, 0.35),
-                color: PRIMARY,
-                transform: 'translateY(-2px)',
-                boxShadow: `0 4px 10px ${alpha(PRIMARY, 0.12)}`
-              },
-              '& .MuiChip-label': { px: 1.5 }
-            }}
-          />
-        ))}
-      </Box>
+              </Box>
+            ))}
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 }

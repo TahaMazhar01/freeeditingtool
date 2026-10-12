@@ -17,6 +17,7 @@ import ToolExamples, {
 } from '@components/examples/ToolExamples';
 import { ToolComponentProps } from '@tools/defineTool';
 import { CustomSnackBarContext } from '../contexts/CustomSnackBarContext';
+import ToolWorkspace from './ToolWorkspace';
 
 function validationMessages(errors: unknown): string[] {
   if (typeof errors === 'string') return [errors];
@@ -155,6 +156,7 @@ interface ToolContentProps<Options, Input> extends ToolComponentProps {
   validationSchema?: any;
   onValuesChange?: (values: Options) => void;
   verticalGroups?: boolean;
+  startExpanded?: boolean;
 }
 
 export default function ToolContent<T extends FormikValues, I>({
@@ -172,7 +174,8 @@ export default function ToolContent<T extends FormikValues, I>({
   validationSchema,
   renderCustomInput,
   onValuesChange,
-  verticalGroups
+  verticalGroups,
+  startExpanded
 }: ToolContentProps<T, I>) {
   return (
     <Box>
@@ -184,19 +187,25 @@ export default function ToolContent<T extends FormikValues, I>({
         {({ values, setFieldValue }) => {
           return (
             <>
-              <FormikListenerComponent<T>
-                compute={compute}
-                input={input}
-                debounceMs={computeDebounceMs}
-                onValuesChange={onValuesChange}
-                inputComponent={
-                  inputComponent ??
-                  (renderCustomInput &&
-                    renderCustomInput(values, setFieldValue))
-                }
-                resultComponent={resultComponent}
-              />
-              <ToolOptions getGroups={getGroups} vertical={verticalGroups} />
+              <ToolWorkspace title={title} startExpanded={startExpanded}>
+                <ToolOptions
+                  getGroups={getGroups}
+                  vertical={verticalGroups}
+                  compact
+                />
+                <FormikListenerComponent<T>
+                  compute={compute}
+                  input={input}
+                  debounceMs={computeDebounceMs}
+                  onValuesChange={onValuesChange}
+                  inputComponent={
+                    inputComponent ??
+                    (renderCustomInput &&
+                      renderCustomInput(values, setFieldValue))
+                  }
+                  resultComponent={resultComponent}
+                />
+              </ToolWorkspace>
 
               {toolInfo && toolInfo.title && toolInfo.description && (
                 <ToolInfo

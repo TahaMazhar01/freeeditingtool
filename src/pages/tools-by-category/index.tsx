@@ -1,126 +1,125 @@
 import ToolCard from '@components/allTools/ToolCard';
-import {
-  Box,
-  Divider,
-  Stack,
-  styled,
-  TextField,
-  alpha,
-  useTheme
-} from '@mui/material';
+import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
   filterTools,
   getToolsByCategory,
   getToolCategoryTitle
 } from '../../tools';
-import Hero from 'components/Hero';
-import { getI18nNamespaceFromToolCategory } from '@utils/string';
 import { Icon } from '@iconify/react';
-import { categoriesColors } from 'config/uiConfig';
-import React from 'react';
-import IconButton from '@mui/material/IconButton';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import SearchIcon from '@mui/icons-material/Search';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import UserTypeFilter from '@components/UserTypeFilter';
 import { useTranslation } from 'react-i18next';
-import { I18nNamespaces, validNamespaces } from '../../i18n';
+import { validNamespaces } from '../../i18n';
 import { useUserTypeFilter } from '../../providers/UserTypeFilterProvider';
-
-const StyledLink = styled(Link)(({ theme }) => ({
-  color: theme.palette.text.primary,
-  textDecoration: 'none',
-  '&:hover': {
-    color: theme.palette.secondary.main
-  }
-}));
-
 export default function ToolsByCategory() {
-  const navigate = useNavigate();
-  const theme = useTheme();
   const { categoryName } = useParams();
-  const [searchTerm, setSearchTerm] = React.useState<string>('');
+  const [searchTerm, setSearchTerm] = useState('');
   const { selectedUserTypes, setSelectedUserTypes } = useUserTypeFilter();
   const { t } = useTranslation(validNamespaces);
   const rawTitle = getToolCategoryTitle(categoryName as string, t);
-  // First get tools by category without filtering
-  const toolsByCategory = getToolsByCategory(selectedUserTypes, t).find(
+  const category = getToolsByCategory([], t).find(
     ({ type }) => type === categoryName
   );
-  const categoryDefinedTools = toolsByCategory?.tools ?? [];
-
   const categoryTools = filterTools(
-    categoryDefinedTools,
+    category?.tools ?? [],
     searchTerm,
     selectedUserTypes,
     t
   );
-
   return (
-    <Box sx={{ backgroundColor: 'background.default' }}>
+    <Box
+      sx={{
+        backgroundColor: 'background.default',
+        px: { xs: 2, md: 5 },
+        pb: 8
+      }}
+    >
       <Helmet>
-        <title>{`${rawTitle} - FreeEditingTools`}</title>
+        <title>{`${rawTitle} | FreeEditingTools`}</title>
         <meta
           name="description"
-          content={`Free online ${rawTitle.toLowerCase()} utilities. Browse and use ${
-            categoryDefinedTools.length
-          } tools completely free in your browser.`}
+          content={`Explore ${
+            category?.tools.length ?? 0
+          } free ${rawTitle.toLowerCase()} tools in your browser.`}
         />
       </Helmet>
-      <Box
-        padding={{ xs: 1, md: 3, lg: 5 }}
-        display={'flex'}
-        flexDirection={'column'}
-        alignItems={'center'}
-        justifyContent={'center'}
-        width={'100%'}
-      >
-        <Hero />
-      </Box>
-      <Divider sx={{ borderColor: theme.palette.primary.main }} />
-      <Box mt={3} ml={{ xs: 1, md: 2, lg: 3 }} padding={3}>
-        <Stack direction={'row'} justifyContent={'space-between'} spacing={2}>
-          <Stack direction={'row'} alignItems={'center'} spacing={1}>
-            <IconButton onClick={() => navigate('/')}>
-              <ArrowBackIcon color={'primary'} />
-            </IconButton>
-            <Typography fontSize={22} color={theme.palette.primary.main}>
-              {t('translation:toolLayout.allToolsTitle', { type: rawTitle })}
-            </Typography>
-          </Stack>
-          <TextField
-            placeholder={t('translation:hero.search.placeholder')}
-            aria-label={t('translation:hero.search.placeholder')}
-            InputProps={{
-              endAdornment: <SearchIcon />,
-              sx: {
-                borderRadius: 4,
-                backgroundColor: 'background.paper',
-                maxWidth: 400
-              }
-            }}
-            onChange={(event) => setSearchTerm(event.target.value)}
-          />
-        </Stack>
-        <Box
-          width={'100%'}
-          display={'flex'}
-          alignItems={'center'}
-          justifyContent={'center'}
-          my={2}
+      <Box sx={{ maxWidth: 1200, mx: 'auto' }}>
+        <Button
+          component={Link}
+          to="/"
+          startIcon={<Icon icon="ph:arrow-left-bold" />}
+          sx={{ mb: 2 }}
         >
+          All tools
+        </Button>
+        <Box
+          sx={{
+            borderRadius: '24px',
+            p: { xs: 3, md: 5 },
+            background: 'linear-gradient(115deg, #F5EDD4, #F4F6FC)',
+            border: '1px solid #E4DFD2',
+            mb: 4
+          }}
+        >
+          <Typography
+            sx={{
+              color: '#4056A1',
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: '0.12em',
+              mb: 1
+            }}
+          >
+            YOUR TOOL COLLECTION
+          </Typography>
+          <Typography
+            component="h1"
+            sx={{
+              fontFamily: '"Playfair Display", Georgia, serif',
+              fontSize: { xs: 34, md: 48 },
+              fontWeight: 700,
+              color: '#28376D',
+              mb: 2
+            }}
+          >
+            {rawTitle}
+          </Typography>
+          <Typography sx={{ color: '#555577', mb: 3 }}>
+            {category?.tools.length ?? 0} tools ready for your next task.
+          </Typography>
+          <TextField
+            fullWidth
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            placeholder={`Search ${rawTitle.toLowerCase()}`}
+            inputProps={{
+              'aria-label': `Search ${rawTitle.toLowerCase()}`
+            }}
+            InputProps={{
+              startAdornment: (
+                <Icon
+                  icon="ph:magnifying-glass"
+                  fontSize={22}
+                  style={{ marginRight: 10 }}
+                />
+              ),
+              sx: { background: '#FFFFFF', borderRadius: '12px' }
+            }}
+          />
+        </Box>
+        <Box mb={4}>
           <UserTypeFilter
-            userTypes={toolsByCategory?.userTypes ?? undefined}
+            userTypes={category?.userTypes}
             selectedUserTypes={selectedUserTypes}
             onUserTypesChange={setSelectedUserTypes}
           />
         </Box>
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           {categoryTools.map((tool) => (
-            <Grid item xs={12} md={6} lg={4} key={tool.path}>
+            <Grid item xs={12} sm={6} lg={4} key={tool.path}>
               <ToolCard
                 title={t(tool.name)}
                 description={t(tool.shortDescription)}
@@ -130,6 +129,23 @@ export default function ToolsByCategory() {
             </Grid>
           ))}
         </Grid>
+        {categoryTools.length === 0 && (
+          <Stack
+            spacing={2}
+            alignItems="center"
+            sx={{ p: 4, border: '1px solid #E4DFD2', borderRadius: '16px' }}
+          >
+            <Typography>No tools match your workspace or search.</Typography>
+            <Button
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedUserTypes([]);
+              }}
+            >
+              Show all tools in this collection
+            </Button>
+          </Stack>
+        )}
       </Box>
     </Box>
   );

@@ -6,7 +6,7 @@ import InputFooter from './InputFooter';
 import { useTranslation } from 'react-i18next';
 import Editor from '@monaco-editor/react';
 import {
-  globalInputHeight,
+  workspaceInputHeight,
   codeInputHeightOffset
 } from '../../config/uiConfig';
 
@@ -54,25 +54,32 @@ export default function ToolCodeInput({
   };
 
   return (
-    <Box>
+    <Box sx={{ width: '100%', minWidth: 0, maxWidth: '100%' }}>
       <InputHeader title={title || t('toolTextInput.input')} />
       <Box
-        height={`${globalInputHeight + codeInputHeightOffset}px`} // The +codeInputHeightOffset compensates for internal padding/border differences between Monaco Editor and MUI TextField
+        height={`calc(${workspaceInputHeight} + ${codeInputHeightOffset}px)`} // The +codeInputHeightOffset compensates for internal padding/border differences between Monaco Editor and MUI TextField
         sx={{
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          minWidth: 0,
+          maxWidth: '100%'
         }}
       >
         <Box
           sx={(theme) => ({
             height: '100%',
+            minWidth: 0,
+            maxWidth: '100%',
+            overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
             backgroundColor: 'background.paper',
             '.monaco-editor': {
+              width: '100% !important',
               height: '100% !important',
               outline: 'none !important',
               '.overflow-guard': {
+                width: '100% !important',
                 height: '100% !important',
                 border: `1px solid ${theme.palette.divider}`,
                 borderRadius: 1,
@@ -103,6 +110,7 @@ export default function ToolCodeInput({
             value={value}
             onChange={(value) => onChange(value ?? '')}
             options={{
+              automaticLayout: true,
               scrollbar: {
                 vertical: 'visible',
                 horizontal: 'visible',

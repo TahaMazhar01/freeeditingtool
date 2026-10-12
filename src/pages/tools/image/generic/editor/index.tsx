@@ -82,6 +82,7 @@ export default function ImageEditor({ title }: ToolComponentProps) {
   return (
     <ToolContent
       title={title}
+      startExpanded={isEditorOpen}
       initialValues={{}}
       getGroups={null}
       input={input}

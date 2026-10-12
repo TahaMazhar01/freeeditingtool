@@ -8,16 +8,18 @@ import {
   Chip,
   alpha
 } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { lazy, Suspense, useContext } from 'react';
 import DownloadIcon from '@mui/icons-material/Download';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 import InputHeader from '../InputHeader';
 import greyPattern from '@assets/grey-pattern.png';
-import { globalInputHeight } from '../../config/uiConfig';
+import { workspaceInputHeight } from '../../config/uiConfig';
 import ResultFooter from './ResultFooter';
 import { CustomSnackBarContext } from '../../contexts/CustomSnackBarContext';
 import { useTranslation } from 'react-i18next';
+
+const PdfPreview = lazy(() => import('./PdfPreview'));
 
 const formatFileSize = (bytes?: number): string => {
   if (!bytes) return '';
@@ -185,9 +187,9 @@ export default function ToolFileResult({
       <Box
         sx={{
           width: '100%',
-          height: globalInputHeight,
-          minHeight: globalInputHeight,
-          maxHeight: globalInputHeight,
+          height: workspaceInputHeight,
+          minHeight: workspaceInputHeight,
+          maxHeight: workspaceInputHeight,
           boxSizing: 'border-box',
           borderRadius: 3,
           boxShadow: '0 2px 14px rgba(64,86,161,0.08)',
@@ -250,7 +252,7 @@ export default function ToolFileResult({
                 alt="Result"
                 style={{
                   maxWidth: '100%',
-                  maxHeight: globalInputHeight,
+                  maxHeight: workspaceInputHeight,
                   objectFit: 'contain'
                 }}
               />
@@ -259,7 +261,7 @@ export default function ToolFileResult({
               <video
                 src={preview}
                 controls
-                style={{ maxWidth: '100%', maxHeight: globalInputHeight }}
+                style={{ maxWidth: '100%', maxHeight: workspaceInputHeight }}
               />
             )}
             {fileType === 'audio' && (
@@ -270,12 +272,18 @@ export default function ToolFileResult({
               />
             )}
             {fileType === 'pdf' && (
-              <iframe
-                src={preview}
-                width="100%"
-                height="100%"
-                style={{ border: 'none' }}
-              />
+              <Suspense
+                fallback={
+                  <CircularProgress
+                    aria-label="Loading PDF preview"
+                    size={28}
+                  />
+                }
+              >
+                <Box sx={{ width: '100%', height: '100%' }}>
+                  <PdfPreview file={value!} />
+                </Box>
+              </Suspense>
             )}
             {fileType === 'unknown' && (
               <Box sx={{ padding: 3, textAlign: 'center' }}>
@@ -289,7 +297,7 @@ export default function ToolFileResult({
             )}
 
             {/* Clean bottom badge for completed result */}
-            {value && (
+            {value && fileType !== 'pdf' && (
               <Box
                 sx={{
                   position: 'absolute',

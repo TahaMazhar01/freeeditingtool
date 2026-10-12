@@ -20,13 +20,23 @@ export default function ToolOptionGroups({
         <Grid
           item
           xs={12}
-          md={vertical ? 12 : 4}
+          md={
+            vertical || groups.length === 1 ? 12 : groups.length === 2 ? 6 : 4
+          }
           key={group.title}
           sx={{ minWidth: 0 }}
         >
-          <Typography mb={1} fontSize={22}>
-            {group.title}
-          </Typography>
+          {group.title && (
+            <Typography
+              component="h3"
+              mb={1.5}
+              fontSize={16}
+              fontWeight={600}
+              color="#4056A1"
+            >
+              {group.title}
+            </Typography>
+          )}
           {group.component}
         </Grid>
       ))}

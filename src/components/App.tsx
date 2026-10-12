@@ -1,8 +1,8 @@
-import { BrowserRouter, useRoutes } from 'react-router-dom';
+import { BrowserRouter, useLocation, useRoutes } from 'react-router-dom';
 import routesConfig from '../config/routesConfig';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import Loading from './Loading';
 import { CssBaseline, ThemeProvider, Box } from '@mui/material';
 import { CustomSnackBarProvider } from '../contexts/CustomSnackBarContext';
@@ -18,6 +18,10 @@ import { UserTypeFilterProvider } from 'providers/UserTypeFilterProvider';
 /* Light-mode only — no mode type exported, no toggle needed */
 
 const AppRoutes = () => {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (!hash) window.scrollTo(0, 0);
+  }, [pathname, hash]);
   const updatedRoutesConfig = [...routesConfig];
   tools.forEach((tool) => {
     updatedRoutesConfig.push({ path: tool.path, element: tool.component() });

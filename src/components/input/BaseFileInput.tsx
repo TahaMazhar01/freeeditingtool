@@ -18,7 +18,7 @@ import {
   createObjectURL,
   revokeObjectURL
 } from './file-input-utils';
-import { globalInputHeight } from '../../config/uiConfig';
+import { workspaceInputHeight } from '../../config/uiConfig';
 import { CustomSnackBarContext } from '../../contexts/CustomSnackBarContext';
 import greyPattern from '@assets/grey-pattern.png';
 import { isArray } from 'lodash';
@@ -286,9 +286,9 @@ export default function BaseFileInput({
       <Box
         sx={{
           width: '100%',
-          height: globalInputHeight,
-          minHeight: globalInputHeight,
-          maxHeight: globalInputHeight,
+          height: workspaceInputHeight,
+          minHeight: workspaceInputHeight,
+          maxHeight: workspaceInputHeight,
           boxSizing: 'border-box',
           borderRadius: 3,
           boxShadow: preview ? '0 2px 14px rgba(64,86,161,0.08)' : 'none',

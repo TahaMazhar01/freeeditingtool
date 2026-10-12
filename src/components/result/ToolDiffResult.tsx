@@ -13,7 +13,7 @@ import InputHeader from '../InputHeader';
 import ResultFooter from './ResultFooter';
 import { useContext } from 'react';
 import { CustomSnackBarContext } from '../../contexts/CustomSnackBarContext';
-import { globalInputHeight } from '../../config/uiConfig';
+import { workspaceInputHeight } from '../../config/uiConfig';
 import { useTranslation } from 'react-i18next';
 import { stripAndDecodeHtml } from '@utils/string';
 import DOMPurify from 'dompurify';
@@ -78,9 +78,9 @@ export default function ToolDiffResult({
     fontFamily: 'monospace',
     whiteSpace: 'pre-wrap',
     wordBreak: 'break-word',
-    height: globalInputHeight,
-    minHeight: globalInputHeight,
-    maxHeight: globalInputHeight,
+    height: workspaceInputHeight,
+    minHeight: workspaceInputHeight,
+    maxHeight: workspaceInputHeight,
     boxSizing: 'border-box' as const,
     overflowY: 'auto' as const
   } as const;
@@ -134,9 +134,9 @@ export default function ToolDiffResult({
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            height: globalInputHeight,
-            minHeight: globalInputHeight,
-            maxHeight: globalInputHeight,
+            height: workspaceInputHeight,
+            minHeight: workspaceInputHeight,
+            maxHeight: workspaceInputHeight,
             boxSizing: 'border-box',
             borderRadius: 3,
             bgcolor: 'background.paper',

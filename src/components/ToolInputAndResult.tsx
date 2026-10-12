@@ -10,15 +10,17 @@ export default function ToolInputAndResult({
 }) {
   if (input || result) {
     return (
-      <Grid id="tool" container spacing={2}>
+      <Grid container spacing={2}>
         {input && (
-          <Grid item xs={12} md={result ? 6 : 12}>
+          <Grid item xs={12} md={result ? 6 : 12} sx={{ minWidth: 0 }}>
             {input}
           </Grid>
         )}
-        <Grid item xs={12} md={input ? 6 : 12}>
-          {result}
-        </Grid>
+        {result && (
+          <Grid item xs={12} md={input ? 6 : 12} sx={{ minWidth: 0 }}>
+            {result}
+          </Grid>
+        )}
       </Grid>
     );
   }

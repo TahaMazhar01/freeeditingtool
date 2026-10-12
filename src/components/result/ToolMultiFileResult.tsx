@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import InputHeader from '../InputHeader';
 import greyPattern from '@assets/grey-pattern.png';
-import { globalInputHeight } from '../../config/uiConfig';
+import { workspaceInputHeight } from '../../config/uiConfig';
 import ResultFooter from './ResultFooter';
 import { useTranslation } from 'react-i18next';
 import React, { useContext } from 'react';
@@ -124,9 +124,9 @@ export default function ToolMultiFileResult({
       <Box
         sx={{
           width: '100%',
-          height: globalInputHeight,
-          minHeight: globalInputHeight,
-          maxHeight: globalInputHeight,
+          height: workspaceInputHeight,
+          minHeight: workspaceInputHeight,
+          maxHeight: workspaceInputHeight,
           boxSizing: 'border-box',
           overflowY: 'auto',
           display: 'flex',
@@ -222,7 +222,7 @@ export default function ToolMultiFileResult({
                   <iframe
                     src={preview}
                     width="100%"
-                    height="320px"
+                    height={workspaceInputHeight}
                     style={{ border: 'none' }}
                   />
                 )}

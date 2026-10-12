@@ -17,7 +17,7 @@ import { CustomSnackBarContext } from '../../contexts/CustomSnackBarContext';
 import InputHeader from '../InputHeader';
 import { replaceSpecialCharacters } from '@utils/string';
 import mime from 'mime';
-import { globalInputHeight } from '../../config/uiConfig';
+import { workspaceInputHeight } from '../../config/uiConfig';
 import { useTranslation } from 'react-i18next';
 
 export default function ToolTextResult({
@@ -136,9 +136,9 @@ export default function ToolTextResult({
       <Box
         sx={{
           width: '100%',
-          height: globalInputHeight,
-          minHeight: globalInputHeight,
-          maxHeight: globalInputHeight,
+          height: workspaceInputHeight,
+          minHeight: workspaceInputHeight,
+          maxHeight: workspaceInputHeight,
           boxSizing: 'border-box',
           borderRadius: 3,
           boxShadow: '0 2px 14px rgba(64,86,161,0.08)',

@@ -1,29 +1,10 @@
-import { Box, Button, Stack, styled, useTheme } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import ToolBreadcrumb from './ToolBreadcrumb';
-import { capitalizeFirstLetter } from '../utils/string';
-import Grid from '@mui/material/Grid';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import { Icon, IconifyIcon } from '@iconify/react';
-import { categoriesColors } from '../config/uiConfig';
 import { getToolsByCategory } from '@tools/index';
 import { useEffect, useState } from 'react';
 import { isBookmarked, toggleBookmarked } from '@utils/bookmark';
-import IconButton from '@mui/material/IconButton';
 import { useTranslation } from 'react-i18next';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { validNamespaces } from '../i18n';
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  color: theme.palette.text.primary,
-  borderColor: theme.palette.divider,
-  '&:hover': {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
-    borderColor: theme.palette.primary.main
-  }
-}));
-
+import ToolBreadcrumb from './ToolBreadcrumb';
 interface ToolHeaderProps {
   title: string;
   description: string;
@@ -31,65 +12,6 @@ interface ToolHeaderProps {
   type: string;
   path: string;
 }
-
-function ToolLinks() {
-  const { t } = useTranslation();
-  const [examplesVisible, setExamplesVisible] = useState(false);
-  const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.down('md'));
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      const element = document.getElementById('examples');
-      if (element && isVisible(element)) {
-        setExamplesVisible(true);
-      }
-    }, 500);
-
-    return () => clearTimeout(timeout);
-  }, []);
-
-  const scrollToElement = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-  function isVisible(elm: HTMLElement | null) {
-    return !!elm;
-  }
-  return (
-    <Grid container spacing={2} mt={1}>
-      {isMd && (
-        <Grid item md={12} lg={6}>
-          <StyledButton
-            sx={{ backgroundColor: 'background.paper' }}
-            fullWidth
-            variant="outlined"
-            onClick={() => scrollToElement('tool')}
-          >
-            Use This Tool
-          </StyledButton>
-        </Grid>
-      )}
-      {examplesVisible && (
-        <Grid item md={12} lg={6}>
-          <StyledButton
-            fullWidth
-            variant="outlined"
-            sx={{ backgroundColor: 'background.paper' }}
-            onClick={() => scrollToElement('examples')}
-          >
-            {t('toolHeader.seeExamples')}
-          </StyledButton>
-        </Grid>
-      )}
-      {/*<Grid item md={12} lg={4}>*/}
-      {/*  <StyledButton fullWidth variant="outlined" href="#tour">*/}
-      {/*    Learn How to Use*/}
-      {/*  </StyledButton>*/}
-      {/*</Grid>*/}
-    </Grid>
-  );
-}
-
 export default function ToolHeader({
   icon,
   title,
@@ -97,80 +19,124 @@ export default function ToolHeader({
   type,
   path
 }: ToolHeaderProps) {
-  const theme = useTheme();
   const { t } = useTranslation();
-  const [bookmarked, setBookmarked] = useState<boolean>(isBookmarked(path));
+  const [bookmarked, setBookmarked] = useState(isBookmarked(path));
+  const [examplesVisible, setExamplesVisible] = useState(false);
+  const category = getToolsByCategory([], t).find((item) => item.type === type);
+  useEffect(() => {
+    setBookmarked(isBookmarked(path));
+    setExamplesVisible(false);
+    const timer = setTimeout(
+      () => setExamplesVisible(!!document.getElementById('examples')),
+      500
+    );
+    return () => clearTimeout(timer);
+  }, [path]);
+  const jump = (id: string) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   return (
     <Box my={4}>
       <ToolBreadcrumb
         items={[
           { title: 'All tools', link: '/' },
-          {
-            title: getToolsByCategory([], t).find(
-              (category) => category.type === type
-            )!.rawTitle,
-            link: '/categories/' + type
-          },
+          { title: category?.rawTitle ?? type, link: '/categories/' + type },
           { title }
         ]}
       />
-      <Grid mt={1} container spacing={2}>
-        <Grid item xs={12} md={8}>
-          <Stack
-            direction={'row'}
-            spacing={2}
-            alignItems={'center'}
-            sx={{ minWidth: 0 }}
-          >
-            <Typography
-              component="h1"
-              mb={2}
-              fontSize={30}
-              color={'primary'}
-              sx={{ minWidth: 0, flex: 1, overflowWrap: 'anywhere' }}
-            >
-              {title}
-            </Typography>
-            <IconButton
-              aria-label={bookmarked ? 'Remove bookmark' : 'Bookmark tool'}
-              aria-pressed={bookmarked}
-              sx={{ flexShrink: 0 }}
-              onClick={(e) => {
-                toggleBookmarked(path);
-                setBookmarked(!bookmarked);
+      <Box
+        sx={{
+          mt: 3,
+          p: { xs: 2.5, md: 4 },
+          borderRadius: '24px',
+          background: 'linear-gradient(115deg, #F5EDD4, #F4F6FC)',
+          border: '1px solid #E4DFD2'
+        }}
+      >
+        <Stack direction="row" alignItems="center" spacing={1.5} mb={2}>
+          {icon && (
+            <Box
+              sx={{
+                display: 'flex',
+                p: 1.5,
+                background: '#FFFFFF',
+                borderRadius: '14px',
+                color: '#4056A1',
+                flexShrink: 0
               }}
             >
-              <Icon
-                fontSize={30}
-                color={
-                  bookmarked
-                    ? theme.palette.primary.main
-                    : theme.palette.grey[500]
-                }
-                icon={bookmarked ? 'mdi:bookmark' : 'mdi:bookmark-plus-outline'}
-              />
-            </IconButton>
-          </Stack>
-          <Typography fontSize={20}>{description}</Typography>
-          <ToolLinks />
-        </Grid>
-
-        {icon && (
-          <Grid item xs={12} md={4}>
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Icon
-                icon={icon}
-                fontSize={'250'}
-                color={
-                  categoriesColors[
-                    Math.floor(Math.random() * categoriesColors.length)
-                  ]
-                }
-              />
+              <Icon icon={icon} fontSize={28} />
             </Box>
-          </Grid>
-        )}
-      </Grid>
+          )}
+          <Typography
+            sx={{
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: '0.1em',
+              color: '#4056A1',
+              textTransform: 'uppercase'
+            }}
+          >
+            {category?.rawTitle}
+          </Typography>
+        </Stack>
+        <Typography
+          component="h1"
+          sx={{
+            fontSize: { xs: 29, md: 40 },
+            fontWeight: 700,
+            lineHeight: 1.2,
+            color: '#28376D',
+            overflowWrap: 'anywhere',
+            mb: 1.5
+          }}
+        >
+          {title}
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: 17,
+            lineHeight: 1.75,
+            color: '#555577',
+            maxWidth: 900
+          }}
+        >
+          {description}
+        </Typography>
+        <Stack direction="row" flexWrap="wrap" gap={1.5} mt={3}>
+          <Button
+            variant="contained"
+            onClick={() => jump('tool')}
+            endIcon={<Icon icon="ph:arrow-down-bold" />}
+          >
+            Open workspace
+          </Button>
+          {examplesVisible && (
+            <Button variant="outlined" onClick={() => jump('examples')}>
+              {t('toolHeader.seeExamples')}
+            </Button>
+          )}
+          <Button
+            variant="text"
+            aria-label={bookmarked ? 'Remove bookmark' : 'Bookmark tool'}
+            aria-pressed={bookmarked}
+            startIcon={
+              <Icon
+                icon={
+                  bookmarked
+                    ? 'ph:bookmark-simple-fill'
+                    : 'ph:bookmark-simple-bold'
+                }
+              />
+            }
+            onClick={() => {
+              toggleBookmarked(path);
+              setBookmarked(isBookmarked(path));
+            }}
+          >
+            {bookmarked ? 'Saved to your desk' : 'Save to your desk'}
+          </Button>
+        </Stack>
+      </Box>
     </Box>
   );
 }

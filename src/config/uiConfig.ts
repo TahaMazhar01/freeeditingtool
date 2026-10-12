@@ -1,4 +1,5 @@
 export const globalInputHeight = 320;
+export const workspaceInputHeight = 'var(--tool-panel-height, 320px)';
 export const codeInputHeightOffset = 7;
 export const globalDescriptionFontSize = 12;
 

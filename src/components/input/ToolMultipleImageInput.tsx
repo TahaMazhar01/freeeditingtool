@@ -14,7 +14,7 @@ import InputHeader from '../InputHeader';
 import ImageIcon from '@mui/icons-material/Image';
 import { useTranslation } from 'react-i18next';
 import { heicTo, isHeic } from 'heic-to';
-import { globalInputHeight } from '../../config/uiConfig';
+import { workspaceInputHeight } from '../../config/uiConfig';
 
 interface MultiImageInputComponentProps {
   accept: string[];
@@ -195,8 +195,8 @@ export default function ToolMultiImageInput({
       <Box
         sx={{
           width: '100%',
-          height: globalInputHeight,
-          minHeight: globalInputHeight,
+          height: workspaceInputHeight,
+          minHeight: workspaceInputHeight,
           borderRadius: 3,
           boxShadow: value?.length ? '0 2px 14px rgba(64,86,161,0.08)' : 'none',
           bgcolor: 'background.paper',

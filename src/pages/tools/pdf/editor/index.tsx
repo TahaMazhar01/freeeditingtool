@@ -8,6 +8,7 @@ export default function PdfEditor({ title }: ToolComponentProps) {
   return (
     <ToolContent
       title={title}
+      startExpanded
       initialValues={{}}
       getGroups={null}
       input={null}

@@ -83,7 +83,7 @@ export default function ToolLayout({
         />
         <meta name="twitter:description" content={toolDescription} />
       </Helmet>
-      <Box width={'85%'}>
+      <Box sx={{ width: '100%', maxWidth: 1280, px: { xs: 2, sm: 3, md: 5 } }}>
         <ToolHeader
           title={toolTitle}
           description={toolDescription}
