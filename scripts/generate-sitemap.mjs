@@ -6,7 +6,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
-const BASE_URL = 'https://freeeditingtools.com';
+// FIX: Point to the canonical www domain to prevent 308 redirect errors in Google Search Console
+const BASE_URL = 'https://www.freeeditingtools.com';
 
 const categories = [
   'image-generic',
@@ -30,6 +31,7 @@ const staticPages = ['', 'about', 'blog', 'privacy', 'terms', 'contact'];
 const toolPaths = [];
 
 function walk(dir) {
+  if (!fs.existsSync(dir)) return;
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
@@ -51,19 +53,19 @@ walk(path.join(rootDir, 'src', 'pages', 'tools'));
 const today = new Date().toISOString().split('T')[0];
 
 const urls = [];
-const blogPosts = JSON.parse(
-  fs.readFileSync(
-    path.join(rootDir, 'src', 'content', 'blogPosts.json'),
-    'utf8'
-  )
-);
-for (const post of blogPosts) {
-  urls.push(`  <url>
+
+// Blog posts
+const blogPath = path.join(rootDir, 'src', 'content', 'blogPosts.json');
+if (fs.existsSync(blogPath)) {
+  const blogPosts = JSON.parse(fs.readFileSync(blogPath, 'utf8'));
+  for (const post of blogPosts) {
+    urls.push(`  <url>
     <loc>${BASE_URL}/blog/${post.slug}</loc>
-    <lastmod>${post.date}</lastmod>
+    <lastmod>${post.date || today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>`);
+  }
 }
 
 // Static pages

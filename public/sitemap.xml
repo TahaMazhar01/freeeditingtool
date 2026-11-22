@@ -1,830 +1,872 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://freeeditingtools.com/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/blog/compress-images</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freeeditingtools.com/blog/image-formats</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freeeditingtools.com/blog/resize-images</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freeeditingtools.com/blog/compress-pdf</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freeeditingtools.com/blog/image-to-text</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freeeditingtools.com/blog/csv-to-json</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freeeditingtools.com/</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/about</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/about</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/privacy</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/blog</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/terms</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/privacy</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/contact</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/terms</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/categories/image-generic</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/contact</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/categories/pdf</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/categories/image-generic</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/categories/string</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/categories/pdf</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/categories/video</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/categories/string</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/categories/time</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/categories/video</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/categories/audio</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/categories/time</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/categories/json</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/categories/audio</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/categories/list</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/categories/json</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/categories/csv</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/categories/list</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/categories/number</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/categories/csv</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/categories/png</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/categories/number</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/categories/xml</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/categories/png</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/categories/gif</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/categories/xml</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/categories/converters</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/categories/gif</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/audio/change-speed</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/categories/converters</loc>
+    <lastmod>2026-11-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.freeeditingtools.com/audio/change-speed</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/audio/extract-audio</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/audio/extract-audio</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/audio/merge-audio</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/audio/merge-audio</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/audio/trim</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/audio/trim</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/converters/audio-converter</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/converters/audio-converter</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/converters/convert-to-jpg</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/converters/convert-to-jpg</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/converters/convert-to-webp</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/converters/convert-to-webp</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/csv/change-csv-separator</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/csv/change-csv-separator</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/csv/csv-rows-to-columns</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/csv/csv-rows-to-columns</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/csv/csv-to-json</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/csv/csv-to-json</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/csv/csv-to-tsv</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/csv/csv-to-tsv</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/csv/csv-to-xml</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/csv/csv-to-xml</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/csv/csv-to-yaml</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/csv/csv-to-yaml</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/csv/find-incomplete-csv-records</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/csv/find-incomplete-csv-records</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/csv/insert-csv-columns</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/csv/insert-csv-columns</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/csv/swap-csv-columns</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/csv/swap-csv-columns</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/csv/transpose-csv</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/csv/transpose-csv</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/csv/tsv-to-json</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/csv/tsv-to-json</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/gif/change-speed</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/gif/change-speed</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/image-generic/change-colors</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/image-generic/change-colors</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/image-generic/change-opacity</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/image-generic/change-opacity</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/image-generic/compress</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/image-generic/compress</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/image-generic/create-transparent</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/image-generic/create-transparent</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/image-generic/crop</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/image-generic/crop</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/image-generic/editor</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/image-generic/editor</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/image-generic/image-to-text</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/image-generic/image-to-text</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/image-generic/qr-code</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/image-generic/qr-code</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/image-generic/remove-background</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/image-generic/remove-background</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/image-generic/resize</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/image-generic/resize</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/image-generic/rotate</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/image-generic/rotate</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/image-generic/split-to-pages</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/image-generic/split-to-pages</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/json/escape-json</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/json/escape-json</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/json/json-comparison</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/json/json-comparison</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/json/json-to-csv</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/json/json-to-csv</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/json/json-to-xml</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/json/json-to-xml</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/json/minify</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/json/minify</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/json/prettify</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/json/prettify</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/json/sort</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/json/sort</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/json/stringify</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/json/stringify</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/json/validateJson</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/json/validateJson</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/list/chunk</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/list/chunk</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/list/duplicate</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/list/duplicate</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/list/find-most-popular</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/list/find-most-popular</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/list/find-unique</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/list/find-unique</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/list/reverse</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/list/reverse</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/list/rotate</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/list/rotate</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/list/shuffle</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/list/shuffle</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/list/sort</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/list/sort</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/list/truncate</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/list/truncate</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/list/unwrap</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/list/unwrap</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/list/wrap</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/list/wrap</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/number/arithmetic-sequence</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/number/arithmetic-sequence</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/number/byte-converter</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/number/byte-converter</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/number/generate</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/number/generate</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/number/generic-calc/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/number/generic-calc/</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/number/random-number-generator</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/number/random-number-generator</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/number/random-port-generator</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/number/random-port-generator</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/number/sum</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/number/sum</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/pdf/compress-pdf</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/pdf/compress-pdf</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/pdf/convert-to-pdf</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/pdf/convert-to-pdf</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/pdf/editor</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/pdf/editor</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/pdf/extract-image-from-pdf</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/pdf/extract-image-from-pdf</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/pdf/merge-pdf</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/pdf/merge-pdf</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/pdf/pdf-to-epub</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/pdf/pdf-to-epub</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/pdf/pdf-to-png</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/pdf/pdf-to-png</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/pdf/protect-pdf</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/pdf/protect-pdf</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/pdf/rotate-pdf</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/pdf/rotate-pdf</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/pdf/split-pdf</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/pdf/split-pdf</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/png/compress-png</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/png/compress-png</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/png/convert-jgp-to-png</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/png/convert-jgp-to-png</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/base64</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/base64</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/censor</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/censor</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/create-palindrome</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/create-palindrome</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/extract-substring</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/extract-substring</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/hidden-character-detector</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/hidden-character-detector</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/join</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/join</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/palindrome</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/palindrome</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/password-generator</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/password-generator</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/quote</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/quote</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/randomize-case</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/randomize-case</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/remove-duplicate-lines</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/remove-duplicate-lines</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/repeat</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/repeat</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/replacer</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/replacer</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/reverse</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/reverse</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/rot13</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/rot13</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/rotate</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/rotate</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/slug-generator</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/slug-generator</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/split</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/split</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/statistics</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/statistics</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/text-compare</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/text-compare</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/to-morse</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/to-morse</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/truncate</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/truncate</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/unicode</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/unicode</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/uppercase</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/uppercase</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/url-decode-string</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/url-decode-string</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/string/url-encode-string</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/string/url-encode-string</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/time/check-leap-years</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/time/check-leap-years</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/time/convert-days-to-hours</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/time/convert-days-to-hours</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/time/convert-hours-to-days</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/time/convert-hours-to-days</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/time/convert-seconds-to-time</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/time/convert-seconds-to-time</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/time/convert-time-to-decimal</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/time/convert-time-to-decimal</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/time/convert-time-to-seconds</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/time/convert-time-to-seconds</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/time/convert-unix-to-date</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/time/convert-unix-to-date</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/time/crontab-guru</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/time/crontab-guru</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/time/discord-timestamp</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/time/discord-timestamp</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/time/time-between-dates</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/time/time-between-dates</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/time/truncate-clock-time</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/time/truncate-clock-time</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/video/add-audio</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/video/add-audio</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/video/change-speed</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/video/change-speed</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/video/compress</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/video/compress</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/video/crop-video</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/video/crop-video</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/video/flip</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/video/flip</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/video/loop</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/video/loop</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/video/merge-video</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/video/merge-video</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/video/rotate</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/video/rotate</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/video/trim</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/video/trim</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/video/video-to-gif</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/video/video-to-gif</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/xml/xml-beautifier</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/xml/xml-beautifier</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://freeeditingtools.com/xml/xml-validator</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://www.freeeditingtools.com/xml/xml-validator</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
