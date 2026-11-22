@@ -68,13 +68,13 @@ export default function ToolLayout({
         <meta name="description" content={toolDescription} />
         <link
           rel="canonical"
-          href={`https://freeeditingtools.com/${fullPath}`}
+          href={`https://www.freeeditingtools.com/${fullPath}`}
         />
         <meta property="og:title" content={`${toolTitle} - FreeEditingTools`} />
         <meta property="og:description" content={toolDescription} />
         <meta
           property="og:url"
-          content={`https://freeeditingtools.com/${fullPath}`}
+          content={`https://www.freeeditingtools.com/${fullPath}`}
         />
         <meta property="og:type" content="website" />
         <meta
