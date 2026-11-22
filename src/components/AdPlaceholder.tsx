@@ -12,6 +12,13 @@ interface AdPlaceholderProps {
  * Replace the inner content with your real AdSense <ins> tags.
  */
 export default function AdPlaceholder({ variant }: AdPlaceholderProps) {
+  // Set to true once Google AdSense is officially approved
+  const ENABLE_ADS = false;
+
+  if (!ENABLE_ADS) {
+    return null;
+  }
+
   if (variant === 'banner') {
     return (
       <Box

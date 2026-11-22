@@ -93,8 +93,8 @@ export default function ToolLayout({
         />
         {children}
 
-        {/* AdSense Inline Rectangle Placeholder */}
-        <Box
+        {/* AdSense Inline Rectangle Placeholder (Hidden until account approval) */}
+        {/* <Box
           sx={{
             mt: 6,
             display: 'flex',
@@ -103,7 +103,7 @@ export default function ToolLayout({
           }}
         >
           <AdPlaceholder variant="rectangle" />
-        </Box>
+        </Box> */}
 
         {/* AdSense-required SEO Context block */}
         <SEOContentBlock
